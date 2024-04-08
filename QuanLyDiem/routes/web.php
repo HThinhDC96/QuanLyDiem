@@ -13,10 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.admin.dashboard');
-});
+Route::get('/', 'App\Http\Controllers\Auth\LoginController@showFormLogin')->name('login');
+Route::post('/login', 'App\Http\Controllers\Auth\LoginController@xacthuc')->name('xacthuc-login');
+Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
-Route::get('/login', function() {
-    return view('auth.login');
+Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function () {
+    Route::get('/dashboard', function () {
+        return view('pages.canbo.dashboard');
+    })->name('dashboard');
 });
