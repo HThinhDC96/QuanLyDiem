@@ -1,0 +1,19 @@
+.full {
+    height: 100vh;
+}
+
+.form-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.login {
+    width: 100%;
+    max-width: 450px;
+}
+
+.login-title {
+    padding-bottom: 5rem;
+}
