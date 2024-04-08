@@ -12,18 +12,19 @@
                     @csrf
                     <div class="login-title">
                         <h3>Đăng nhập</h3>
+                        <span>Nhập thông tin tài khoản đăng nhập</span>
                     </div>
 
-                    <div class="mb-3">
-                        <input type="text" class="form-control" id="username" name="username"
-                            placeholder="Nhập username" />
+                    <div class="mb-4">
+                        <input type="text" class="form-control b-radius-20" id="username" name="username"
+                            placeholder="Tài khoản" />
                     </div>
-                    <div class="mb-3">
-                        <input type="password" class="form-control" id="password" name="password"
-                            placeholder="Nhập mật khẩu" />
+                    <div class="mb-4">
+                        <input type="password" class="form-control b-radius-20" id="password" name="password"
+                            placeholder="Mật khẩu" />
                     </div>
                     <div>
-                        <input class="btn btn-success" type="submit" value="Đăng nhập" />
+                        <input class="btn btn-outline-primary b-radius-20" type="submit" value="Đăng nhập" />
                     </div>
                 </form>
             </div>
