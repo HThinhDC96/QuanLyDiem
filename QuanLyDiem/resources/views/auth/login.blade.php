@@ -5,11 +5,17 @@
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 @endsection
 @section('content')
+    <img class="bg" src="{{ asset('images/bgSchool.jpg') }}" alt="">
+    <div class="frame">
+        <img class="logobg" src="{{ asset("images/logo1000.png") }}" alt="" width="500px" >
+    </div>
+
     <div class="d-flex full">
         <div class="form-login">
             <div class="login text-center p-2">
                 <form action="{{ route('xacthuc-login') }}" method="post">
                     @csrf
+
                     <div class="login-title">
                         <h3>Đăng nhập</h3>
                         <span>Nhập thông tin tài khoản đăng nhập</span>
@@ -24,7 +30,7 @@
                             placeholder="Mật khẩu" />
                     </div>
                     <div>
-                        <input class="btn btn-outline-primary b-radius-20" type="submit" value="Đăng nhập" />
+                        <input class="btn btn-primary b-radius-20" type="submit" value="Đăng nhập" />
                     </div>
                 </form>
             </div>

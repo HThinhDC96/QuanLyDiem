@@ -19,6 +19,7 @@ Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name
 
 Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function () {
     Route::get('/dashboard', function () {
-        return view('pages.canbo.dashboard');
+        $page_title="Quản trị";
+        return view('pages.canbo.dashboard', compact('page_title'));
     })->name('dashboard');
 });

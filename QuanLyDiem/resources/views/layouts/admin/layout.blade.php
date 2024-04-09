@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ config('app.name') }} | @yield('title', $pagetitle ?? '')</title>
+    <title>{{ config('app.name') }} | @yield('title', $page_title ?? '')</title>
 
     {{-- Favicon --}}
-    <link rel="shortcut icon" href=" {{ config('resources.favicon') }}" />
+    <link rel="shortcut icon" href=" {{ asset('images/logo.png') }}" />
 
     {{-- CSS all pages --}}
     @foreach(config('layout.resources.css') as $style)
@@ -30,8 +30,15 @@
     @if (config('layout.page-loader.type') != '')
         @include('layouts.partials._page-loader')
     @endif
-
-    @yield('content')
+        <div class="row">
+            <div class="col-3">
+                @include('layouts.admin.header')
+            </div>
+            <div class="col">
+                @yield('content')
+                @include('layouts.admin.footer')
+            </div>
+        </div>
 
     {{-- Global Theme JS Bundle (used by all pages)  --}}
     @foreach(config('layout.resources.js') as $script)
