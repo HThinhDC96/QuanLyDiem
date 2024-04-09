@@ -25,7 +25,7 @@
                         <input type="text" class="form-control b-radius-20" id="username" name="username"
                             placeholder="Tài khoản" />
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-5">
                         <input type="password" class="form-control b-radius-20" id="password" name="password"
                             placeholder="Mật khẩu" />
                     </div>
