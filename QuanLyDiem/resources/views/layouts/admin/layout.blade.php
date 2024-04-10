@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +10,12 @@
     {{-- Favicon --}}
     <link rel="shortcut icon" href=" {{ asset('images/logo.png') }}" />
 
+    {{-- Boxicon --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
     {{-- CSS all pages --}}
-    @foreach(config('layout.resources.css') as $style)
-        <link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
+    @foreach (config('layout.resources.css') as $style)
+        <link href="{{ asset($style) }}" rel="stylesheet" type="text/css" />
     @endforeach
 
     {{-- Includable CSS --}}
@@ -25,23 +29,26 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 </head>
+
 <body>
     {{-- Loading... --}}
     @if (config('layout.page-loader.type') != '')
         @include('layouts.partials._page-loader')
     @endif
-        <div class="row">
-            <div class="col-3">
-                @include('layouts.admin.header')
-            </div>
-            <div class="col">
-                @yield('content')
-                @include('layouts.admin.footer')
-            </div>
+    <div class="row m-0">
+        {{-- <div class="col-3">
+            @include('layouts.admin.header')
+        </div> --}}
+        @include('layouts.menu.menu1')
+        <div class="col">
+            @yield('content')
+            @include('layouts.admin.footer')
         </div>
+    </div>
+
 
     {{-- Global Theme JS Bundle (used by all pages)  --}}
-    @foreach(config('layout.resources.js') as $script)
+    @foreach (config('layout.resources.js') as $script)
         <script src="{{ asset($script) }}" type="text/javascript"></script>
     @endforeach
 
@@ -54,4 +61,5 @@
     {{-- Includable JS --}}
     @yield('scripts')
 </body>
+
 </html>

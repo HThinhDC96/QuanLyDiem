@@ -43,4 +43,5 @@
 .logobg{
     /* position: fixed; */
     z-index: -50;
+    opacity: 0.3;
 }
