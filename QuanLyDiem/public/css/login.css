@@ -45,3 +45,7 @@
     z-index: -50;
     opacity: 0.3;
 }
+body{
+    margin: 0;
+    padding: 0;
+}
