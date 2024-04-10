@@ -11,9 +11,9 @@
                     <input type="text" name="hoten" id="hoten" class="form-control" placeholder="Nhập họ tên cán bộ" />
                 </div>
                 <div>
-                    <input type="radio" name="gioitinh" id="nam">Nam
-                    <input type="radio" name="gioitinh" id="nu">Nữ
-                    <input type="radio" name="gioitinh" id="khac">Khác
+                    <input type="radio" value="0" name="gioitinh" id="nam">Nam
+                    <input type="radio" value="1" name="gioitinh" id="nu">Nữ
+                    <input type="radio" value="2" name="gioitinh" id="khac">Khác
                 </div>
                 <div>
                     <input type="date" name="ngaysinh" id="ngaysinh" class="form-control">
@@ -36,8 +36,6 @@
                 <div>
                     <input type="submit" value="Tạo">
                 </div>
-
-
             </form>
         </div>
     </div>

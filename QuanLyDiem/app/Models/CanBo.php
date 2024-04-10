@@ -22,5 +22,10 @@ class CanBo extends Model
         'loai'
     ];
 
+    public static function getAllCanBo()
+    {
+        $dsCanBo = CanBo::all();
+        return $dsCanBo;
+    }
     public $timestamps = false;
 }
