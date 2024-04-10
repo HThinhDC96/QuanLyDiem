@@ -22,4 +22,11 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         $page_title="Quản trị";
         return view('pages.canbo.dashboard', compact('page_title'));
     })->name('dashboard');
+    Route::name('canboManage.')->group(function () {
+        Route::get('/canbo', 'App\Http\Controllers\CanBoController@index')->name('indexCanbo');
+        Route::get('/canbo/create', 'App\Http\Controllers\CanBoController@create')->name('createCanbo');
+        Route::post('/canbo/store', 'App\Http\Controllers\CanBoController@store')->name('storeCanbo');
+        Route::get('/canbo/edit/{username}', 'App\Http\Controllers\CanBoController@edit')->name('editCanbo');
+        Route::put('/canbo/update/{username}', 'App\Http\Controllers\CanBoController@update')->name('updateCanbo');
+    });
 });

@@ -1,4 +1,4 @@
-<div class="d-flex flex-column flex-shrink-0 p-3 bg-light">
+{{-- <div class="d-flex flex-column flex-shrink-0 p-3 bg-light">
     <a href="/" class="d-flex align-items-center text-decoration-none">
         <img src="{{ asset('images/logo.png') }}" alt="" width="150px">
     </a>
@@ -40,4 +40,4 @@
             <li><a class="dropdown-item" href="#">Sign out</a></li>
         </ul>
     </div> --}}
-</div>
+{{-- </div> --}}

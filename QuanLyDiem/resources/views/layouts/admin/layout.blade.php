@@ -30,15 +30,9 @@
     @if (config('layout.page-loader.type') != '')
         @include('layouts.partials._page-loader')
     @endif
-        <div class="row">
-            <div class="col-3">
-                @include('layouts.admin.header')
-            </div>
-            <div class="col">
-                @yield('content')
-                @include('layouts.admin.footer')
-            </div>
-        </div>
+
+    @yield('content')
+
 
     {{-- Global Theme JS Bundle (used by all pages)  --}}
     @foreach(config('layout.resources.js') as $script)
