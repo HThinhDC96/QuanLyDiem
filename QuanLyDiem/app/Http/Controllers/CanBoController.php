@@ -50,6 +50,9 @@ class CanBoController extends Controller
             $canbo->macanbo = $mcb_lastest;
             $canbo->save();
 
+            // Hiển thị thông báo thêm thành công
+            toastr()->success('Thêm mới thành công!', 'Thành công!');
+
             return redirect()->route('canboManage.indexCanbo');
         } catch (Exception $e) {
             echo 'Có lỗi phát sinh: ', $e->getMessage(), "\n";

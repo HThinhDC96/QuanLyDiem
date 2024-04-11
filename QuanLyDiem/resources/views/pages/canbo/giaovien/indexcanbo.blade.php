@@ -14,14 +14,14 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="table  table-hover table-checkable" id="danhSachCanBo">
+            <table class="table table-hover table-checkable" id="danhSachCanBo">
                 <thead class="thead-light">
                     <tr>
-                        <th class="text-center">{{ __('STT') }}</th>
-                        <th class="text-center">{{ __('Mã Cán Bộ') }}</th>
-                        <th class="text-center">{{ __('Họ Tên') }}</th>
-                        <th class="text-center">{{ __('Giới Tính') }}</th>
-                        <th class="text-center">{{ __('Thao Tác') }}</th>
+                        <th class="text-center">STT</th>
+                        <th class="text-center">Mã Cán Bộ</th>
+                        <th class="text-center">Họ Tên</th>
+                        <th class="text-center">Giới Tính</th>
+                        <th class="text-center">Thao Tác</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -24,6 +24,7 @@ class LoginController extends Controller
         // dd($request);
         // dd($validator);
         if ($validator->fails()) {
+            toastr()->error('Đăng nhập không thành công!', 'Lỗi!');
             return redirect()
                 ->back()
                 ->withErrors($validator->errors())
@@ -45,7 +46,10 @@ class LoginController extends Controller
                 session()->put("type", 0); // Nếu là tài khoản cán bộ
                 session()->put("userhoten", $taikhoan->hoten);
 
+                toastr()->success('Đăng nhập thành công!', 'Thành công!');
                 return redirect()->route('dashboard');
+            } else {
+                toastr()->error('Tài khoản hoặc mật khẩu không chính xác!', 'Lỗi!');
             }
         }
 
