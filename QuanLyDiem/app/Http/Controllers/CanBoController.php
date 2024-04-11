@@ -41,6 +41,13 @@ class CanBoController extends Controller
             // $canbo->sdt = $request->sdt;
             // $canbo->loai = $request->loai;
             $canbo->fill($request->toArray());
+
+            // Khởi tạo mã cán bộ mới
+            $mcb_lastest = CanBo::latest('macanbo')->select('macanbo')->first()->macanbo;
+            $mcb_lastest = ((int) substr($mcb_lastest, 2)) + 1;
+            $mcb_lastest = "CB".sprintf("%04d", $mcb_lastest);
+
+            $canbo->macanbo = $mcb_lastest;
             $canbo->save();
 
             return redirect()->route('canboManage.indexCanbo');
