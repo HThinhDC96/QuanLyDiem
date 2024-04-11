@@ -11,6 +11,7 @@ class CanBo extends Model
 
     protected $table = "canbo";
     protected $primaryKey = "macanbo";
+    protected $keyType = 'string';
     protected $fillable = [
         'macanbo',
         'matkhau',

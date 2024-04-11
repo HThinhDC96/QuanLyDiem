@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CanBo;
+use Carbon\Traits\ToStringFormat;
 use Exception;
 use Illuminate\Http\Request;
 use Symfony\Component\Console\Logger\ConsoleLogger;
@@ -13,11 +14,10 @@ class CanBoController extends Controller
     {
         $page_title = "Cán bộ";
         $data = CanBo::getAllCanBo();
-        $data1=CanBo::from('canbo')->select('macanbo')->get();
-        foreach($data as $item=>$value){
-            print($value);
-         }
-        return view('pages.canbo.giaovien.indexcanbo', compact('page_title', 'data', 'data1'));
+        // foreach($data as $item=>$value){
+        //     print($value);
+        //  }
+        return view('pages.canbo.giaovien.indexcanbo', compact('page_title', 'data'));
     }
     public function create()
     {

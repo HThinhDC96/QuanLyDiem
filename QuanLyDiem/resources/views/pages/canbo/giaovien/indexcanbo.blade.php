@@ -1,7 +1,6 @@
 @extends('layouts.admin.layout')
 @section('content')
-
-    <div class="card card-custom">
+    <div class="mt-2 pt-2 card card-custom">
         {{-- @if (session('success'))
             <div class="alert alert-success">
                 <p>{{ session('success') }}</p>
@@ -15,10 +14,7 @@
             </div>
         </div>
         <div class="card-body">
-            @foreach($data1 as $t1 =>$value1)
-            {{ $value1 }}
-            @endforeach
-            <table class="table  table-hover table-checkable" id="danhSachNhomQuyen">
+            <table class="table  table-hover table-checkable" id="danhSachCanBo">
                 <thead class="thead-light">
                     <tr>
                         <th class="text-center">{{ __('STT') }}</th>
@@ -34,10 +30,7 @@
                             <td class="text-center font-weight-bold">{{ $item + 1 }}</td>
                             <td class="text-center">{{ $value->macanbo }}</td>
                             <td class="text-center">{{ $value->hoten }}</td>
-                            <td class="text-center">
-
-                                {{
-                            $value->gioitinh }}</td>
+                            <td class="text-center">{{ $value->gioitinh }}</td>
                             <td class="text-center">
                                 {{ $value->loai }}
                                 {{-- <table>
