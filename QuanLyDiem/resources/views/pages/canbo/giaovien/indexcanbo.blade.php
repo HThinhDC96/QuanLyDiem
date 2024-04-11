@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="table table-hover table-checkable" id="danhSachCanBo">
+            <table style="width: 100%;" class="table table-hover table-checkable" id="danhSachCanBo">
                 <thead class="thead-light">
                     <tr>
                         <th class="text-center">STT</th>
@@ -51,4 +51,7 @@
             <!--end: Datatable-->
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script src="{{ asset('js/crud/canbo_datatables.js') }}"></script>
 @endsection
