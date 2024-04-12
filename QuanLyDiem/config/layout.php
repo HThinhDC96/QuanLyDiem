@@ -12,11 +12,14 @@ return [
         ],
         'css' => [
             'css/style.bundle.css',
-            'css/all.css'
+            'css/all.css',
+            'css/crud/datatables/datatables.min.css',
             // css
         ],
         'js' => [
+            'js/jquery_3.7.1.js',
             'js/scripts.min.js',
+            'js/crud/datatables/datatables.min.js',
             // js
         ]
     ]

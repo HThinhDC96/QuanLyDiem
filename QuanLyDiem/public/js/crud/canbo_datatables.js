@@ -1,0 +1,3 @@
+$('#danhSachCanBo').DataTable({
+    reponsive : "true",
+});
