@@ -8,6 +8,7 @@
         @endif --}}
         <div class="card-header flex-wrap border-0 pt-6 pb-0">
             {{-- @include('layout.base._pagename') --}}
+            <div class="cart-title"></div>
             <div class="card-toolbar">
                 <a href="{{ route('canboManage.createCanbo') }}"><button class="btn btn-success">Tạo mới</button></a>
                 <!--end::Button-->
@@ -30,7 +31,18 @@
                             <td class="text-center font-weight-bold">{{ $item + 1 }}</td>
                             <td class="text-center">{{ $value->macanbo }}</td>
                             <td class="text-center">{{ $value->hoten }}</td>
-                            <td class="text-center">{{ $value->gioitinh }}</td>
+                            <td class="text-center">
+                                @if ($value->gioitinh==0)
+                                    Nam
+                                @else
+                                    @if ($value->gioitinh==1)
+                                        Nữ
+                                    @else
+                                        Khác
+                                    @endif
+                                @endif
+
+                            </td>
                             <td class="text-center">
                                 {{ $value->loai }}
                                 {{-- <table>
