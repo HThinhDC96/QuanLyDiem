@@ -12,24 +12,28 @@
                 <span
                     class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">&nbsp;{{ session()->get('userhoten') }}</span>
             </div>
+            {{ session()->get('userhoten') }}
+
         </div>
+
     </header>
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div>
                 <a href="#" class="nav_logo">
                     <i class='bx bx-layer nav_logo-icon'></i>
-                    {{-- <img style="width:30px" src="{{ asset('images/logo.png') }}" alt="No image" /> --}}
+                    <img style="width:100px" src="{{ asset('images/logo.png') }}" alt="No image" />
                     <span class="nav_logo-name"></span>
                 </a>
                 <div class="nav_list">
-                    <a href="#" class="nav_link active">
+                    <a href="#" class="nav_link ">
                         <i class='bx bx-grid-alt nav_icon'></i>
                         <span class="nav_name">Dashboard</span>
                     </a>
-                    <a href="#" class="nav_link">
+
+                    <a href="{{ route('canboManage.indexCanbo') }}" class="nav_link {{ request()->is('canbo*') ? 'active' : '' }}">
                         <i class='bx bx-user nav_icon'></i>
-                        <span class="nav_name">Users</span>
+                        <span class="nav_name">Cán bộ</span>
                     </a>
                     <a href="#" class="nav_link">
                         <i class='bx bx-message-square-detail nav_icon'></i>
