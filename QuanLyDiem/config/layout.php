@@ -18,6 +18,7 @@ return [
         ],
         'js' => [
             'js/jquery_3.7.1.js',
+            'js/popper.min.js',
             'js/scripts.min.js',
             'js/crud/datatables/datatables.min.js',
             // js

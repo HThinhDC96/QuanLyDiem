@@ -6,13 +6,16 @@
         <div class="d-flex align-items-center">
             <div class="header_img">
                 {{-- <img src="{{ asset('images/logo1000.png') }}" alt="No image"> --}}
-
             </div>
-            {{ session()->get('userhoten') }}
+            <div class="w-auto d-flex align-items-center btn-lg px-2">
+                <span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Xin chào,</span>
+                <span
+                    class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">&nbsp;{{ session()->get('userhoten') }}</span>
+            </div>
         </div>
     </header>
     <div class="l-navbar" id="nav-bar">
-        <nav class="nav">;
+        <nav class="nav">
             <div>
                 <a href="#" class="nav_logo">
                     <i class='bx bx-layer nav_logo-icon'></i>
@@ -46,9 +49,12 @@
                     </a>
                 </div>
             </div>
-            <a href="#" class="nav_link">
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
+            <a href="{{ route('logout') }}" class="nav_link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class='bx bx-log-out nav_icon'></i>
-                <span class="nav_name">SignOut</span>
+                <span class="nav_name">Đăng xuất</span>
             </a>
         </nav>
     </div>
