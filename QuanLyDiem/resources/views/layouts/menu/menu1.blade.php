@@ -12,8 +12,6 @@
                 <span
                     class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">&nbsp;{{ session()->get('userhoten') }}</span>
             </div>
-            {{ session()->get('userhoten') }}
-
         </div>
 
     </header>

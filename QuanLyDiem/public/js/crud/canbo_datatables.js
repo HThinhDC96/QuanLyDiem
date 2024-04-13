@@ -1,5 +1,11 @@
 $('#danhSachCanBo').DataTable({
     reponsive : "true",
+    columnDefs: [
+        {
+            target: 0,
+            width: '100px',
+        }
+    ],
     "language": {
         // "sProcessing":    "Procesando...",
         "sLengthMenu":    "Hiển thị  _MENU_ mục trên mỗi trang",
@@ -24,10 +30,4 @@ $('#danhSachCanBo').DataTable({
         //     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
         // }
     }
-    columnDefs: [
-        {
-            target: 0,
-            width: '100px',
-        }
-    ]
 });
