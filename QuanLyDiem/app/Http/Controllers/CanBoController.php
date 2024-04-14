@@ -8,6 +8,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Symfony\Component\Console\Logger\ConsoleLogger;
 
+use function PHPUnit\Framework\isNull;
+
 class CanBoController extends Controller
 {
     public function index()
@@ -51,10 +53,33 @@ class CanBoController extends Controller
             $canbo->save();
 
             // Hiển thị thông báo thêm thành công
-            toastr()->success('Thêm mới thành công!', 'Thành công!');
+            toastr()->success('Thêm mới cán bộ '.$canbo->hoten.' thành công!', 'Thành công!');
 
             return redirect()->route('canboManage.indexCanbo');
         } catch (Exception $e) {
+            echo 'Có lỗi phát sinh: ', $e->getMessage(), "\n";
+        }
+    }
+
+    public function edit($id){
+        $page_title="Chỉnh Sửa Thông tin Cán Bộ";
+        $info=CanBo::find($id);
+        return view('pages.canbo.giaovien.editcanbo',compact('page_title','info'));
+    }
+
+    public function update(Request $request){
+        try{
+            $canbo=Canbo::find($request->macanbo);
+
+            $matkhau=$canbo->matkhau;
+            $canbo->fill($request->toArray());
+            if($request->matkhau=="" || $request->matkhau==null){
+                $canbo->matkhau=$matkhau;
+            }
+            $canbo->save();
+            toastr()->success('Chỉnh sửa thông tin cán bộ '.$canbo->hoten.' thành công!', 'Thành công!');
+            return redirect()->route('canboManage.indexCanbo');
+        } catch (\Exception $e) {
             echo 'Có lỗi phát sinh: ', $e->getMessage(), "\n";
         }
     }

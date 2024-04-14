@@ -22,6 +22,7 @@
                         <th class="text-center">Mã Cán Bộ</th>
                         <th class="text-center">Họ Tên</th>
                         <th class="text-center">Giới Tính</th>
+                        <th class="text-center">Loại</th>
                         <th class="text-center">Thao Tác</th>
                     </tr>
                 </thead>
@@ -44,17 +45,24 @@
 
                             </td>
                             <td class="text-center">
-                                {{ $value->loai }}
-                                {{-- <table>
+                                @if ($value->loai==0)
+                                    Giáo Viên
+                                @else
+                                    HT, PHT
+                                @endif
+                            </td>
+                            <td class="text-center">
+
+                                <table>
                                     <tr>
                                         <td class="border-0 pt-0 pb-0">
-                                            <a href="{{ route('nhomquyenManage.editNhomQuyen', ['nhom_quyen_id' => $value->nhom_quyen_id]) }}"
-                                                class="btn btn-sm btn-clean btn-icon" title="{{ __('cap_nhat') }}">
+                                            <a href="{{ route('canboManage.editCanbo', ['username' => $value->macanbo]) }}"
+                                                class="btn btn-sm btn-clean btn-icon btn-primary" title="{{ __('cap_nhat') }}">
                                                 Chỉnh Sửa
                                             </a>
                                         </td>
                                     </tr>
-                                </table> --}}
+                                </table>
                             </td>
                         </tr>
                     @endforeach
