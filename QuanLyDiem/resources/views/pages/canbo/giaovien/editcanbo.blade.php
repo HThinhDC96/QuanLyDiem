@@ -82,8 +82,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer mt-5 me-5">
-                                <div class="flex-wrap border-0 pt-6 pb-0">
-                                    <div class="card-toolbar">
+                                <div class="d-flex flex-wrap border-0 pt-6 pb-0">
+                                    <div class="d-flex">
                                         <a href="{{ route('canboManage.indexCanbo') }}" @include('layouts.button._button_back')
                                         </a>
                                         <div class="btn-group">

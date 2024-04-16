@@ -8,9 +8,9 @@ $('#danhSachCanBo').DataTable({
     ],
     "language": {
         // "sProcessing":    "Procesando...",
-        "sLengthMenu":    "Hiển thị  _MENU_ mục trên mỗi trang",
+        "sLengthMenu":    "Hiển thị _MENU_mục trên mỗi trang",
         "sZeroRecords":   "Không tìm thấy kết quả",
-        // "sEmptyTable":    "Ningún dato disponible en esta tabla",
+        "sEmptyTable":    "Chưa có dữ liệu",
         "sInfo":          "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ mục",
         "sInfoEmpty":     "Hiển thị từ 0 đến 0 trong tổng số 0 mục",
         "sInfoFiltered":  "(được lọc từ tổng số _MAX_ mục)",

@@ -29,4 +29,9 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         Route::get('/canbo/edit/{username}', 'App\Http\Controllers\CanBoController@edit')->name('editCanbo');
         Route::post('/canbo/update', 'App\Http\Controllers\CanBoController@update')->name('updateCanbo');
     });
+
+    //Phan Quyen - Ban Giam Hieu
+    Route::name('phanquyen.')->group(function () {
+        Route::get('/bangiamhieu/phanquyen', 'App\Http\Controllers\PhanQuyenController@index')->name('phanquyen');
+    });
 });

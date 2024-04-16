@@ -1,2 +1,2 @@
-class="btn btn-outline-danger font-weight-bolder mr-2">
-<i class='bx bx-arrow-back'></i>Trở về
+class="d-flex align-items-center btn btn-outline-danger font-weight-bolder me-2">
+<i class='bx bx-arrow-back'></i>&nbsp;Trở về
