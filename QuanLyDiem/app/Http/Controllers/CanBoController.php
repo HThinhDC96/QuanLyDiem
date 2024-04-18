@@ -6,6 +6,7 @@ use App\Models\CanBo;
 use Carbon\Traits\ToStringFormat;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 use Symfony\Component\Console\Logger\ConsoleLogger;
 
 use function PHPUnit\Framework\isNull;
@@ -19,6 +20,9 @@ class CanBoController extends Controller
         // foreach($data as $item=>$value){
         //     print($value);
         //  }
+        confirmDelete("", "");
+
+        // dd(session()->all());
         return view('pages.canbo.giaovien.indexcanbo', compact('page_title', 'data'));
     }
     public function create()
@@ -47,13 +51,13 @@ class CanBoController extends Controller
             // Khởi tạo mã cán bộ mới
             $mcb_lastest = CanBo::latest('macanbo')->select('macanbo')->first()->macanbo;
             $mcb_lastest = ((int) substr($mcb_lastest, 2)) + 1;
-            $mcb_lastest = "CB".sprintf("%04d", $mcb_lastest);
+            $mcb_lastest = "CB" . sprintf("%04d", $mcb_lastest);
 
             $canbo->macanbo = $mcb_lastest;
             $canbo->save();
 
             // Hiển thị thông báo thêm thành công
-            toastr()->success('Thêm mới cán bộ '.$canbo->hoten.' thành công!', 'Thành công!');
+            toastr()->success('Thêm mới cán bộ ' . $canbo->hoten . ' thành công!', 'Thành công!');
 
             return redirect()->route('canboManage.indexCanbo');
         } catch (Exception $e) {
@@ -61,25 +65,45 @@ class CanBoController extends Controller
         }
     }
 
-    public function edit($id){
-        $page_title="Chỉnh Sửa Thông tin Cán Bộ";
-        $info=CanBo::find($id);
-        return view('pages.canbo.giaovien.editcanbo',compact('page_title','info'));
+    public function edit($id)
+    {
+        $page_title = "Chỉnh Sửa Thông tin Cán Bộ";
+        $info = CanBo::find($id);
+        return view('pages.canbo.giaovien.editcanbo', compact('page_title', 'info'));
     }
 
-    public function update(Request $request){
-        try{
-            $canbo=Canbo::find($request->macanbo);
+    public function update(Request $request)
+    {
+        try {
+            $canbo = Canbo::find($request->macanbo);
 
-            $matkhau=$canbo->matkhau;
+            $matkhau = $canbo->matkhau;
             $canbo->fill($request->toArray());
-            if($request->matkhau=="" || $request->matkhau==null){
-                $canbo->matkhau=$matkhau;
+            if ($request->matkhau == "" || $request->matkhau == null) {
+                $canbo->matkhau = $matkhau;
             }
             $canbo->save();
-            toastr()->success('Chỉnh sửa thông tin cán bộ '.$canbo->hoten.' thành công!', 'Thành công!');
+            toastr()->success('Cập nhật thông tin thành công!', 'Thành công!');
             return redirect()->route('canboManage.indexCanbo');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
+            echo 'Có lỗi phát sinh: ', $e->getMessage(), "\n";
+        }
+    }
+
+    public function delete($macanbo)
+    {
+        try {
+            $canbo = Canbo::find($macanbo);
+            $canbo->delete();
+            toastr()->success('Xoá thành công!', 'Thành công!');
+            return redirect()->route('canboManage.indexCanbo');
+        } catch (QueryException $e) {
+            // Lỗi dữ liệu được sử dụng (cha-con)
+            if ($e->errorInfo[1] == 1451) {
+                toastr()->error('Xoá không thành công! Dữ liệu đã được sử dụng!', 'Lỗi!');
+                return redirect()->back();
+            }
+        } catch (Exception $e) {
             echo 'Có lỗi phát sinh: ', $e->getMessage(), "\n";
         }
     }

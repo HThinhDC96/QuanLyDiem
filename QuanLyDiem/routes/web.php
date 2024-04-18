@@ -27,7 +27,8 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         Route::get('/canbo/create', 'App\Http\Controllers\CanBoController@create')->name('createCanbo');
         Route::post('/canbo/store', 'App\Http\Controllers\CanBoController@store')->name('storeCanbo');
         Route::get('/canbo/edit/{username}', 'App\Http\Controllers\CanBoController@edit')->name('editCanbo');
-        Route::post('/canbo/update', 'App\Http\Controllers\CanBoController@update')->name('updateCanbo');
+        Route::put('/canbo/update', 'App\Http\Controllers\CanBoController@update')->name('updateCanbo');
+        Route::delete('/canbo/delete/{username}', 'App\Http\Controllers\CanBoController@delete')->name('deleteCanbo');
     });
 
     //Phan Quyen - Ban Giam Hieu

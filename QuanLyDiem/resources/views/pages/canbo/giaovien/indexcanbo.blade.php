@@ -33,10 +33,10 @@
                             <td class="text-center">{{ $value->macanbo }}</td>
                             <td class="text-center">{{ $value->hoten }}</td>
                             <td class="text-center">
-                                @if ($value->gioitinh==0)
+                                @if ($value->gioitinh == 0)
                                     Nam
                                 @else
-                                    @if ($value->gioitinh==1)
+                                    @if ($value->gioitinh == 1)
                                         Nữ
                                     @else
                                         Khác
@@ -45,7 +45,7 @@
 
                             </td>
                             <td class="text-center">
-                                @if ($value->loai==0)
+                                @if ($value->loai == 0)
                                     Giáo Viên
                                 @else
                                     HT, PHT
@@ -57,8 +57,15 @@
                                     <tr>
                                         <td class="border-0 pt-0 pb-0">
                                             <a href="{{ route('canboManage.editCanbo', ['username' => $value->macanbo]) }}"
-                                                class="btn btn-sm btn-clean btn-icon btn-primary" title="{{ __('cap_nhat') }}">
+                                                class="btn btn-sm btn-clean btn-icon btn-primary" title="Chỉnh sửa">
                                                 Chỉnh Sửa
+                                            </a>
+                                        </td>
+                                        <td style="padding-left: 3px" class="border-0 pt-0 pb-0">
+                                            <a href="{{ route('canboManage.deleteCanbo', ['username' => $value->macanbo]) }}"
+                                                id="delete" class="btn btn-sm btn-icon"
+                                                data-confirm-delete="true" title="xoá">
+                                                <i class="la la-trash"></i>Xoá
                                             </a>
                                         </td>
                                     </tr>

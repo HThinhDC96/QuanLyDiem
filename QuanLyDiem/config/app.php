@@ -162,6 +162,7 @@ return [
         Illuminate\Database\DatabaseServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -187,6 +188,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         'Config' => Illuminate\Support\Facades\Config::class,
         'Crypt' => Illuminate\Support\Facades\Crypt::class,
         'DB' => Illuminate\Support\Facades\DB::class,

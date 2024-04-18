@@ -58,6 +58,8 @@
             loading.style.display = 'none'; // Hide the spinner when the page is fully loaded
         });
     </script>
+    @include('sweetalert::alert')
+
     {{-- Includable JS --}}
     @yield('scripts')
 </body>
