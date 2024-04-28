@@ -10,19 +10,17 @@
             {{-- @include('layout.base._pagename') --}}
             <div class="cart-title"></div>
             <div class="card-toolbar">
-                <a href="{{ route('canboManage.createCanbo') }}"><button class="btn btn-success">Tạo mới</button></a>
+                <a href="{{ route('nienkhoaManage.createNienKhoa') }}"><button class="btn btn-success">Tạo mới</button></a>
                 <!--end::Button-->
             </div>
         </div>
         <div class="card-body">
-            <table style="width: 100%;" class="table table-hover table-checkable" id="danhSachCanBo">
+            <table style="width: 100%;" class="table table-hover table-checkable" id="danhSachNienKhoa">
                 <thead class="thead-light">
                     <tr>
                         <th class="text-center">STT</th>
-                        <th class="text-center">Mã Cán Bộ</th>
-                        <th class="text-center">Họ Tên</th>
-                        <th class="text-center">Giới Tính</th>
-                        <th class="text-center">Loại</th>
+                        <th class="text-center">Mã Niên Khóa</th>
+                        <th class="text-center">Tên Niên Khóa</th>
                         <th class="text-center">Thao Tác</th>
                     </tr>
                 </thead>
@@ -30,39 +28,19 @@
                     @foreach ($data as $item => $value)
                         <tr>
                             <td class="text-center font-weight-bold">{{ $item + 1 }}</td>
-                            <td class="text-center">{{ $value->macanbo }}</td>
-                            <td class="text-center">{{ $value->hoten }}</td>
-                            <td class="text-center">
-                                @if ($value->gioitinh == 0)
-                                    Nam
-                                @else
-                                    @if ($value->gioitinh == 1)
-                                        Nữ
-                                    @else
-                                        Khác
-                                    @endif
-                                @endif
-
-                            </td>
-                            <td class="text-center">
-                                @if ($value->loai == 0)
-                                    Giáo Viên
-                                @else
-                                    HT, PHT
-                                @endif
-                            </td>
+                            <td class="text-center">{{ $value->manienkhoa }}</td>
+                            <td class="text-center">{{ $value->tennienkhoa }}</td>
                             <td class="text-center" style="display: flex; justify-content: center">
-
                                 <table>
                                     <tr>
                                         <td class="border-0 pt-0 pb-0">
-                                            <a href="{{ route('canboManage.editCanbo', ['username' => $value->macanbo]) }}"
+                                            <a href="{{ route('nienkhoaManage.editNienKhoa', ['manienkhoa' => $value->manienkhoa]) }}"
                                                 class="btn btn-sm btn-clean btn-icon btn-primary" title="Chỉnh sửa">
                                                 Chỉnh Sửa
                                             </a>
                                         </td>
                                         <td style="padding-left: 3px" class="border-0 pt-0 pb-0">
-                                            <a href="{{ route('canboManage.deleteCanbo', ['username' => $value->macanbo]) }}"
+                                            <a href="{{ route('nienkhoaManage.deleteNienKhoa', ['manienkhoa' => $value->manienkhoa]) }}"
                                                 id="delete" class="btn btn-sm btn-icon btn-danger"
                                                 data-confirm-delete="true" title="xoá">
                                                 <i class="la la-trash"></i>Xoá
@@ -80,5 +58,5 @@
     </div>
 @endsection
 @section('scripts')
-    <script src="{{ asset('js/crud/canbo_datatables.js') }}"></script>
+    <script src="{{ asset('js/crud/nienkhoa_datatables.js') }}"></script>
 @endsection

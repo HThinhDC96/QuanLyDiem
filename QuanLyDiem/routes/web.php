@@ -35,4 +35,22 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
     Route::name('phanquyen.')->group(function () {
         Route::get('/bangiamhieu/phanquyen', 'App\Http\Controllers\PhanQuyenController@index')->name('phanquyen');
     });
+    //Mon hoc co ban
+    Route::name('monManage.')->group(function () {
+        Route::get('/mon', 'App\Http\Controllers\MonController@index')->name('indexMon');
+        Route::get('/mon/create', 'App\Http\Controllers\MonController@create')->name('createMon');
+        Route::post('/mon/store', 'App\Http\Controllers\MonController@store')->name('storeMon');
+        Route::get('/mon/edit/{mamon}', 'App\Http\Controllers\MonController@edit')->name('editMon');
+        Route::post('/mon/update', 'App\Http\Controllers\MonController@update')->name('updateMon');
+        Route::delete('/mon/delete/{mamon}', 'App\Http\Controllers\MonController@delete')->name('deleteMon');
+    });
+    //Nien khoa
+    Route::name('nienkhoaManage.')->group(function () {
+        Route::get('/nienkhoa', 'App\Http\Controllers\NienKhoaController@index')->name('indexNienKhoa');
+        Route::get('/nienkhoa/create', 'App\Http\Controllers\NienKhoaController@create')->name('createNienKhoa');
+        Route::post('/nienkhoa/store', 'App\Http\Controllers\NienKhoaController@store')->name('storeNienKhoa');
+        Route::get('/nienkhoa/edit/{manienkhoa}', 'App\Http\Controllers\NienKhoaController@edit')->name('editNienKhoa');
+        Route::post('/nienkhoa/update', 'App\Http\Controllers\NienKhoaController@update')->name('updateNienKhoa');
+        Route::delete('/nienkhoa/delete/{manienkhoa}', 'App\Http\Controllers\NienKhoaController@delete')->name('deleteNienKhoa');
+    });
 });

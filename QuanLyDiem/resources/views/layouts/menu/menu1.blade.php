@@ -33,6 +33,14 @@
                         <i class='bx bx-user nav_icon'></i>
                         <span class="nav_name">Cán bộ</span>
                     </a>
+                    <a id="canbo" href="{{ route('monManage.indexMon') }}" class="nav_link {{ request()->is('mon*') ? 'active' : '' }}">
+                        <i class='bx bx-bookmark nav_icon'></i>
+                        <span class="nav_name">Môn</span>
+                    </a>
+                    <a id="canbo" href="{{ route('nienkhoaManage.indexNienKhoa') }}" class="nav_link {{ request()->is('nienkhoa*') ? 'active' : '' }}">
+                        <i class='bx bx-calendar nav_icon'></i>
+                        <span class="nav_name">Niên Khóa</span>
+                    </a>
                     <a href="#" class="nav_link">
                         <i class='bx bx-message-square-detail nav_icon'></i>
                         <span class="nav_name">Messages</span>
