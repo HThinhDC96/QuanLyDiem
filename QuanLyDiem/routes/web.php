@@ -53,4 +53,14 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         Route::post('/nienkhoa/update', 'App\Http\Controllers\NienKhoaController@update')->name('updateNienKhoa');
         Route::delete('/nienkhoa/delete/{manienkhoa}', 'App\Http\Controllers\NienKhoaController@delete')->name('deleteNienKhoa');
     });
+
+    // lop
+    Route::name('lopManage.')->group(function () {
+        Route::get('/lop', 'App\Http\Controllers\LopController@index')->name('indexLop');
+        Route::get('/lop/create', 'App\Http\Controllers\LopController@create')->name('createLop');
+        Route::post('/lop/store', 'App\Http\Controllers\LopController@store')->name('storeLop');
+        Route::get('/lop/edit/{malop}', 'App\Http\Controllers\LopController@edit')->name('editLop');
+        Route::post('/lop/update', 'App\Http\Controllers\LopController@update')->name('updateLop');
+        Route::delete('/lop/delete/{malop}', 'App\Http\Controllers\LopController@delete')->name('deleteLop');
+    });
 });
