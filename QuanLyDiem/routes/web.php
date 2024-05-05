@@ -63,4 +63,13 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         Route::post('/lop/update', 'App\Http\Controllers\LopController@update')->name('updateLop');
         Route::delete('/lop/delete/{malop}', 'App\Http\Controllers\LopController@delete')->name('deleteLop');
     });
+    //Mon Hoc
+    Route::name('monhocManage.')->group(function () {
+        Route::get('/monhoc', 'App\Http\Controllers\MonHocController@index')->name('indexMonHoc');
+        Route::get('/monhoc/create', 'App\Http\Controllers\MonHocController@create')->name('createMonHoc');
+        Route::post('/monhoc/store', 'App\Http\Controllers\MonHocController@store')->name('storeMonHoc');
+        Route::get('/monhoc/edit/{mamonhoc}', 'App\Http\Controllers\MonHocController@edit')->name('editMonHoc');
+        Route::post('/monhoc/update', 'App\Http\Controllers\MonHocController@update')->name('updateMonHoc');
+        Route::delete('/monhoc/delete/{mamonhoc}', 'App\Http\Controllers\MonHocController@delete')->name('deleteMonHoc');
+    });
 });
