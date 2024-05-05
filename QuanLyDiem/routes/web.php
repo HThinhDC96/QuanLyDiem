@@ -72,4 +72,13 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         Route::post('/monhoc/update', 'App\Http\Controllers\MonHocController@update')->name('updateMonHoc');
         Route::delete('/monhoc/delete/{mamonhoc}', 'App\Http\Controllers\MonHocController@delete')->name('deleteMonHoc');
     });
+    //Loai Diem
+    Route::name('loaidiemManage.')->group(function () {
+        Route::get('/loaidiem', 'App\Http\Controllers\LoaiDiemController@index')->name('indexLoaiDiem');
+        Route::get('/loaidiem/create', 'App\Http\Controllers\LoaiDiemController@create')->name('createLoaiDiem');
+        Route::post('/loaidiem/store', 'App\Http\Controllers\LoaiDiemController@store')->name('storeLoaiDiem');
+        Route::get('/loaidiem/edit/{maloaidiem}', 'App\Http\Controllers\LoaiDiemController@edit')->name('editLoaiDiem');
+        Route::post('/loaidiem/update', 'App\Http\Controllers\LoaiDiemController@update')->name('updateLoaiDiem');
+        Route::delete('/loaidiem/delete/{maloaidiem}', 'App\Http\Controllers\LoaiDiemController@delete')->name('deleteLoaiDiem');
+    });
 });
