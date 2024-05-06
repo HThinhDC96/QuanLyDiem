@@ -22,6 +22,8 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         $page_title="Quản trị";
         return view('pages.canbo.dashboard', compact('page_title'));
     })->name('dashboard');
+
+    // Quản lý thông tin cán bộ
     Route::name('canboManage.')->group(function () {
         Route::get('/canbo', 'App\Http\Controllers\CanBoController@index')->name('indexCanbo');
         Route::get('/canbo/create', 'App\Http\Controllers\CanBoController@create')->name('createCanbo');
@@ -35,6 +37,7 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
     Route::name('phanquyen.')->group(function () {
         Route::get('/bangiamhieu/phanquyen', 'App\Http\Controllers\PhanQuyenController@index')->name('phanquyen');
     });
+
     //Mon hoc co ban
     Route::name('monManage.')->group(function () {
         Route::get('/mon', 'App\Http\Controllers\MonController@index')->name('indexMon');
@@ -44,7 +47,8 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         Route::post('/mon/update', 'App\Http\Controllers\MonController@update')->name('updateMon');
         Route::delete('/mon/delete/{mamon}', 'App\Http\Controllers\MonController@delete')->name('deleteMon');
     });
-    //Nien khoa
+
+    // Nien khoa
     Route::name('nienkhoaManage.')->group(function () {
         Route::get('/nienkhoa', 'App\Http\Controllers\NienKhoaController@index')->name('indexNienKhoa');
         Route::get('/nienkhoa/create', 'App\Http\Controllers\NienKhoaController@create')->name('createNienKhoa');
@@ -54,7 +58,7 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         Route::delete('/nienkhoa/delete/{manienkhoa}', 'App\Http\Controllers\NienKhoaController@delete')->name('deleteNienKhoa');
     });
 
-    // lop
+    // Lop
     Route::name('lopManage.')->group(function () {
         Route::get('/lop', 'App\Http\Controllers\LopController@index')->name('indexLop');
         Route::get('/lop/create', 'App\Http\Controllers\LopController@create')->name('createLop');
@@ -62,5 +66,25 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         Route::get('/lop/edit/{malop}', 'App\Http\Controllers\LopController@edit')->name('editLop');
         Route::post('/lop/update', 'App\Http\Controllers\LopController@update')->name('updateLop');
         Route::delete('/lop/delete/{malop}', 'App\Http\Controllers\LopController@delete')->name('deleteLop');
+    });
+
+    // Quản lý thông tin học sinh
+    Route::name('hocsinhManage.')->group(function () {
+        Route::get('/hocsinh', 'App\Http\Controllers\HSPHController@index_HS')->name('index');
+        Route::get('/hocsinh/create', 'App\Http\Controllers\HSPHController@create_HS')->name('create');
+        Route::post('/hocsinh/store', 'App\Http\Controllers\HSPHController@store_HS')->name('store');
+        Route::get('/hocsinh/edit/{mahocsinh}', 'App\Http\Controllers\HSPHController@edit_HS')->name('edit');
+        Route::post('/hocsinh/update', 'App\Http\Controllers\HSPHController@update_HS')->name('update');
+        Route::delete('/hocsinh/delete/{mahocsinh}', 'App\Http\Controllers\HSPHController@delete_HS')->name('delete');
+    });
+
+    // Quản lý thông tin phụ huynh
+    Route::name('phuhuynhManage.')->group(function () {
+        Route::get('/phuhuynh', 'App\Http\Controllers\HSPHController@index_PH')->name('index');
+        Route::get('/phuhuynh/create', 'App\Http\Controllers\HSPHController@create_PH')->name('create');
+        Route::post('/phuhuynh/store', 'App\Http\Controllers\HSPHController@store_PH')->name('store');
+        Route::get('/phuhuynh/edit/{maphuhuynh}', 'App\Http\Controllers\HSPHController@edit_PH')->name('edit');
+        Route::post('/phuhuynh/update', 'App\Http\Controllers\HSPHController@update_PH')->name('update');
+        Route::delete('/phuhuynh/delete/{maphuhuynh}', 'App\Http\Controllers\HSPHController@delete_PH')->name('delete');
     });
 });

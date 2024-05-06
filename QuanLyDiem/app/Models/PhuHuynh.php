@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HocSinh extends Model
+class PhuHuynh extends Model
 {
     use HasFactory;
-    protected $table = "hocsinh";
-    protected $primaryKey = "mahocsinh";
+    protected $table = "phuhuynh";
+    protected $primaryKey = "maphuhuynh";
     protected $keyType = 'string';
     protected $fillable =
         [
-            'mahocsinh',
             'maphuhuynh',
-            'hotenhocsinh',
+            'tenphuhuynh',
             'gioitinh',
             'ngaysinh',
             'diachi',
@@ -26,12 +25,12 @@ class HocSinh extends Model
         //Lấy tất cả học sinh
         public static function getAll()
         {
-            return HocSinh::all();
+            return PhuHuynh::all();
         }
 
-        //Lấy thông tin học sinh với mahocsinh
-        public static function getByMaHocSinh($mph) {
-            return PhuHuynh::where('mahocsinh', $mph);
+        //Lấy thông tin phụ huynh với maphuhuynh
+        public static function getByMaPhuHuynh($mph) {
+            return PhuHuynh::where('maphuhuynh', $mph);
         }
         public $timestamps = false;
 }

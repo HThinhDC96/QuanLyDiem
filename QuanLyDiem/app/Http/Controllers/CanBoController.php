@@ -21,8 +21,6 @@ class CanBoController extends Controller
         //     print($value);
         //  }
         confirmDelete("", "");
-
-        // dd(session()->all());
         return view('pages.canbo.giaovien.indexcanbo', compact('page_title', 'data'));
     }
     public function create()
@@ -50,8 +48,14 @@ class CanBoController extends Controller
 
             // Khởi tạo mã cán bộ mới
             $mcb_lastest = CanBo::latest('macanbo')->select('macanbo')->first()->macanbo;
-            $mcb_lastest = ((int) substr($mcb_lastest, 2)) + 1;
-            $mcb_lastest = "CB" . sprintf("%04d", $mcb_lastest);
+
+            //Nếu chưa cán bộ nào thì lấy CB0001 làm macanbo
+            if ($mcb_lastest == null) {
+                $mcb_lastest = "CB0001";
+            } else {
+                $mcb_lastest = ((int) substr($mcb_lastest, 2)) + 1;
+                $mcb_lastest = "CB" . sprintf("%04d", $mcb_lastest);
+            }
 
             $canbo->macanbo = $mcb_lastest;
             $canbo->save();
