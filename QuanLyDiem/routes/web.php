@@ -86,7 +86,8 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         Route::get('/phuhuynh/edit/{maphuhuynh}', 'App\Http\Controllers\HSPHController@edit_PH')->name('edit');
         Route::post('/phuhuynh/update', 'App\Http\Controllers\HSPHController@update_PH')->name('update');
         Route::delete('/phuhuynh/delete/{maphuhuynh}', 'App\Http\Controllers\HSPHController@delete_PH')->name('delete');
-    };
+    });
+
     //Mon Hoc
     Route::name('monhocManage.')->group(function () {
         Route::get('/monhoc', 'App\Http\Controllers\MonHocController@index')->name('indexMonHoc');
