@@ -86,5 +86,24 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         Route::get('/phuhuynh/edit/{maphuhuynh}', 'App\Http\Controllers\HSPHController@edit_PH')->name('edit');
         Route::post('/phuhuynh/update', 'App\Http\Controllers\HSPHController@update_PH')->name('update');
         Route::delete('/phuhuynh/delete/{maphuhuynh}', 'App\Http\Controllers\HSPHController@delete_PH')->name('delete');
+    };
+    //Mon Hoc
+    Route::name('monhocManage.')->group(function () {
+        Route::get('/monhoc', 'App\Http\Controllers\MonHocController@index')->name('indexMonHoc');
+        Route::get('/monhoc/create', 'App\Http\Controllers\MonHocController@create')->name('createMonHoc');
+        Route::post('/monhoc/store', 'App\Http\Controllers\MonHocController@store')->name('storeMonHoc');
+        Route::get('/monhoc/edit/{mamonhoc}', 'App\Http\Controllers\MonHocController@edit')->name('editMonHoc');
+        Route::post('/monhoc/update', 'App\Http\Controllers\MonHocController@update')->name('updateMonHoc');
+        Route::delete('/monhoc/delete/{mamonhoc}', 'App\Http\Controllers\MonHocController@delete')->name('deleteMonHoc');
+    });
+
+    //Loai Diem
+    Route::name('loaidiemManage.')->group(function () {
+        Route::get('/loaidiem', 'App\Http\Controllers\LoaiDiemController@index')->name('indexLoaiDiem');
+        Route::get('/loaidiem/create', 'App\Http\Controllers\LoaiDiemController@create')->name('createLoaiDiem');
+        Route::post('/loaidiem/store', 'App\Http\Controllers\LoaiDiemController@store')->name('storeLoaiDiem');
+        Route::get('/loaidiem/edit/{maloaidiem}', 'App\Http\Controllers\LoaiDiemController@edit')->name('editLoaiDiem');
+        Route::post('/loaidiem/update', 'App\Http\Controllers\LoaiDiemController@update')->name('updateLoaiDiem');
+        Route::delete('/loaidiem/delete/{maloaidiem}', 'App\Http\Controllers\LoaiDiemController@delete')->name('deleteLoaiDiem');
     });
 });

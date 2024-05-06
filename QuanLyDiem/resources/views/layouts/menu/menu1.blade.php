@@ -24,6 +24,7 @@
                     <span class="nav_logo-name"></span>
                 </a>
                 <div class="nav_list">
+
                     <a id="dashboard" href="{{ route('dashboard') }}" class="nav_link {{ request()->is('dashboard*') ? 'active' : '' }}">
                         <i class='bx bx-grid-alt nav_icon'></i>
                         <span class="nav_name">Dashboard</span>
@@ -45,13 +46,13 @@
                         <i class='bx bx-calendar nav_icon'></i>
                         <span class="nav_name">Lớp</span>
                     </a>
-                    <a href="#" class="nav_link">
+                    <a id="monhoc" href="{{ route('monhocManage.indexMonHoc') }}" class="nav_link {{ request()->is('monhoc*') ? 'active' : '' }}">
                         <i class='bx bx-message-square-detail nav_icon'></i>
-                        <span class="nav_name">Messages</span>
+                        <span class="nav_name">Phân công giảng dạy</span>
                     </a>
-                    <a href="#" class="nav_link">
+                    <a id="monhoc" href="{{ route('loaidiemManage.indexLoaiDiem') }}" class="nav_link {{ request()->is('loaidiem*') ? 'active' : '' }}">
                         <i class='bx bx-bookmark nav_icon'></i>
-                        <span class="nav_name">Bookmark</span>
+                        <span class="nav_name">Loại Điểm</span>
                     </a>
                     <a href="#" class="nav_link">
                         <i class='bx bx-folder nav_icon'></i>
