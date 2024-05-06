@@ -68,7 +68,7 @@ class HSPHController extends Controller
     {
         $page_title = "Chỉnh Sửa Thông tin học sinh - MSHS: ".$id;
         $info = HocSinh::find($id);
-        return view('pages.hocsinh.giaovien.edithocsinh', compact('page_title', 'info'));
+        return view('pages.hocsinh_phuhuynh.hocsinh.edit', compact('page_title', 'info'));
     }
 
     public function update_HS(Request $request)
@@ -83,7 +83,7 @@ class HSPHController extends Controller
             }
             $hocsinh->save();
             toastr()->success('Cập nhật thông tin thành công!', 'Thành công!');
-            return redirect()->route('hocsinhManage.indexhocsinh');
+            return redirect()->route('hocsinhManage.index');
         } catch (Exception $e) {
             echo 'Có lỗi phát sinh: ', $e->getMessage(), "\n";
         }

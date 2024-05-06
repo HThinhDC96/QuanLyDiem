@@ -33,18 +33,15 @@
                             <div class="mb-3 align-items-center justify-content-center row">
                                 <label class="col-3">Giới tính<span class="text-danger">*</span></label>
                                 <div class="col-6">
-                                    <input type="radio" value="0" name="gioitinh" id="nam">Nam
-                                    <input type="radio" value="1" name="gioitinh" id="nu">Nữ
-                                    <input type="radio" value="2" name="gioitinh" id="khac">Khác
-                                    {{-- <script>
-                                        const gt = ;
-                                    </script> --}}
+                                    <input type="radio" value="0" name="gioitinh" id="nam" {{ $info->gioitinh==0 ? "checked" : "" }}>Nam
+                                    <input type="radio" value="1" name="gioitinh" id="nu" {{ $info->gioitinh==1 ? "checked" : "" }}>Nữ
+                                    <input type="radio" value="2" name="gioitinh" id="khac" {{ $info->gioitinh==2 ? "checked" : "" }}>Khác
                                 </div>
                             </div>
                             <div class="mb-3 align-items-center justify-content-center row">
                                 <label class="col-3">Ngày Sinh<span class="text-danger">*</span></label>
                                 <div class="col-6">
-                                    <input type="date" name="ngaysinh" id="ngaysinh" class="form-control">
+                                    <input type="date" name="ngaysinh" id="ngaysinh" class="form-control" value="{{ $info->ngaysinh }}">
                                 </div>
                             </div>
                             <div class="mb-3 align-items-center justify-content-center row">
@@ -52,7 +49,7 @@
                                         class="text-danger">*</span></label>
                                 <div class="col-6">
                                     <textarea class="form-control" name="diachi" id="diachi" cols="30" rows="5"
-                                        placeholder="Nhập vào địa chỉ"></textarea>
+                                        placeholder="Nhập vào địa chỉ">{{ $info->diachi }}</textarea>
                                 </div>
                             </div>
                             <div class="mb-3 align-items-center justify-content-center row">
@@ -60,7 +57,7 @@
                                         class="text-danger">*</span></label>
                                 <div class="col-6">
                                     <input class="form-control" type="text" name="sdt" id="sdt"
-                                        placeholder="Nhập vào số điện thoại" />
+                                        placeholder="Nhập vào số điện thoại" value="{{ $info->sdt }}"/>
                                 </div>
                             </div>
                             <div class="mb-3 align-items-center justify-content-center row">
@@ -68,7 +65,7 @@
                                         class="text-danger">*</span></label>
                                 <div class="col-6">
                                     <input class="form-control" type="password" name="matkhau" id="matkhau"
-                                        placeholder="Nhập vào mật khẩu" />
+                                        placeholder="Nhập vào mật khẩu" value="{{ $info->matkhau }}"/>
                                 </div>
                             </div>
                             <div class="modal-footer mt-5 me-5">
