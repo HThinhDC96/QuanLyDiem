@@ -17,6 +17,7 @@
             <form method="post" action="{{ route('hocsinhManage.update') }}" class="form" name="formEditHocSinh"
                 id="formedithocsinh">
                 {{ csrf_field() }}
+                @method("put")
                 <div class="row">
                     <div class="col-xl-2"></div>
                     <div class="col-xl-8">
