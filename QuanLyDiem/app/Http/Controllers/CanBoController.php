@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\CanBo;
+use App\Models\Lop;
+use App\Models\MonHoc;
 use Carbon\Traits\ToStringFormat;
 use Exception;
 use Illuminate\Http\Request;
@@ -98,6 +100,7 @@ class CanBoController extends Controller
     {
         try {
             $canbo = Canbo::find($macanbo);
+
             $canbo->delete();
             toastr()->success('Xoá thành công!', 'Thành công!');
             return redirect()->route('canboManage.indexCanbo');
@@ -111,4 +114,22 @@ class CanBoController extends Controller
             echo 'Có lỗi phát sinh: ', $e->getMessage(), "\n";
         }
     }
+
+    //Trang danh cho giao vien
+    public function indexpagecanbo()
+    {
+        $page_title = "Cán bộ";
+        $macanbo=session('userid');
+        $datalopchunhiem=Lop::from('lop')->where('chunhiem',$macanbo)->get();
+        $datalopday=MonHoc::from('monhoc')
+                                ->join('lop','lop.malop','monhoc.malop')
+                                ->join('mon','monhoc.mamon','mon.mamon')
+                                ->where('monhoc.macanbo',$macanbo)->get();
+        // foreach($data as $item=>$value){
+        //     print($value);
+        //  }
+        confirmDelete("", "");
+        return view('pages.canbo.giaovien.danhchocanbo', compact('page_title','datalopchunhiem','datalopday'));
+    }
+
 }

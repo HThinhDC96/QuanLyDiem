@@ -31,6 +31,10 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         Route::get('/canbo/edit/{username}', 'App\Http\Controllers\CanBoController@edit')->name('editCanbo');
         Route::put('/canbo/update', 'App\Http\Controllers\CanBoController@update')->name('updateCanbo');
         Route::delete('/canbo/delete/{username}', 'App\Http\Controllers\CanBoController@delete')->name('deleteCanbo');
+        ///Route dang nhap bang tai khoan can bo
+        Route::get('/htql/canbo', 'App\Http\Controllers\CanBoController@indexpagecanbo')->name('indexCanboPage');
+        Route::get('/htql/canbo/danhsachlopday/{malop}', 'App\Http\Controllers\DanhSachController@danhsachlopday')->name('danhsachlopday');
+        Route::get('/htql/canbo/danhsachlopchunhiem/{malop}', 'App\Http\Controllers\DanhSachController@danhsachlopchunhiem')->name('danhsachlopchunhiem');
     });
 
     //Phan Quyen - Ban Giam Hieu
