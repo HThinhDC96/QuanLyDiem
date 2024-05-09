@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\CanBo;
+use App\Models\HocSinh;
+use App\Models\PhuHuynh;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -24,14 +27,26 @@ class LoginController extends Controller
         // dd($request);
         // dd($validator);
         if ($validator->fails()) {
-            toastr()->error('Đăng nhập không thành công!', 'Lỗi!');
+            toastr()->error('Đăng nhập không thành công!<br> Chưa nhập tên đăng nhập hoặc mật khẩu!', 'Lỗi!');
             return redirect()
                 ->back()
                 ->withErrors($validator->errors())
                 ->withInput();
         }
 
-        $taikhoan = CanBo::find($request->username);
+        // Kiểm tra loại tài khoản
+        $typeacc = Str::upper(substr($request->username,0,2));
+        if ($typeacc=="CB" || Str::upper($request->username)=="ADMIN") {
+            $taikhoan = CanBo::find($request->username);
+        } else if($typeacc=="HS") {
+            $taikhoan = HocSinh::find($request->username);
+        } else if($typeacc=="PH") {
+            $taikhoan = PhuHuynh::find($request->username);
+        } else {
+            $taikhoan = null;
+        }
+
+        // Kiểm tra tài khoản
         if ($taikhoan != null) {
             if ($taikhoan->matkhau == $request->password) {
                 $hethong_ngay = date('d', time());
@@ -42,9 +57,16 @@ class LoginController extends Controller
                 session()->put("thanghientai", $hethong_thang);
                 session()->put("namhientai", $hethong_nam);
 
-                session()->put("userid", $taikhoan->macanbo);
-                session()->put("type", 0); // Nếu là tài khoản cán bộ
-                session()->put("userhoten", $taikhoan->hoten);
+                // SET thông tin đăng nhập
+                session()->put("userid", $request->username);
+                if ($typeacc=="CB") {
+                    session()->put("userhoten", $taikhoan->hoten);
+                    session()->put("type", $taikhoan->loai);
+                } else if ($typeacc=="HS") {
+                    session()->put("userhoten", $taikhoan->hotenhocsinh);
+                } else if ($typeacc=="PH") {
+                    session()->put("userhoten", $taikhoan->tenphuhuynh);
+                }
 
                 toastr()->success('Đăng nhập thành công!', 'Thành công!');
                 if(substr($taikhoan->macanbo,0,2)=="CB") return redirect()->route('canboManage.indexCanboPage');
@@ -52,8 +74,9 @@ class LoginController extends Controller
             } else {
                 toastr()->error('Tài khoản hoặc mật khẩu không chính xác!', 'Lỗi!');
             }
+        } else {
+            toastr()->error('Tài khoản không tồn tại!', 'Lỗi!');
         }
-
         return redirect()->back()->withInput();
     }
 

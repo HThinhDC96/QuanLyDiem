@@ -55,8 +55,10 @@
     <script>
         window.addEventListener('load', () => {
             const loading = document.querySelector('.loading-screen');
-            loading.style.display = 'none'; // Hide the spinner when the page is fully loaded
+            loading.style.opacity = 0; // Hide the spinner when the page is fully loaded
         });
+
+
     </script>
     @include('sweetalert::alert')
 
