@@ -21,7 +21,6 @@
                         <th class="text-center">STT</th>
                         <th class="text-center">Mã số</th>
                         <th class="text-center">Họ Tên</th>
-                        <th class="text-center">Lớp</th>
                         <th class="text-center">Giới Tính</th>
                         <th class="text-center">Ngày sinh</th>
                         <th class="text-center">Địa chỉ</th>
@@ -34,8 +33,7 @@
                         <tr>
                             <td class="text-center font-weight-bold">{{ $item + 1 }}</td>
                             <td class="text-center">{{ $value->maphuhuynh }}</td>
-                            <td class="text-center">{{ $value->hotenphuhuynh }}</td>
-                            <td class="text-center"></td>
+                            <td class="text-center">{{ $value->tenphuhuynh }}</td>
                             <td class="text-center">
                                 @if ($value->gioitinh == 0)
                                     Nam

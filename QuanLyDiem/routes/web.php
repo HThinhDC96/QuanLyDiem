@@ -78,7 +78,7 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         Route::get('/hocsinh/create', 'App\Http\Controllers\HSPHController@create_HS')->name('create');
         Route::post('/hocsinh/store', 'App\Http\Controllers\HSPHController@store_HS')->name('store');
         Route::get('/hocsinh/edit/{mahocsinh}', 'App\Http\Controllers\HSPHController@edit_HS')->name('edit');
-        Route::post('/hocsinh/update', 'App\Http\Controllers\HSPHController@update_HS')->name('update');
+        Route::put('/hocsinh/update', 'App\Http\Controllers\HSPHController@update_HS')->name('update');
         Route::delete('/hocsinh/delete/{mahocsinh}', 'App\Http\Controllers\HSPHController@delete_HS')->name('delete');
     });
 
@@ -88,7 +88,7 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         Route::get('/phuhuynh/create', 'App\Http\Controllers\HSPHController@create_PH')->name('create');
         Route::post('/phuhuynh/store', 'App\Http\Controllers\HSPHController@store_PH')->name('store');
         Route::get('/phuhuynh/edit/{maphuhuynh}', 'App\Http\Controllers\HSPHController@edit_PH')->name('edit');
-        Route::post('/phuhuynh/update', 'App\Http\Controllers\HSPHController@update_PH')->name('update');
+        Route::put('/phuhuynh/update', 'App\Http\Controllers\HSPHController@update_PH')->name('update');
         Route::delete('/phuhuynh/delete/{maphuhuynh}', 'App\Http\Controllers\HSPHController@delete_PH')->name('delete');
     });
 
