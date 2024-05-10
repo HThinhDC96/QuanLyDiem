@@ -113,8 +113,8 @@ class HSPHController extends Controller
     // Show page - Quản lý phụ huynh
     public function index_PH()
     {
-        $page_title = "Phụ Huynh";
-        $data = HocSinh::getAll();
+        $page_title = "Phụ Huynh - Danh Sách";
+        $data = PhuHuynh::getAll();
         // foreach($data as $item=>$value){
         //     print($value);
         //  }
@@ -125,7 +125,7 @@ class HSPHController extends Controller
 
     public function create_PH()
     {
-        $page_title = "Thêm mới - Phụ huynh";
+        $page_title = "Phụ Huynh - Thêm Mới";
         return view('pages.hocsinh_phuhuynh.phuhuynh.create', compact('page_title'));
     }
     public function store_PH(Request $request)
@@ -158,7 +158,7 @@ class HSPHController extends Controller
 
     public function edit_PH($id)
     {
-        $page_title = "Chỉnh Sửa Thông tin - Phụ huynh - MS: ".$id;
+        $page_title = "Phụ huynh - Chỉnh Sửa Thông tin - Mã Số: ".$id;
         $info = PhuHuynh::find($id);
         return view('pages.hocsinh_phuhuynh.phuhuynh.edit', compact('page_title', 'info'));
     }

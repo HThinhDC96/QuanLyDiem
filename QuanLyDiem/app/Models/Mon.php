@@ -11,7 +11,7 @@ class Mon extends Model
     protected $table = "mon";
     protected $primaryKey = "mamon";
     protected $keyType = 'string';
-    protected $fillable = ['mamon','tenmon'];
+    protected $fillable = ['mamon','tenmon','loaimon'];
 
     public static function getAllMon()
     {

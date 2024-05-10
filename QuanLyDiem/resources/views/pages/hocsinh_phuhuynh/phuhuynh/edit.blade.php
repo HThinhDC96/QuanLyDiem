@@ -28,7 +28,7 @@
                                 </label>
                                 <div class="col-6">
                                     <input type="text" name="hotenphuhuynh" id="hoten" class="form-control"
-                                        placeholder="Nhập họ tên" value="{{ $info->hotenphuhuynh }}" />
+                                        placeholder="Nhập họ tên" value="{{ $info->tenphuhuynh }}" />
                                 </div>
                             </div>
                             <div class="mb-3 align-items-center justify-content-center row">
