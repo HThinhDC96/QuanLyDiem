@@ -10,6 +10,6 @@ class LoaiDiem extends Model
     use HasFactory;
     protected $table = "loaidiem";
     protected $primaryKey = "maloaidiem";
-    protected $fillable = ['maloaidiem','tenloaidiem','heso','soluong'];
+    protected $fillable = ['maloaidiem','tenloaidiem','heso','soluong','loaimon'];
     public $timestamps = false;
 }
