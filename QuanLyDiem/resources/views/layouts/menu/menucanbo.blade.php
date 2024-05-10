@@ -24,6 +24,14 @@
 
         </ul>
     </li>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        {{ csrf_field() }}
+    </form>
+    <li>
+        <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Đăng xuất
+        </a>
+    </li>
     {{-- <li>
         <a href="#">Portfolio</a>
     </li>
@@ -32,7 +40,7 @@
     </li> --}}
 </ul>
 
-<div class="mb-5">
+{{-- <div class="mb-5">
     <h3 class="h6">Subscribe for newsletter</h3>
     <form action="#" class="colorlib-subscribe-form">
         <div class="form-group d-flex">
@@ -40,4 +48,4 @@
             <input type="text" class="form-control" placeholder="Enter Email Address">
         </div>
     </form>
-</div>
+</div> --}}

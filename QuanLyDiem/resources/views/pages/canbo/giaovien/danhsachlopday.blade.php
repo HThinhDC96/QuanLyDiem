@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table style="width: 100%;" class="table table-hover table-checkable" id="danhSachCanBo">
+            <table style="width: 100%;" class="table table-hover table-checkable" id="danhSachDiem">
                 <thead class="thead-light">
                     <tr>
                         <th class="text-center">STT</th>
@@ -26,7 +26,7 @@
                             <td class="text-center">{{ $value->hotenhocsinh }}</td>
                             @foreach ($dataloaidiem as $item => $loaidiem)
                             @for($i=0;$i<$loaidiem->soluong;$i++)
-                            <th class="text-center">{{ $loaidiem->tenloaidiem }}</th>
+                            <th class="text-center">{{ 10 }}</th>
                             @endfor
 
                         @endforeach
