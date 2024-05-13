@@ -18,7 +18,7 @@
         <ul class="collapse list-unstyled" id="pageSubmenu">
             @foreach ($datalopday as $lopday)
             <li>
-                <a href="{{ route('canboManage.danhsachlopday', ['malop' => $lopday->malop]) }}">{{ $lopday->tenlop }} - {{ $lopday->tenmon }}</a>
+                <a href="{{ route('canboManage.danhsachlopday', ['mamonhoc' => $lopday->mamonhoc]) }}">{{ $lopday->tenlop }} - {{ $lopday->tenmon }}</a>
             </li>
             @endforeach
 

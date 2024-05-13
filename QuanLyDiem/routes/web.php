@@ -33,7 +33,7 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         Route::delete('/canbo/delete/{username}', 'App\Http\Controllers\CanBoController@delete')->name('deleteCanbo');
         ///Route dang nhap bang tai khoan can bo
         Route::get('/htql/canbo', 'App\Http\Controllers\CanBoController@indexpagecanbo')->name('indexCanboPage');
-        Route::get('/htql/canbo/danhsachlopday/{malop}', 'App\Http\Controllers\DanhSachController@danhsachlopday')->name('danhsachlopday');
+        Route::get('/htql/canbo/danhsachlopday/{mamonhoc}', 'App\Http\Controllers\DanhSachController@danhsachlopday')->name('danhsachlopday');
         Route::get('/htql/canbo/danhsachlopchunhiem/{malop}', 'App\Http\Controllers\DanhSachController@danhsachlopchunhiem')->name('danhsachlopchunhiem');
     });
 

@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Diem;
 use App\Models\HocSinh;
 use App\Models\LoaiDiem;
 use App\Models\Lop;
 use App\Models\LopHoc;
 use App\Models\MonHoc;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class DanhSachController extends Controller
 {
-    public function danhsachlopday($malop){
+    public function danhsachlopday($mamonhoc){
         $page_title="Danh sách lớp ";
 
+        $monhoc=Monhoc::where('mamonhoc',$mamonhoc)->first();
+        $malop=$monhoc->malop;
         //du lieu cho sidebar
         $macanbo=session('userid');
         $datalopchunhiem=Lop::from('lop')->where('chunhiem',$macanbo)->get();
@@ -22,12 +26,47 @@ class DanhSachController extends Controller
                                 ->join('mon','monhoc.mamon','mon.mamon')
                                 ->where('monhoc.macanbo',$macanbo)->get();
         // du lieu noi dung
-        $i=0;
+
         $danhsachlop=LopHoc::from('lophoc')
                         ->join('hocsinh','hocsinh.mahocsinh','lophoc.mahocsinh')
                         ->where('malop',$malop)->get();
         $dataloaidiem=LoaiDiem::all();
-        return view('pages.canbo.giaovien.danhsachlopday', compact('page_title','datalopchunhiem','datalopday','danhsachlop','dataloaidiem'));
+        $danhsach=[];
+        foreach($danhsachlop as $item=>$hocsinh){
+            $d=[];
+            // dd($dataloaidiem);
+            foreach($dataloaidiem as $item=>$loaidiem){
+                $diemhs=Diem::from('diem')
+                        ->where('mahocsinh',$hocsinh->mahocsinh)
+                        ->where('mamonhoc',$mamonhoc)
+                        ->where('loaidiem',$loaidiem->maloaidiem)->get();
+                $i=$loaidiem->soluong;
+                $j=0;
+                foreach($diemhs as $item =>$diem){
+                        $soluong=LoaiDiem::where('maloaidiem',$diem->loaidiem)->first();
+                        $d=Arr::add($d,$diem->loaidiem.'_'.$j,$diem->diem);
+                        $j++;
+                    }
+                if($j!=0)$j--;
+                for($e=$j;$e<$i;$e++){
+                    $d=Arr::add($d,$loaidiem->maloaidiem.'_'.$e,"");
+                }
+
+            }
+            $danhsach=Arr::add($danhsach,count($danhsach),['tenhocsinh'=>$hocsinh->hotenhocsinh,'diem'=>$d]);
+            // dd($danhsach);
+        }
+        // dd($danhsach);
+        //in thu danh sach
+        // foreach($danhsach as $item=>$value){
+        //     foreach($value as $key=>$v){
+        //         if($key=='tenhocsinh') print($v);
+        //         else foreach($v as $keydiem=>$diem){
+        //             print('    '.$diem.'  ');
+        //         }
+        //     }
+        // }
+        return view('pages.canbo.giaovien.danhsachlopday', compact('page_title','datalopchunhiem','datalopday','danhsachlop','dataloaidiem','danhsach'));
     }
     public function danhsachlopchunhiem($malop){
         $page_title="Danh sách lớp ";
