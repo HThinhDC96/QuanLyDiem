@@ -17,6 +17,7 @@
                         @foreach ($dataloaidiem as $item => $loaidiem)
                             <th class="text-center" colspan="{{ $loaidiem->soluong }}">{{ $loaidiem->tenloaidiem }}</th>
                         @endforeach
+                        <th class="text-center">TBM</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,10 +25,10 @@
                         <tr>
                             <td class="text-center font-weight-bold">{{ $item + 1 }}</td>
                             @foreach($value as $key => $v)
-                                @if ($key=='tenhocsinh') <td class="text-center">{{ $v}}</td>
+                                @if ($key=='tenhocsinh' || $key=='tbm') <td class="text-center">{{ $v }}</td>
                                 @else
                                     @foreach($v as $keydiem=>$diem)
-                                    <th class="text-center">{{ $diem }}</th>
+                                    <td class="text-center">{{ $diem }}</td>
                                     @endforeach
                                 @endif
                             @endforeach

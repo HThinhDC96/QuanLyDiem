@@ -40,6 +40,8 @@ class DanhSachController extends Controller
         $danhsach = [];
         foreach ($danhsachlop as $item => $hocsinh) {
             $d = [];
+            $tongdiem = 0;
+            $tonghesodiem = 0;
             // dd($dataloaidiem);
             foreach ($dataloaidiem as $item => $loaidiem) {
                 $diemhs = Diem::from('diem')
@@ -50,18 +52,25 @@ class DanhSachController extends Controller
                 $i = $loaidiem->soluong;
                 $j = 0;
                 foreach ($diemhs as $item => $diem) {
-                    $soluong = LoaiDiem::where('maloaidiem', $diem->loaidiem)->first();
                     $d = Arr::add($d, $diem->loaidiem . '_' . $j, $diem->diem);
                     $j++;
+                    $tongdiem += $loaidiem->heso * $diem->diem;
+                    $tonghesodiem += (int) $loaidiem->heso;
                 }
                 if ($j != 0)
                     $j--;
                 for ($e = $j; $e < $i; $e++) {
                     $d = Arr::add($d, $loaidiem->maloaidiem . '_' . $e, "");
                 }
-
             }
-            $danhsach = Arr::add($danhsach, count($danhsach), ['tenhocsinh' => $hocsinh->hotenhocsinh, 'diem' => $d]);
+
+            if ($tonghesodiem!=0)
+            {
+                $tbm = $tongdiem / $tonghesodiem ;
+            } else {
+                $tbm = "";
+            };
+            $danhsach = Arr::add($danhsach, count($danhsach), ['tenhocsinh' => $hocsinh->hotenhocsinh, 'diem' => $d, 'tbm' => $tbm]);
             // dd($danhsach);
         }
         // dd($danhsach);
