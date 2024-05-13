@@ -12,6 +12,9 @@
 
     <link href="{{ asset('css/canbocss/style.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/canbocss/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/crud/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/crud/datatables/datatables.css') }}" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body>
@@ -42,11 +45,15 @@
     </div>
 
 
+
     <script src="{{ asset('js/canbojs/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/canbojs/main.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/canbojs/popper.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/canbojs/bootstrap.min.js') }}" type="text/javascript"></script>
 
+    <script src="{{ asset('js/crud/datatables/datatables.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/crud/datatables/datatables.js') }}" type="text/javascript"></script>
+    @yield('scripts')
 
 </body>
 

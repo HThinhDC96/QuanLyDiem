@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table style="width: 100%;" class="table table-hover table-checkable" id="danhSachCanBo">
+            <table style="width: 100%;" class="table table-hover table-checkable" id="danhSachDiem">
                 <thead class="thead-light">
                     <tr>
                         <th class="text-center">STT</th>
@@ -20,16 +20,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($danhsachlop as $item => $value)
+                    @foreach ($danhsach as $item => $value)
                         <tr>
                             <td class="text-center font-weight-bold">{{ $item + 1 }}</td>
-                            <td class="text-center">{{ $value->hotenhocsinh }}</td>
-                            @foreach ($dataloaidiem as $item => $loaidiem)
-                            @for($i=0;$i<$loaidiem->soluong;$i++)
-                            <th class="text-center">{{ $loaidiem->tenloaidiem }}</th>
-                            @endfor
-
-                        @endforeach
+                            @foreach($value as $key => $v)
+                                @if ($key=='tenhocsinh') <td class="text-center">{{ $v}}</td>
+                                @else
+                                    @foreach($v as $keydiem=>$diem)
+                                    <th class="text-center">{{ $diem }}</th>
+                                    @endforeach
+                                @endif
+                            @endforeach
                         </tr>
                     @endforeach
                 </tbody>
