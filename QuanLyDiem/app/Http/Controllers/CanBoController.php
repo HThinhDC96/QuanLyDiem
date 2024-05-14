@@ -128,7 +128,6 @@ class CanBoController extends Controller
         // foreach($data as $item=>$value){
         //     print($value);
         //  }
-        confirmDelete("", "");
         return view('pages.canbo.giaovien.danhchocanbo', compact('page_title','datalopchunhiem','datalopday'));
     }
 

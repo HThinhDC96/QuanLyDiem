@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Diem;
 use App\Models\HocSinh;
 use App\Models\LoaiDiem;
+use App\Models\Lop;
 use App\Models\MonHoc;
 use App\Http\Requests;
 
@@ -31,6 +32,15 @@ class DiemController extends Controller
     {
         $page_title = "Chỉnh sửa điểm";
 
+        // Sidebar
+        $macanbo=session('userid');
+        $datalopchunhiem=Lop::from('lop')->where('chunhiem',$macanbo)->get();
+        $datalopday=MonHoc::from('monhoc')
+                                ->join('lop','lop.malop','monhoc.malop')
+                                ->join('mon','monhoc.mamon','mon.mamon')
+                                ->where('monhoc.macanbo',$macanbo)->get();
+
+        // Noi dung phuong thuc chinh
         $monhoc = MonHoc::where('mamonhoc', $mamonhoc)
             ->join('mon', 'mon.mamon', 'monhoc.mamon')
             ->first();
@@ -60,7 +70,7 @@ class DiemController extends Controller
         }
 
         // dd($dataloaidiem->toArray(), $diem);
-        return view('pages.danhmuc.diem.edit', compact('page_title', 'diem', 'datahocsinh'));
+        return view('pages.danhmuc.diem.edit', compact('page_title', 'diem', 'datahocsinh', 'datalopchunhiem', 'datalopday'));
     }
 
     public function update($request)
