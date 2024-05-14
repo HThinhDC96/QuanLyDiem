@@ -5,7 +5,7 @@
         <ul class="collapse list-unstyled" id="homeSubmenu">
             @foreach ($datalopchunhiem as $lopchunhiem)
             <li>
-                <a href="{{ route('canboManage.danhsachlopchunhiem', ['malop' => $lopchunhiem->malop]) }}">{{ $lopchunhiem->tenlop }}</a>
+                <a href="{{ route('canboManage.danhsachlopchunhiem', ['malop' => $lopchunhiem->malop,'hocky' => 1]) }}">{{ $lopchunhiem->tenlop }}</a>
             </li>
             @endforeach
 

@@ -86,7 +86,7 @@ class DanhSachController extends Controller
         // }
         return view('pages.canbo.giaovien.danhsachlopday', compact('page_title', 'datalopchunhiem', 'datalopday', 'dataloaidiem', 'danhsach', 'mamonhoc'));
     }
-    public function danhsachlopchunhiem($malop)
+    public function danhsachlopchunhiem($malop,$hocki)
     {
         $page_title = "Danh sách lớp ";
 
@@ -105,7 +105,148 @@ class DanhSachController extends Controller
         $datamon = MonHoc::from('monhoc')
             ->join('mon', 'monhoc.mamon', 'mon.mamon')
             ->where('malop', $malop)->get();
-        return view('pages.canbo.giaovien.danhsachlopchunhiem', compact('page_title', 'datalopchunhiem', 'datalopday', 'datamon', 'danhsachlop'));
+
+        $dataloaidiem = LoaiDiem::orderBy('heso')->get();
+        $danhsach = [];
+        foreach ($danhsachlop as $item => $hocsinh) {
+            $d = [];
+            $sldiem=0;
+            $tb=0;
+
+            // dd($dataloaidiem);
+            foreach($datamon as $kmon => $mon){
+                $tongdiem = 0;
+                $tonghesodiem = 0;
+                foreach ($dataloaidiem as $item => $loaidiem) {
+                    $diemhs = Diem::from('diem')
+                        ->where('mahocsinh', $hocsinh->mahocsinh)
+                        ->where('mamonhoc', $mon->mamonhoc)
+                        ->where('loaidiem', $loaidiem->maloaidiem)
+                        ->where('hocky',$hocki)
+                        ->get();
+                    $i = $loaidiem->soluong;
+                    $j = 0;
+                    foreach ($diemhs as $item => $diem) {
+                        // $d = Arr::add($d, $diem->loaidiem . '_' . $j, $diem->diem);
+                        $j++;
+                        $tongdiem += $loaidiem->heso * $diem->diem;
+                        $tonghesodiem += (int) $loaidiem->heso;
+                    }
+                    if ($j != 0)
+                        $j--;
+                    // for ($e = $j; $e < $i; $e++) {
+                    //     $d = Arr::add($d, $loaidiem->maloaidiem . '_' . $e, "");
+                    // }
+                }
+
+                if ($tonghesodiem!=0)
+                {
+                    $tbm = $tongdiem / $tonghesodiem ;
+                    $sldiem++;
+                    $tb+=$tbm;
+                } else {
+                    $tbm = "";
+                };
+                $d = Arr::add($d, $mon->mamon, $tbm);
+
+            }
+            if($sldiem!=0) $tb/=$sldiem;
+            else $tb="";
+
+            $danhsach = Arr::add($danhsach, count($danhsach), ['tenhocsinh' => $hocsinh->hotenhocsinh, 'diem' => $d, 'tb' => $tb, 'mahocsinh' => $hocsinh->mahocsinh]);
+
+        }
+        // dd($danhsach);
+        return view('pages.canbo.giaovien.danhsachlopchunhiem', compact('page_title', 'datalopchunhiem', 'datalopday', 'datamon', 'danhsachlop','danhsach','malop'));
+    }
+    public function bangdiemcanamlopchunhiem($malop)
+    {
+        $page_title = "Danh sách lớp ";
+
+        //du lieu cho sidebar
+        $macanbo = session('userid');
+        $datalopchunhiem = Lop::from('lop')->where('chunhiem', $macanbo)->get();
+        $datalopday = MonHoc::from('monhoc')
+            ->join('lop', 'lop.malop', 'monhoc.malop')
+            ->join('mon', 'monhoc.mamon', 'mon.mamon')
+            ->where('monhoc.macanbo', $macanbo)->get();
+        //du lieu hien thi noi dung
+        $danhsachlop = LopHoc::from('lophoc')
+            ->join('hocsinh', 'lophoc.mahocsinh', 'hocsinh.mahocsinh')
+            ->join('lop', 'lop.malop', 'lophoc.malop')
+            ->where('lop.chunhiem', $macanbo)->get();
+        $datamon = MonHoc::from('monhoc')
+            ->join('mon', 'monhoc.mamon', 'mon.mamon')
+            ->where('malop', $malop)->get();
+
+        $dataloaidiem = LoaiDiem::orderBy('heso')->get();
+        $danhsach = [];
+        foreach ($danhsachlop as $item => $hocsinh) {
+            $d = [];
+            $sldiem=0;
+            $tb=0;
+            // dd($dataloaidiem);
+            foreach($datamon as $kmon => $mon){
+                $tongdiem = 0;
+                $tonghesodiem = 0;
+                foreach ($dataloaidiem as $item => $loaidiem) {
+                    $diemhs = Diem::from('diem')
+                        ->where('mahocsinh', $hocsinh->mahocsinh)
+                        ->where('mamonhoc', $mon->mamonhoc)
+                        ->where('loaidiem', $loaidiem->maloaidiem)
+                        ->where('hocky',1)
+                        ->get();
+                    foreach ($diemhs as $item => $diem) {
+                        $tongdiem += $loaidiem->heso * $diem->diem;
+                        $tonghesodiem += (int) $loaidiem->heso;
+                    }
+
+                }
+                if ($tonghesodiem!=0)
+                {
+                    $tbm1 = $tongdiem / $tonghesodiem ;
+                } else {
+                    $tbm1 = "";
+                };
+                $tongdiem = 0;
+                $tonghesodiem = 0;
+                foreach ($dataloaidiem as $item => $loaidiem) {
+                    $diemhs = Diem::from('diem')
+                        ->where('mahocsinh', $hocsinh->mahocsinh)
+                        ->where('mamonhoc', $mon->mamonhoc)
+                        ->where('loaidiem', $loaidiem->maloaidiem)
+                        ->where('hocky',2)
+                        ->get();
+                    foreach ($diemhs as $item => $diem) {
+                        $tongdiem += $loaidiem->heso * $diem->diem;
+                        $tonghesodiem += (int) $loaidiem->heso;
+                    }
+                }
+
+                if ($tonghesodiem!=0)
+                {
+                    $tbm2 = $tongdiem / $tonghesodiem ;
+                } else {
+                    $tbm2 = "";
+                };
+                if($tbm1==""||$tbm2==""){
+                    $tbm="";
+                }else{
+                    $tbm=($tbm1+2*$tbm2)/3;
+                    $sldiem++;
+                    $tb+=$tbm;
+                }
+                $d = Arr::add($d, $mon->mamon, $tbm);
+
+            }
+            if($sldiem!=0) $tb/=$sldiem;
+            else $tb="";
+
+            $danhsach = Arr::add($danhsach, count($danhsach), ['tenhocsinh' => $hocsinh->hotenhocsinh, 'diem' => $d, 'tb' => $tb, 'mahocsinh' => $hocsinh->mahocsinh]);
+
+        }
+        // dd($danhsach);
+        return view('pages.canbo.giaovien.danhsachlopchunhiem', compact('page_title', 'datalopchunhiem', 'datalopday', 'datamon', 'danhsachlop','danhsach','malop'));
     }
 
     public function diemhocsinh($malop,$hocki){
