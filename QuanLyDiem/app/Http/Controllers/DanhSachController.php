@@ -40,6 +40,8 @@ class DanhSachController extends Controller
         $danhsach = [];
         foreach ($danhsachlop as $item => $hocsinh) {
             $d = [];
+            $tongdiem = 0;
+            $tonghesodiem = 0;
             // dd($dataloaidiem);
             foreach ($dataloaidiem as $item => $loaidiem) {
                 $diemhs = Diem::from('diem')
@@ -50,9 +52,10 @@ class DanhSachController extends Controller
                 $i = $loaidiem->soluong;
                 $j = 0;
                 foreach ($diemhs as $item => $diem) {
-                    $soluong = LoaiDiem::where('maloaidiem', $diem->loaidiem)->first();
                     $d = Arr::add($d, $diem->loaidiem . '_' . $j, $diem->diem);
                     $j++;
+                    $tongdiem += $loaidiem->heso * $diem->diem;
+                    $tonghesodiem += (int) $loaidiem->heso;
                 }
                 if ($j != 0)
                     $j--;
@@ -61,7 +64,13 @@ class DanhSachController extends Controller
                 }
 
             }
-            $danhsach = Arr::add($danhsach, count($danhsach), ['tenhocsinh' => $hocsinh->hotenhocsinh, 'diem' => $d]);
+            if ($tonghesodiem!=0)
+            {
+                $tbm = $tongdiem / $tonghesodiem ;
+            } else {
+                $tbm = "";
+            };
+            $danhsach = Arr::add($danhsach, count($danhsach), ['tenhocsinh' => $hocsinh->hotenhocsinh, 'diem' => $d, 'tbm' => $tbm]);
             // dd($danhsach);
         }
         // dd($danhsach);
@@ -96,5 +105,66 @@ class DanhSachController extends Controller
             ->join('mon', 'monhoc.mamon', 'mon.mamon')
             ->where('malop', $malop)->get();
         return view('pages.canbo.giaovien.danhsachlopchunhiem', compact('page_title', 'datalopchunhiem', 'datalopday', 'datamon', 'danhsachlop'));
+    }
+
+    public function diemhocsinh($malop,$hocki){
+        $page_title = "Bảng điểm cá nhân";
+        $mahocsinh=session('userid');
+        //du lieu sidebar
+        $datalop=LopHoc::join('lop','lophoc.malop','lop.malop')
+                        ->where('mahocsinh',$mahocsinh)->get();
+        //du lieu noi dung
+        $dataloaidiem = LoaiDiem::orderBy('heso')->get();
+        $dsmon=MonHoc::from('monhoc')->join('mon','monhoc.mamon','mon.mamon')
+                        ->where('malop',$malop)->get();
+        $danhsach = [];
+        foreach ($dsmon as $item => $mon) {
+            $d = [];
+            $tongdiem = 0;
+            $tonghesodiem = 0;
+            // dd($dataloaidiem);
+            foreach ($dataloaidiem as $item => $loaidiem) {
+                $diemhs = Diem::from('diem')
+                    ->where('mahocsinh', $mahocsinh)
+                    ->where('mamonhoc', $mon->mamonhoc)
+                    ->where('loaidiem', $loaidiem->maloaidiem)
+                    ->where('hocky',$hocki)
+                    ->get();
+                $i = $loaidiem->soluong;
+                $j = 0;
+                foreach ($diemhs as $item => $diem) {
+                    $d = Arr::add($d, $diem->loaidiem . '_' . $j, $diem->diem);
+                    $j++;
+                    $tongdiem += $loaidiem->heso * $diem->diem;
+                    $tonghesodiem += (int) $loaidiem->heso;
+                }
+                if ($j != 0)
+                    $j--;
+                for ($e = $j; $e < $i; $e++) {
+                    $d = Arr::add($d, $loaidiem->maloaidiem . '_' . $e, "");
+                }
+
+            }
+            if ($tonghesodiem!=0)
+            {
+                $tbm = $tongdiem / $tonghesodiem ;
+            } else {
+                $tbm = "";
+            };
+            $danhsach = Arr::add($danhsach, count($danhsach), ['tenmon' => $mon->tenmon, 'diem' => $d,'tbm' => $tbm]);
+
+        }
+        // dd($danhsach);
+        //in thu danh sach
+        // foreach($danhsach as $item=>$value){
+        //     foreach($value as $key=>$v){
+        //         if($key=='tenmon') print($v);
+        //         else foreach($v as $keydiem=>$diem){
+        //             print('    '.$diem.'  ');
+        //         }
+        //     }
+        // }
+        return view('pages.hocsinh.diem', compact('page_title', 'datalop', 'dataloaidiem', 'danhsach','malop'));
+
     }
 }

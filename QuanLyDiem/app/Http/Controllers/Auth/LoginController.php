@@ -70,6 +70,7 @@ class LoginController extends Controller
 
                 toastr()->success('Đăng nhập thành công!', 'Thành công!');
                 if(substr($taikhoan->macanbo,0,2)=="CB") return redirect()->route('canboManage.indexCanboPage');
+                if($typeacc=="HS") return redirect()->route('hocsinhManage.indexHocsinhPage');
                 return redirect()->route('dashboard');
             } else {
                 toastr()->error('Tài khoản hoặc mật khẩu không chính xác!', 'Lỗi!');

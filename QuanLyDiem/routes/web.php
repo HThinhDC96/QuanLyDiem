@@ -80,6 +80,9 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         Route::get('/hocsinh/edit/{mahocsinh}', 'App\Http\Controllers\HSPHController@edit_HS')->name('edit');
         Route::put('/hocsinh/update', 'App\Http\Controllers\HSPHController@update_HS')->name('update');
         Route::delete('/hocsinh/delete/{mahocsinh}', 'App\Http\Controllers\HSPHController@delete_HS')->name('delete');
+        //Giao dien hoc sinh
+        Route::get('/htql/hocsinh', 'App\Http\Controllers\HSPHController@indexHocSinhPage')->name('indexHocsinhPage');
+        Route::get('/htql/hocsinh/{malop}/{hocki}', 'App\Http\Controllers\DanhSachController@diemhocsinh')->name('diemhocsinh');
     });
 
     // Quản lý thông tin phụ huynh

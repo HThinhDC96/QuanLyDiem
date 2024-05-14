@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\HocSinh;
+use App\Models\LopHoc;
 use App\Models\PhuHuynh;
 // use Carbon\Traits\ToStringFormat;
 use Exception;
@@ -197,5 +198,14 @@ class HSPHController extends Controller
         } catch (Exception $e) {
             echo 'Có lỗi phát sinh: ', $e->getMessage(), "\n";
         }
+    }
+
+    public function indexHocSinhPage(){
+        $page_title = "Bảng điểm cá nhân";
+        $mahocsinh=session('userid');
+
+        $datalop=LopHoc::join('lop','lophoc.malop','lop.malop')
+                        ->where('mahocsinh',$mahocsinh)->get();
+        return view('pages.hocsinh.index', compact('page_title','datalop'));
     }
 }
