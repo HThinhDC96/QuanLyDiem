@@ -14,13 +14,16 @@
             @endif
         </div>
         <div class="card-body">
-            @foreach ($diem as $i => $value)
-                {{  $value['tenloaidiem'] }}
-                @foreach ($value['diem'] as $value2)
-                    {{ $value2 }}
+            <form action="" method="post">
+                @csrf
+                @foreach ($diem as $i => $value)
+                    {{ $value['tenloaidiem'] }}
+                    @foreach ($value['diem'] as $key => $value2)
+                        <input name="{{ $key }}" type="text" value="{{ $value2 }}" />
+                    @endforeach
+                    <br>
                 @endforeach
-                <br>
-            @endforeach
+            </form>
         </div>
     </div>
 @endsection

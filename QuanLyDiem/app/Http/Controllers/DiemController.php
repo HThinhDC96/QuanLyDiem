@@ -56,12 +56,12 @@ class DiemController extends Controller
 
             $d = [];
             foreach ($diem_loaidiem as $key => $value) {
-                $d = Arr::add($d, count($d), $value['diem']);
+                $d = Arr::add($d, $value['madiem'], $value['diem']);
             }
 
             $i = count($d);
             for ($t = $i; $t < $loaidiem->soluong; $t++) {
-                $d = Arr::add($d, count($d), "");
+                $d = Arr::add($d, 'new'.'_'.$t-$i, "");
             }
 
             $dtam = Arr::add($loaidiem->toArray(), 'diem', $d);
@@ -69,7 +69,7 @@ class DiemController extends Controller
             $diem = Arr::add($diem, count($diem), $dtam);
         }
 
-        // dd($dataloaidiem->toArray(), $diem);
+        // dd($diem);
         return view('pages.danhmuc.diem.edit', compact('page_title', 'diem', 'datahocsinh', 'datalopchunhiem', 'datalopday'));
     }
 
