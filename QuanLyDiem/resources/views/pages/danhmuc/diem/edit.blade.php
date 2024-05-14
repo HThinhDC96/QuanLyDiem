@@ -14,7 +14,13 @@
             @endif
         </div>
         <div class="card-body">
-            aaaaaaaaas
+            @foreach ($diem as $i => $value)
+                {{  $value['tenloaidiem'] }}
+                @foreach ($value['diem'] as $value2)
+                    {{ $value2 }}
+                @endforeach
+                <br>
+            @endforeach
         </div>
     </div>
 @endsection
