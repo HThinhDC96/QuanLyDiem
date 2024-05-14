@@ -114,4 +114,9 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         Route::post('/loaidiem/update', 'App\Http\Controllers\LoaiDiemController@update')->name('updateLoaiDiem');
         Route::delete('/loaidiem/delete/{maloaidiem}', 'App\Http\Controllers\LoaiDiemController@delete')->name('deleteLoaiDiem');
     });
+
+    // Quan ly diem
+    Route::name('diemManage.')->group(function () {
+        Route::get('/diem/edit/{mahocsinh}/{mamonhoc}', 'App\Http\Controllers\DiemController@edit')->name('edit');
+    });
 });

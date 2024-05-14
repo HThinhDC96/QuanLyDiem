@@ -71,7 +71,7 @@ class DanhSachController extends Controller
             } else {
                 $tbm = "";
             };
-            $danhsach = Arr::add($danhsach, count($danhsach), ['tenhocsinh' => $hocsinh->hotenhocsinh, 'diem' => $d, 'tbm' => $tbm]);
+            $danhsach = Arr::add($danhsach, count($danhsach), ['tenhocsinh' => $hocsinh->hotenhocsinh, 'diem' => $d, 'tbm' => $tbm, 'mahocsinh' => $hocsinh->mahocsinh]);
             // dd($danhsach);
         }
         // dd($danhsach);
@@ -84,7 +84,7 @@ class DanhSachController extends Controller
         //         }
         //     }
         // }
-        return view('pages.canbo.giaovien.danhsachlopday', compact('page_title', 'datalopchunhiem', 'datalopday', 'danhsachlop', 'dataloaidiem', 'danhsach','mamonhoc'));
+        return view('pages.canbo.giaovien.danhsachlopday', compact('page_title', 'datalopchunhiem', 'datalopday', 'dataloaidiem', 'danhsach', 'mamonhoc'));
     }
     public function danhsachlopchunhiem($malop)
     {

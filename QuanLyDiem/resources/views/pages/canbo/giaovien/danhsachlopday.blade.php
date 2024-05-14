@@ -6,10 +6,10 @@
             <div class="card-toolbar">
                 {{-- <a href="{{ route('canboManage.createCanbo') }}"><button class="btn btn-success">Tạo mới</button></a> --}}
                 <!--end::Button-->
-                <a href="{{ route('canboManage.danhsachlopday', ['mamonhoc' => $mamonhoc,'hocky' => 1]) }}">
+                <a href="{{ route('canboManage.danhsachlopday', ['mamonhoc' => $mamonhoc, 'hocky' => 1]) }}">
                     <button class="btn {{ request()->is('*1') ? 'btn-success' : '' }}">Học Kì 1</button></a>
-                    <a href="{{ route('canboManage.danhsachlopday', ['mamonhoc' => $mamonhoc,'hocky' => 2]) }}">
-                        <button class="btn {{ request()->is('*2') ? 'btn-success' : '' }}">Học Kì 2</button></a>
+                <a href="{{ route('canboManage.danhsachlopday', ['mamonhoc' => $mamonhoc, 'hocky' => 2]) }}">
+                    <button class="btn {{ request()->is('*2') ? 'btn-success' : '' }}">Học Kì 2</button></a>
             </div>
         </div>
         <div class="card-body">
@@ -22,17 +22,23 @@
                             <th class="text-center" colspan="{{ $loaidiem->soluong }}">{{ $loaidiem->tenloaidiem }}</th>
                         @endforeach
                         <th class="text-center">TBM</th>
+                        <th class="text-center">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($danhsach as $item => $value)
                         <tr>
                             <td class="text-center font-weight-bold">{{ $item + 1 }}</td>
-                            @foreach($value as $key => $v)
-                                @if ($key=='tenhocsinh' || $key=='tbm') <td class="text-center">{{ $v }}</td>
+                            @foreach ($value as $key => $v)
+                                @if ($key == 'tenhocsinh' || $key == 'tbm')
+                                    <td class="text-center">{{ $v }}</td>
+                                @elseif ($key == 'mahocsinh')
+                                    <td class="text-center">
+                                        <a href="{{ route('diemManage.edit', ['mamonhoc' => $mamonhoc, 'mahocsinh' => $mahocsinh]) }}" class="btn btn-success" title="Chỉnh sửa">Chỉnh sửa</a>
+                                    </td>
                                 @else
-                                    @foreach($v as $keydiem=>$diem)
-                                    <td class="text-center">{{ $diem }}</td>
+                                    @foreach ($v as $keydiem => $diem)
+                                        <td class="text-center">{{ $diem }}</td>
                                     @endforeach
                                 @endif
                             @endforeach
