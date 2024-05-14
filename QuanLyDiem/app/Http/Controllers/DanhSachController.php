@@ -62,8 +62,8 @@ class DanhSachController extends Controller
                 for ($e = $j; $e < $i; $e++) {
                     $d = Arr::add($d, $loaidiem->maloaidiem . '_' . $e, "");
                 }
-
             }
+
             if ($tonghesodiem!=0)
             {
                 $tbm = $tongdiem / $tonghesodiem ;
