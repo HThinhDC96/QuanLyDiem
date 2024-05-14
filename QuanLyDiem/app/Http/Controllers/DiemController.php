@@ -23,9 +23,10 @@ class DiemController extends Controller
         //
     }
 
-    public function edit($madiem)
+    public function edit($ma)
     {
-        //
+        $page_title = "Chỉnh sửa điểm";
+        return view('pages.danhmuc.diem.edit', compact('page_title'));
     }
 
     public function update($request)
