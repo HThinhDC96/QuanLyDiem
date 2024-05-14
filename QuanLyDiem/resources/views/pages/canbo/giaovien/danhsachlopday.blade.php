@@ -6,6 +6,10 @@
             <div class="card-toolbar">
                 {{-- <a href="{{ route('canboManage.createCanbo') }}"><button class="btn btn-success">Tạo mới</button></a> --}}
                 <!--end::Button-->
+                <a href="{{ route('canboManage.danhsachlopday', ['mamonhoc' => $mamonhoc,'hocky' => 1]) }}">
+                    <button class="btn {{ request()->is('*1') ? 'btn-success' : '' }}">Học Kì 1</button></a>
+                    <a href="{{ route('canboManage.danhsachlopday', ['mamonhoc' => $mamonhoc,'hocky' => 2]) }}">
+                        <button class="btn {{ request()->is('*2') ? 'btn-success' : '' }}">Học Kì 2</button></a>
             </div>
         </div>
         <div class="card-body">

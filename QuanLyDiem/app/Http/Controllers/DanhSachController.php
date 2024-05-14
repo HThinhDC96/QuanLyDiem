@@ -14,7 +14,7 @@ use Illuminate\Support\Arr;
 
 class DanhSachController extends Controller
 {
-    public function danhsachlopday($mamonhoc)
+    public function danhsachlopday($mamonhoc,$hocki)
     {
         $page_title = "Danh sách lớp ";
 
@@ -48,6 +48,7 @@ class DanhSachController extends Controller
                     ->where('mahocsinh', $hocsinh->mahocsinh)
                     ->where('mamonhoc', $mamonhoc)
                     ->where('loaidiem', $loaidiem->maloaidiem)
+                    ->where('hocky',$hocki)
                     ->get();
                 $i = $loaidiem->soluong;
                 $j = 0;
@@ -83,7 +84,7 @@ class DanhSachController extends Controller
         //         }
         //     }
         // }
-        return view('pages.canbo.giaovien.danhsachlopday', compact('page_title', 'datalopchunhiem', 'datalopday', 'danhsachlop', 'dataloaidiem', 'danhsach'));
+        return view('pages.canbo.giaovien.danhsachlopday', compact('page_title', 'datalopchunhiem', 'datalopday', 'danhsachlop', 'dataloaidiem', 'danhsach','mamonhoc'));
     }
     public function danhsachlopchunhiem($malop)
     {
