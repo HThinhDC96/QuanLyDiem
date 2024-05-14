@@ -1,14 +1,25 @@
 @extends('layouts.hocsinh.layouthocsinh')
 @section('content')
     <div class="mt-2 pt-2 card card-custom">
+
         <div class="card-header flex-wrap border-0 pt-6 pb-0">
-            <div class="cart-title"></div>
+            <div class="cart-title mb-3">
+                @foreach($thongtinhs as $item => $value)
+                    @foreach($value as $key => $v)
+                       {{ $key }} : {{ $v }}<br/>
+                    @endforeach
+                @endforeach
+            </div>
+            <hr>
             <div class="card-toolbar">
                 <a href="{{ route('hocsinhManage.diemhocsinh', ['malop' => $malop,'hocki'=>1]) }}">
                     <button class="btn  {{ request()->is('*1') ? 'btn-success' : '' }}">Học kì 1</button>
                 </a>
                 <a href="{{ route('hocsinhManage.diemhocsinh', ['malop' => $malop,'hocki'=>2]) }}">
                     <button class="btn {{ request()->is('*2') ? 'btn-success' : '' }}">Học kì 2</button>
+                </a>
+                <a href="{{ route('hocsinhManage.getDiemCaNamHS', ['malop' => $malop]) }}">
+                    <button class="btn {{ request()->is('*3') ? 'btn-success' : '' }}">Cả năm</button>
                 </a>
                 {{-- <a href="{{ route('canboManage.createCanbo') }}"><button class="btn btn-success">Tạo mới</button></a> --}}
                 <!--end::Button-->
@@ -23,7 +34,6 @@
                         @foreach ($dataloaidiem as $item => $loaidiem)
                             <th class="text-center" colspan="{{ $loaidiem->soluong }}">{{ $loaidiem->tenloaidiem }}</th>
                         @endforeach
-                        <th class="text-center">TBM</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,11 +41,12 @@
                         <tr>
                             <td class="text-center font-weight-bold">{{ $item + 1 }}</td>
                             @foreach($value as $key => $v)
-                            @if ($key=='tenmon' || $key=='tbm') <td class="text-center">{{ $v }}</td>
-                                @else
+                                @if ($key=='diem')
                                     @foreach($v as $keydiem=>$diem)
                                     <th class="text-center">{{ $diem }}</th>
                                     @endforeach
+                                @else
+                                <td class="text-center">{{ $v }}</td>
                                 @endif
                             @endforeach
                         </tr>

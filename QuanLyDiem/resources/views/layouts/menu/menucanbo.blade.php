@@ -1,18 +1,18 @@
 <ul class="list-unstyled components mb-5">
-    <li class="active">
+    <li class="{{ request()->is('*danhsachlopchunhiem*') ? 'active' : '' }}">
         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
             class="dropdown-toggle">Lớp đang chủ nhiệm</a>
         <ul class="collapse list-unstyled" id="homeSubmenu">
             @foreach ($datalopchunhiem as $lopchunhiem)
             <li>
-                <a href="{{ route('canboManage.danhsachlopchunhiem', ['malop' => $lopchunhiem->malop]) }}">{{ $lopchunhiem->tenlop }}</a>
+                <a href="{{ route('canboManage.danhsachlopchunhiem', ['malop' => $lopchunhiem->malop,'hocky' => 1]) }}">{{ $lopchunhiem->tenlop }}</a>
             </li>
             @endforeach
 
         </ul>
     </li>
 
-    <li>
+    <li class="{{ request()->is('*danhsachlopday*') ? 'active' : '' }}">
         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
             class="dropdown-toggle">Các lớp đang dạy</a>
         <ul class="collapse list-unstyled" id="pageSubmenu">

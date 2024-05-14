@@ -4,8 +4,13 @@
         <div class="card-header flex-wrap border-0 pt-6 pb-0">
             <div class="cart-title"></div>
             <div class="card-toolbar">
-                {{-- <a href="{{ route('canboManage.createCanbo') }}"><button class="btn btn-success">Tạo mới</button></a> --}}
-                <!--end::Button-->
+
+                <a href="{{ route('canboManage.danhsachlopchunhiem', ['malop' => $malop, 'hocky' => 1]) }}">
+                    <button class="btn {{ request()->is('*1') ? 'btn-success' : '' }}">Học Kì 1</button></a>
+                <a href="{{ route('canboManage.danhsachlopchunhiem', ['malop' => $malop, 'hocky' => 2]) }}">
+                    <button class="btn {{ request()->is('*2') ? 'btn-success' : '' }}">Học Kì 2</button></a>
+                    <a href="{{ route('canboManage.bangdiemcanamlopchunhiem', ['malop' => $malop]) }}">
+                        <button class="btn {{ request()->is('*3') ? 'btn-success' : '' }}">Cả Năm</button></a>
             </div>
         </div>
         <div class="card-body">
@@ -17,15 +22,22 @@
                         @foreach ($datamon as $item => $mon)
                             <th class="text-center">{{ $mon->tenmon }}</th>
                         @endforeach
+                        <th>TB</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($danhsachlop as $item => $value)
+                    @foreach ($danhsach as $item => $value)
                         <tr>
                             <td class="text-center font-weight-bold">{{ $item + 1 }}</td>
-                            <td class="text-center">{{ $value->hotenhocsinh }}</td>
-                            @foreach ($datamon as $item => $mon)
-                                <td class="text-center">{{ $mon->tenmon }}</td>
+
+                            @foreach ($value as $key => $v)
+                                @if ($key=='tenhocsinh' || $key=='tb')
+                                <td class="text-center">{{ $v }}</td>
+                                @elseif($key=='diem')
+                                    @foreach ($v as $diemkey=> $diem)
+                                        <td class="text-center">{{ $diem }}</td>
+                                    @endforeach
+                                @endif
                             @endforeach
                         </tr>
                     @endforeach
