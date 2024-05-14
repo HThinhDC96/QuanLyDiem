@@ -1,5 +1,5 @@
 <ul class="list-unstyled components mb-5">
-    <li class="active">
+    <li class="{{ request()->is('*danhsachlopchunhiem*') ? 'active' : '' }}">
         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
             class="dropdown-toggle">Lớp đang chủ nhiệm</a>
         <ul class="collapse list-unstyled" id="homeSubmenu">
@@ -12,7 +12,7 @@
         </ul>
     </li>
 
-    <li>
+    <li class="{{ request()->is('*danhsachlopday*') ? 'active' : '' }}">
         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
             class="dropdown-toggle">Các lớp đang dạy</a>
         <ul class="collapse list-unstyled" id="pageSubmenu">

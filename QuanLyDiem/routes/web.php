@@ -83,6 +83,7 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         //Giao dien hoc sinh
         Route::get('/htql/hocsinh', 'App\Http\Controllers\HSPHController@indexHocSinhPage')->name('indexHocsinhPage');
         Route::get('/htql/hocsinh/{malop}/{hocki}', 'App\Http\Controllers\DanhSachController@diemhocsinh')->name('diemhocsinh');
+        Route::get('/htql/hocsinh/canam/{malop}/3', 'App\Http\Controllers\DanhSachController@getDiemCaNamHS')->name('getDiemCaNamHS');
     });
 
     // Quản lý thông tin phụ huynh
