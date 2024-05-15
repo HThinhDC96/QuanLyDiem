@@ -19,9 +19,9 @@
                         <th class="text-center">STT</th>
                         <th class="text-center">Họ Tên Học Sinh</th>
                         @foreach ($dataloaidiem as $item => $loaidiem)
-                            <th class="text-center">{{ $loaidiem->tenloaidiem }}</th>
+                            <th class="text-center" data-dt-order="disable">{{ $loaidiem->tenloaidiem }}</th>
                             @for ($i = 0; $i < $loaidiem->soluong-1; $i++)
-                                <th style="opacity: 0;"></th>
+                                <th style="opacity: 0;" data-dt-order="disable"></th>
                             @endfor
                         @endforeach
                         <th class="text-center">TBM</th>
