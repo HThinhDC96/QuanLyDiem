@@ -34,14 +34,14 @@
                             <td class="text-center font-weight-bold">{{ $item + 1 }}</td>
                             @foreach ($value as $key => $v)
                                 @if ($key == 'tenhocsinh' || $key == 'tbm')
-                                    <td class="text-center">{{ $v }}</td>
+                                    <td class="text-center">{{ $key=='tbm'?$v==""?"":number_format((float)$v, 1, '.', ''):$v }}</td>
                                 @elseif ($key == 'mahocsinh')
                                     <td class="text-center">
                                         <a href="{{ route('diemManage.edit', ['hocki' => $hocki, 'mamonhoc' => $mamonhoc, 'mahocsinh' => $v]) }}" class="btn btn-success" title="Chỉnh sửa">Chỉnh sửa</a>
                                     </td>
                                 @else
                                     @foreach ($v as $keydiem => $diem)
-                                        <td class="text-center">{{ $diem }}</td>
+                                        <td class="text-center">{{ $diem==""?"": number_format((float)$diem, 1, '.', '') }}</td>
                                     @endforeach
                                 @endif
                             @endforeach

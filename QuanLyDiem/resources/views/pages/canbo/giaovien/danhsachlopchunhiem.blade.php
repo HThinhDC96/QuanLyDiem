@@ -32,10 +32,10 @@
 
                             @foreach ($value as $key => $v)
                                 @if ($key=='tenhocsinh' || $key=='tb')
-                                <td class="text-center">{{ $v }}</td>
+                                <td class="text-center">{{ $key=='tb'?$v==""?"":number_format((float)$v, 1, '.', ''):$v }}</td>
                                 @elseif($key=='diem')
                                     @foreach ($v as $diemkey=> $diem)
-                                        <td class="text-center">{{ $diem }}</td>
+                                        <td class="text-center">{{ $diem==""?"": number_format((float)$diem, 1, '.', '') }}</td>
                                     @endforeach
                                 @endif
                             @endforeach

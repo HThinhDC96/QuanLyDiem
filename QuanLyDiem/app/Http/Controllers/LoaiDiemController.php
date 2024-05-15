@@ -40,7 +40,7 @@ class LoaiDiemController extends Controller
 
     public function edit($id)
     {
-        $page_title = "Chỉnh Sửa Thông Tin Môn";
+        $page_title = "Chỉnh Sửa Thông Tin Loại Điểm";
         $info = LoaiDiem::find($id);
         return view('pages.danhmuc.loaidiem.editloaidiem', compact('page_title', 'info'));
     }

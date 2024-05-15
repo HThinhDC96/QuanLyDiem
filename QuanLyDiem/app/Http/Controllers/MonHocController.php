@@ -50,7 +50,7 @@ class MonHocController extends Controller
 
     public function edit($id)
     {
-        $page_title = "Chỉnh Sửa Thông Tin Môn";
+        $page_title = "Chỉnh Sửa Thông Tin Giảng Dạy";
         $info = MonHoc::find($id);
         $datacanbo=CanBo::from('canbo')->where('macanbo','LIKE','CB%')->get();
         $datamon=Mon::all();

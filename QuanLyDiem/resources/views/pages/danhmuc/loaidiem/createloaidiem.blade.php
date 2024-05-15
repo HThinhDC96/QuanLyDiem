@@ -2,7 +2,7 @@
 @section('content')
     <div class="card pt-2 mt-2">
         <div class="card-header flex-wrap border-0 pt-6 pb-0">
-            Thêm mới thông tin môn
+            Thêm mới thông tin loại điểm
             @if ($errors->any())
                 <div class="alert alert-danger pt-6 pb-0">
                     <ul>
