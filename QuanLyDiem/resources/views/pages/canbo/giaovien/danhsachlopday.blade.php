@@ -19,7 +19,10 @@
                         <th class="text-center">STT</th>
                         <th class="text-center">Họ Tên Học Sinh</th>
                         @foreach ($dataloaidiem as $item => $loaidiem)
-                            <th class="text-center" colspan="{{ $loaidiem->soluong }}">{{ $loaidiem->tenloaidiem }}</th>
+                            <th class="text-center">{{ $loaidiem->tenloaidiem }}</th>
+                            @for ($i = 0; $i < $loaidiem->soluong-1; $i++)
+                                <th style="opacity: 0;"></th>
+                            @endfor
                         @endforeach
                         <th class="text-center">TBM</th>
                         <th class="text-center">Thao tác</th>
@@ -50,6 +53,10 @@
         </div>
     </div>
 @endsection
+@section('styles')
+    {{-- <link rel="stylesheet" href="{{ asset('css/crud/datatables/datatables.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.bundle.css') }}"> --}}
+@endsection
 @section('scripts')
-    <script src="{{ asset('js/crud/canbo_datatables.js') }}"></script>
+    <script src="{{ asset('js/crud/lopday_datatables.js') }}"></script>
 @endsection
