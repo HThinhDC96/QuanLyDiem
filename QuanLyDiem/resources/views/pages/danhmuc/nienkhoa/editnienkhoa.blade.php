@@ -23,7 +23,7 @@
                         <div class="my-5">
                             <input type="hidden" name="manienkhoa" id="manienkhoa" value="{{ $info->manienkhoa }}">
                             <div class="row mb-3 align-items-center justify-content-center">
-                                <label class="col-3">Tên Môn
+                                <label class="col-3">Tên Niên khóa
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-6">
