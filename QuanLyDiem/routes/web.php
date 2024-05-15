@@ -119,6 +119,7 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
 
     // Quan ly diem
     Route::name('diemManage.')->group(function () {
-        Route::get('/diem/edit/{mahocsinh}/{mamonhoc}', 'App\Http\Controllers\DiemController@edit')->name('edit');
+        Route::get('/diem/edit/hk{hocki}/{mahocsinh}/{mamonhoc}', 'App\Http\Controllers\DiemController@edit')->name('edit');
+        Route::post('/diem/update', 'App\Http\Controllers\DiemController@update')->name('update');
     });
 });

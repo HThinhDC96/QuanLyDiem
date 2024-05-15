@@ -68,6 +68,7 @@ class DanhSachController extends Controller
             if ($tonghesodiem!=0)
             {
                 $tbm = $tongdiem / $tonghesodiem ;
+                $tbm = round($tbm, 2);
             } else {
                 $tbm = "";
             };
@@ -84,7 +85,7 @@ class DanhSachController extends Controller
         //         }
         //     }
         // }
-        return view('pages.canbo.giaovien.danhsachlopday', compact('page_title', 'datalopchunhiem', 'datalopday', 'dataloaidiem', 'danhsach', 'mamonhoc'));
+        return view('pages.canbo.giaovien.danhsachlopday', compact('page_title', 'datalopchunhiem', 'datalopday', 'dataloaidiem', 'danhsach', 'mamonhoc', 'hocki'));
     }
     public function danhsachlopchunhiem($malop,$hocki)
     {

@@ -14,15 +14,23 @@
             @endif
         </div>
         <div class="card-body">
-            <form action="" method="post">
+            <form action="{{ route('diemManage.update') }}" method="post">
                 @csrf
+                @method('post')
+                <input type="hidden" name="mahocsinh" value="{{ $datahocsinh->mahocsinh }}"/>
+                <input type="hidden" name="mamonhoc" value="{{ $monhoc->mamonhoc }}"/>
+                <input type="hidden" name="hocki" value="{{ $hocki }}"/>
                 @foreach ($diem as $i => $value)
-                    {{ $value['tenloaidiem'] }}
-                    @foreach ($value['diem'] as $key => $value2)
-                        <input name="{{ $key }}" type="text" value="{{ $value2 }}" />
-                    @endforeach
-                    <br>
+                    <div>
+                        {{ $value['tenloaidiem'] }}
+                        @foreach ($value['diem'] as $key => $value2)
+                            <input name="{{ $key }}" type="number" min="0" max="10" value="{{ $value2 }}" />
+                        @endforeach
+                    </div>
                 @endforeach
+                <div>
+                    <button type="submit">Luu</button>
+                </div>
             </form>
         </div>
     </div>

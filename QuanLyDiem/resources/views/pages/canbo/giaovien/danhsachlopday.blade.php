@@ -34,7 +34,7 @@
                                     <td class="text-center">{{ $v }}</td>
                                 @elseif ($key == 'mahocsinh')
                                     <td class="text-center">
-                                        <a href="{{ route('diemManage.edit', ['mamonhoc' => $mamonhoc, 'mahocsinh' => $v]) }}" class="btn btn-success" title="Chỉnh sửa">Chỉnh sửa</a>
+                                        <a href="{{ route('diemManage.edit', ['hocki' => $hocki, 'mamonhoc' => $mamonhoc, 'mahocsinh' => $v]) }}" class="btn btn-success" title="Chỉnh sửa">Chỉnh sửa</a>
                                     </td>
                                 @else
                                     @foreach ($v as $keydiem => $diem)
