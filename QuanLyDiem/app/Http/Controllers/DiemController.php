@@ -23,11 +23,7 @@ class DiemController extends Controller
         //
     }
 
-    public function store($request)
-    {
-        //
-    }
-
+    // Show form: them, chinh sua diem
     public function edit($hocki, $mahocsinh, $mamonhoc)
     {
         $page_title = "Chỉnh sửa điểm";
@@ -46,13 +42,15 @@ class DiemController extends Controller
             ->first();
 
         $datahocsinh = HocSinh::where('mahocsinh', $mahocsinh)->first();
-        $datadiemhocsinh = Diem::where('mahocsinh', $mahocsinh)->get();
-        $dataloaidiem = LoaiDiem::whereIn('loaimon' , [$monhoc->loaimon, 3])->orderBy('heso')->get();
+        $datadiemhocsinh = Diem::where('mahocsinh', $mahocsinh)->where('hocky', $hocki)->get();
+        $dataloaidiem = LoaiDiem::whereIn('loaimon', [$monhoc->loaimon, 3])->orderBy('heso')->get();
 
         $datadiem_loaidiem = [];
         $diem = collect([]);
         foreach ($dataloaidiem as $key => $loaidiem) {
-            $diem_loaidiem = $datadiemhocsinh->where('loaidiem', $loaidiem->maloaidiem);
+            // dd($datadiemhocsinh);
+            $diem_loaidiem = $datadiemhocsinh
+                ->where('loaidiem', $loaidiem->maloaidiem);
 
             $d = [];
             foreach ($diem_loaidiem as $key => $value) {
@@ -72,6 +70,7 @@ class DiemController extends Controller
         return view('pages.danhmuc.diem.edit', compact('page_title', 'diem', 'hocki', 'datahocsinh', 'monhoc', 'datalopchunhiem', 'datalopday'));
     }
 
+    // Cap nhat du lieu diem vao csdl
     public function update(Request $request)
     {
         // Lay du lieu can thiet (du lieu khong phai diem)
@@ -107,8 +106,8 @@ class DiemController extends Controller
             }
         }
 
-        dd($datas);
-        return ;
+        // Lay du lieu tra ve trang diem
+        return redirect()->route('canboManage.danhsachlopday', [$mamonhoc, $hocki]);
     }
 
     public function delete($madiem)

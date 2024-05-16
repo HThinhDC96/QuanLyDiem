@@ -13,18 +13,21 @@
             </div>
         </div>
         <div class="card-body">
-            <table style="width: 100%;" class="table table-hover table-checkable" id="danhSachDiem">
+            <table style="width: 100%;" class="table table-bordered table-hover table-checkable" id="danhSachDiem">
                 <thead class="thead-light">
                     <tr>
                         <th class="text-center">STT</th>
                         <th class="text-center">Họ Tên Học Sinh</th>
                         @foreach ($dataloaidiem as $item => $loaidiem)
-                            <th class="text-center" data-dt-order="disable">{{ $loaidiem->tenloaidiem }}</th>
+                            <th name="{{ $loaidiem->soluong>1?"nhieucot":"" }}" class="text-center diem" data-dt-order="disable">
+                                {{ $loaidiem->tenloaidiem }}
+                                <input type="hidden" value="{{ $loaidiem->soluong }}"/>
+                            </th>
                             @for ($i = 0; $i < $loaidiem->soluong-1; $i++)
-                                <th style="opacity: 0;" data-dt-order="disable"></th>
+                                <th name="hidden" class="diem" data-dt-order="disable"></th>
                             @endfor
                         @endforeach
-                        <th class="text-center">TBM</th>
+                        <th class="text-center diem">TBM</th>
                         <th class="text-center">Thao tác</th>
                     </tr>
                 </thead>
@@ -33,8 +36,10 @@
                         <tr>
                             <td class="text-center font-weight-bold">{{ $item + 1 }}</td>
                             @foreach ($value as $key => $v)
-                                @if ($key == 'tenhocsinh' || $key == 'tbm')
-                                    <td class="text-center">{{ $key=='tbm'?$v==""?"":number_format((float)$v, 1, '.', ''):$v }}</td>
+                                @if ($key == 'tenhocsinh')
+                                    <td class="text-center">{{ $v }}</td>
+                                @elseif ($key == 'tbm')
+                                    <td class="text-center diem">{{  $v==""?"":number_format((float)$v, 1, '.', '') }}</td>
                                 @elseif ($key == 'mahocsinh')
                                     <td class="text-center">
                                         <a href="{{ route('diemManage.edit', ['hocki' => $hocki, 'mamonhoc' => $mamonhoc, 'mahocsinh' => $v]) }}" class="btn btn-success" title="Chỉnh sửa">Chỉnh sửa</a>
@@ -59,4 +64,16 @@
 @endsection
 @section('scripts')
     <script src="{{ asset('js/crud/lopday_datatables.js') }}"></script>
+    <script>
+        const columns = document.getElementsByName('nhieucot');
+        columns.forEach(element => {
+            let socot = element.getElementsByTagName('input')[0].value;
+            element.setAttribute("colspan", socot);
+        });
+
+        const colDel = document.getElementsByName('hidden');
+        colDel.forEach(element => {
+            element.style.display = "none";
+        });
+    </script>
 @endsection

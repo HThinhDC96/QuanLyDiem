@@ -1,11 +1,20 @@
 $('#danhSachDiem').DataTable({
-    reponsive : "true",
+    // reponsive : "true",
     columnDefs: [
         {
             target: 0,
             width: '100px',
-        }
+        },
+        {
+            target: 1,
+            width: '200px',
+        },
+        {
+            target: 'diem',
+            width: '90px',
+        },
     ],
+
     "language": {
         // "sProcessing":    "Procesando...",
         "sLengthMenu":    "Hiển thị _MENU_mục trên mỗi trang",

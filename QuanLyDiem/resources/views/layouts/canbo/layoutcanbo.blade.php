@@ -13,7 +13,8 @@
     <link href="{{ asset('css/canbocss/style.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/canbocss/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/crud/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('css/crud/datatables/datatables.css') }}" rel="stylesheet" type="text/css" />
+    {{-- <link href="{{ asset('css/crud/datatables/datatables.css') }}" rel="stylesheet" type="text/css" /> --}}
+    <link rel="stylesheet" href="{{ asset('css/canbocss/custom.css') }}">
 
 </head>
 
@@ -30,8 +31,6 @@
             <div class="p-4 pt-1">
                 <h1><a href="index.html" class="logo">THPT <br/> TÂY ĐÔ</a></h1>
                 @include('layouts.menu.menucanbo')
-
-
 
             </div>
         </nav>
@@ -51,7 +50,7 @@
     <script src="{{ asset('js/canbojs/popper.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/canbojs/bootstrap.min.js') }}" type="text/javascript"></script>
 
-    <script src="{{ asset('js/crud/datatables/datatables.min.js') }}" type="text/javascript"></script>
+    {{-- <script src="{{ asset('js/crud/datatables/datatables.min.js') }}" type="text/javascript"></script> --}}
     <script src="{{ asset('js/crud/datatables/datatables.js') }}" type="text/javascript"></script>
     @yield('scripts')
 
