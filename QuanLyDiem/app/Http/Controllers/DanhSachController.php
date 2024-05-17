@@ -35,7 +35,20 @@ class DanhSachController extends Controller
         $danhsachlop = LopHoc::from('lophoc')
             ->join('hocsinh', 'hocsinh.mahocsinh', 'lophoc.mahocsinh')
             ->where('malop', $malop)->get();
-
+        $tt=Monhoc::from('monhoc')->join('canbo','monhoc.macanbo','canbo.macanbo')
+                        ->join('mon','mon.mamon','monhoc.mamon')
+                        ->join('lop','lop.malop','monhoc.malop')
+                        ->join('nienkhoa','lop.nienkhoa','nienkhoa.manienkhoa')
+                        ->where('mamonhoc',$mamonhoc)->first();
+        $thongtinlop=[];
+        // dd($tt);
+        $thongtinlop=Arr::add($thongtinlop,count($thongtinlop),
+                ['Tên lớp'=>$tt->tenlop,
+                'Cán bộ giảng dạy'=>$tt->hoten,
+                'Môn'=>$tt->tenmon,
+                'Sỉ số'=>count($danhsachlop),
+                'Niên khóa'=>$tt->tennienkhoa
+            ]);
         $dataloaidiem = LoaiDiem::whereIn('loaimon', [$monhoc->loaimon, 3])->orderBy('heso')->get();
         $danhsach = [];
         foreach ($danhsachlop as $item => $hocsinh) {
@@ -85,7 +98,7 @@ class DanhSachController extends Controller
         //         }
         //     }
         // }
-        return view('pages.canbo.giaovien.danhsachlopday', compact('page_title', 'datalopchunhiem', 'datalopday', 'dataloaidiem', 'danhsach', 'mamonhoc', 'hocki'));
+        return view('pages.canbo.giaovien.danhsachlopday', compact('page_title', 'datalopchunhiem', 'datalopday', 'dataloaidiem', 'danhsach', 'mamonhoc', 'hocki','thongtinlop'));
     }
     public function danhsachlopchunhiem($malop, $hocki)
     {
@@ -107,6 +120,18 @@ class DanhSachController extends Controller
             ->join('mon', 'monhoc.mamon', 'mon.mamon')
             ->where('malop', $malop)->get();
 
+        $lop=Lop::from('lop')
+                ->join('canbo','lop.chunhiem','canbo.macanbo')
+                ->join('nienkhoa','lop.nienkhoa','nienkhoa.manienkhoa')
+                ->where("chunhiem",$macanbo)->first();
+        // dd($lop);
+        $thongtinlop=[];
+        $thongtinlop=Arr::add($thongtinlop,count($thongtinlop),
+                ['Tên lớp'=>$lop->tenlop,
+                'Giáo viên chủ nhiệm'=>$lop->hoten,
+                'Sỉ số'=>count($danhsachlop),
+                'Niên khóa'=>$lop->tennienkhoa
+            ]);
         $dataloaidiem = LoaiDiem::orderBy('heso')->get();
         $danhsach = [];
         foreach ($danhsachlop as $item => $hocsinh) {
@@ -162,7 +187,7 @@ class DanhSachController extends Controller
 
         }
         // dd($danhsach);
-        return view('pages.canbo.giaovien.danhsachlopchunhiem', compact('page_title', 'datalopchunhiem', 'datalopday', 'datamon', 'danhsachlop', 'danhsach', 'malop'));
+        return view('pages.canbo.giaovien.danhsachlopchunhiem', compact('page_title', 'datalopchunhiem', 'datalopday', 'datamon', 'danhsachlop', 'danhsach', 'malop','thongtinlop'));
     }
     public function bangdiemcanamlopchunhiem($malop)
     {
@@ -183,7 +208,18 @@ class DanhSachController extends Controller
         $datamon = MonHoc::from('monhoc')
             ->join('mon', 'monhoc.mamon', 'mon.mamon')
             ->where('malop', $malop)->get();
-
+            $lop=Lop::from('lop')
+            ->join('canbo','lop.chunhiem','canbo.macanbo')
+            ->join('nienkhoa','lop.nienkhoa','nienkhoa.manienkhoa')
+            ->where("chunhiem",$macanbo)->first();
+    // dd($lop);
+    $thongtinlop=[];
+    $thongtinlop=Arr::add($thongtinlop,count($thongtinlop),
+            ['Tên lớp'=>$lop->tenlop,
+            'Giáo viên chủ nhiệm'=>$lop->hoten,
+            'Sỉ số'=>count($danhsachlop),
+            'Niên khóa'=>$lop->tennienkhoa
+        ]);
         $dataloaidiem = LoaiDiem::orderBy('heso')->get();
         $danhsach = [];
         foreach ($danhsachlop as $item => $hocsinh) {
@@ -253,7 +289,7 @@ class DanhSachController extends Controller
 
         }
         // dd($danhsach);
-        return view('pages.canbo.giaovien.danhsachlopchunhiem', compact('page_title', 'datalopchunhiem', 'datalopday', 'datamon', 'danhsachlop', 'danhsach', 'malop'));
+        return view('pages.canbo.giaovien.danhsachlopchunhiem', compact('page_title', 'datalopchunhiem', 'datalopday', 'datamon', 'danhsachlop', 'danhsach', 'malop','thongtinlop'));
     }
 
     public function diemhocsinh($malop, $hocki)

@@ -24,7 +24,7 @@
                     <div>
                         {{ $value['tenloaidiem'] }}
                         @foreach ($value['diem'] as $key => $value2)
-                            <input name="{{ $key }}" type="number" min="0" max="10" value="{{ $value2 }}" />
+                            <input name="{{ $key }}" type="number" min="0" max="10" step="0.01" value="{{ $value2 }}" />
                         @endforeach
                     </div>
                 @endforeach

@@ -1,4 +1,7 @@
 <ul class="list-unstyled components mb-5">
+    <li class="{{ request()->is('*canbo') ? 'active' : '' }}">
+        <a href="{{ route('canboManage.indexCanboPage') }}">Bảng điều khiển</a>
+    </li>
     <li class="{{ request()->is('*danhsachlopchunhiem*') ? 'active' : '' }}">
         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
             class="dropdown-toggle">Lớp đang chủ nhiệm</a>

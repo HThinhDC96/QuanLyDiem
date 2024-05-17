@@ -8,7 +8,7 @@
                 {{-- <img src="{{ asset('images/logo1000.png') }}" alt="No image"> --}}
             </div>
             <div class="w-auto d-flex align-items-center btn-lg px-2">
-                <span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Xin chào,</span>
+                <span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Xin chào</span>
                 <span
                     class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">&nbsp;{{ session()->get('userhoten') }}</span>
             </div>
@@ -34,6 +34,10 @@
                         <i class='bx bx-user nav_icon'></i>
                         <span class="nav_name">Cán bộ</span>
                     </a>
+                    <a id="hocsinh" href="{{ route('hocsinhManage.index') }}" class="nav_link {{ request()->is('hocsinh*') ? 'active' : '' }}">
+                        <i class='bx bx-user nav_icon'></i>
+                        <span class="nav_name">Học sinh</span>
+                    </a>
                     <a id="mon" href="{{ route('monManage.indexMon') }}" class="nav_link {{ request()->is('mon*') ? 'active' : '' }}">
                         <i class='bx bx-bookmark nav_icon'></i>
                         <span class="nav_name">Môn</span>
@@ -53,14 +57,6 @@
                     <a id="monhoc" href="{{ route('loaidiemManage.indexLoaiDiem') }}" class="nav_link {{ request()->is('loaidiem*') ? 'active' : '' }}">
                         <i class='bx bx-bookmark nav_icon'></i>
                         <span class="nav_name">Loại Điểm</span>
-                    </a>
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-folder nav_icon'></i>
-                        <span class="nav_name">Files</span>
-                    </a>
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
-                        <span class="nav_name">Stats</span>
                     </a>
                 </div>
             </div>

@@ -3,6 +3,8 @@
 
 <head>
     <title>Hệ thống Quản Lý | @yield('title', $page_title ?? '')</title>
+    {{-- Favicon --}}
+    <link rel="shortcut icon" href=" {{ asset('images/logo.png') }}" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 

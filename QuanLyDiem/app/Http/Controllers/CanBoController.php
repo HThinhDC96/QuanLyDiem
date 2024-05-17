@@ -120,15 +120,19 @@ class CanBoController extends Controller
     {
         $page_title = "Cán bộ";
         $macanbo=session('userid');
-        $datalopchunhiem=Lop::from('lop')->where('chunhiem',$macanbo)->get();
+        $canbo=Canbo::find($macanbo);
+        $datalopchunhiem=Lop::from('lop')
+                ->join('nienkhoa','lop.nienkhoa','nienkhoa.manienkhoa')
+                ->where('chunhiem',$macanbo)->get();
         $datalopday=MonHoc::from('monhoc')
                                 ->join('lop','lop.malop','monhoc.malop')
                                 ->join('mon','monhoc.mamon','mon.mamon')
+                                ->join('nienkhoa','lop.nienkhoa','nienkhoa.manienkhoa')
                                 ->where('monhoc.macanbo',$macanbo)->get();
         // foreach($data as $item=>$value){
         //     print($value);
         //  }
-        return view('pages.canbo.giaovien.danhchocanbo', compact('page_title','datalopchunhiem','datalopday'));
+        return view('pages.canbo.giaovien.danhchocanbo', compact('page_title','datalopchunhiem','datalopday','canbo'));
     }
 
 }

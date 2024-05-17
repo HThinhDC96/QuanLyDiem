@@ -1,16 +1,37 @@
 @extends('layouts.canbo.layoutcanbo')
 @section('content')
-<h2 class="mb-4">Meobar #02</h2>
-            <p>Meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo
-                meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo
-                meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo
-                meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo
-                meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo
-                meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo </p>
-            <p>Meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo
-                meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo
-                meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo
-                meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo
-                meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo
-                meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo meo</p>
+<div class="mt-2 pt-2 card card-custom">
+    <div class="card-header flex-wrap border-0 pt-6 pb-0">
+        <div class="cart-title">
+            <h2> Xin chào, {{ $canbo->hoten }}</h2>
+        </div>
+        <div class="card-toolbar">
+        </div>
+    </div>
+    <div class="card-body">
+        <h4>Các lớp chủ nhiệm</h4>
+        @foreach ($datalopchunhiem as $item => $value)
+        <a href="{{ route('canboManage.danhsachlopchunhiem', ['malop' => $value->malop,'hocky' => 1]) }}">
+            <div class="btn btn-success">
+                Lớp: {{ $value->tenlop }}
+                <hr>
+                Niên khóa: {{ $value->tennienkhoa }}
+            </div>
+        </a>
+
+        @endforeach
+        <hr>
+        <h4>Các lớp đang dạy</h4>
+        @foreach ($datalopday as $item => $value)
+        <a href="{{ route('canboManage.danhsachlopday', ['mamonhoc' => $value->mamonhoc,'hocky' => 1]) }}">
+            <div class="btn btn-primary">
+                Lớp: {{ $value->tenlop }} | Môn: {{ $value->tenmon }}
+                <hr>
+                Niên khóa: {{ $value->tennienkhoa }}
+            </div>
+        </a>
+
+        @endforeach
+    </div>
+</div>
 @endsection
