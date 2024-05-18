@@ -36,6 +36,7 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         Route::get('/htql/canbo/danhsachlopday/{mamonhoc}/{hocky}', 'App\Http\Controllers\DanhSachController@danhsachlopday')->name('danhsachlopday');
         Route::get('/htql/canbo/danhsachlopchunhiem/{malop}/{hocky}', 'App\Http\Controllers\DanhSachController@danhsachlopchunhiem')->name('danhsachlopchunhiem');
         Route::get('/htql/canbo/danhsachlopchunhiem/bangdiem/{malop}/3', 'App\Http\Controllers\DanhSachController@bangdiemcanamlopchunhiem')->name('bangdiemcanamlopchunhiem');
+        Route::get('/htql/canbo/danhsachlopday/bangdiem/{mamonhoc}/3', 'App\Http\Controllers\DanhSachController@bangdiemcanamlopday')->name('bangdiemcanamlopday');
     });
 
     //Phan Quyen - Ban Giam Hieu

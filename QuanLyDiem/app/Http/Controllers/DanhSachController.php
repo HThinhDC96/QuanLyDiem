@@ -88,16 +88,132 @@ class DanhSachController extends Controller
             $danhsach = Arr::add($danhsach, count($danhsach), ['tenhocsinh' => $hocsinh->hotenhocsinh, 'diem' => $d, 'tbm' => $tbm, 'mahocsinh' => $hocsinh->mahocsinh]);
             // dd($danhsach);
         }
+        return view('pages.canbo.giaovien.danhsachlopday', compact('page_title', 'datalopchunhiem', 'datalopday', 'dataloaidiem', 'danhsach', 'mamonhoc', 'hocki','thongtinlop'));
+    }
+    public function bangdiemcanamlopday($mamonhoc)
+    {
+        $page_title = "Danh sách lớp ";
+
+        $monhoc = Monhoc::select('monhoc.*', 'mon.loaimon')
+            ->join('mon', 'mon.mamon', 'monhoc.mamon')
+            ->where('mamonhoc', $mamonhoc)->first();
+
+        $malop = $monhoc->malop;
+        //du lieu cho sidebar
+        $macanbo = session('userid');
+        $datalopchunhiem = Lop::from('lop')->where('chunhiem', $macanbo)->get();
+        $datalopday = MonHoc::from('monhoc')
+            ->join('lop', 'lop.malop', 'monhoc.malop')
+            ->join('mon', 'monhoc.mamon', 'mon.mamon')
+            ->where('monhoc.macanbo', $macanbo)->get();
+
+        // du lieu noi dung
+        $danhsachlop = LopHoc::from('lophoc')
+            ->join('hocsinh', 'hocsinh.mahocsinh', 'lophoc.mahocsinh')
+            ->where('malop', $malop)->get();
+        $tt=Monhoc::from('monhoc')->join('canbo','monhoc.macanbo','canbo.macanbo')
+                        ->join('mon','mon.mamon','monhoc.mamon')
+                        ->join('lop','lop.malop','monhoc.malop')
+                        ->join('nienkhoa','lop.nienkhoa','nienkhoa.manienkhoa')
+                        ->where('mamonhoc',$mamonhoc)->first();
+        $thongtinlop=[];
+        // dd($tt);
+        $thongtinlop=Arr::add($thongtinlop,count($thongtinlop),
+                ['Tên lớp'=>$tt->tenlop,
+                'Cán bộ giảng dạy'=>$tt->hoten,
+                'Môn'=>$tt->tenmon,
+                'Sỉ số'=>count($danhsachlop),
+                'Niên khóa'=>$tt->tennienkhoa
+            ]);
+        $dataloaidiem = LoaiDiem::whereIn('loaimon', [$monhoc->loaimon, 3])->orderBy('heso')->get();
+        $danhsach = [];
+        foreach ($danhsachlop as $item => $hocsinh) {
+            $d = [];
+            $tongdiem = 0;
+            $tonghesodiem = 0;
+            // dd($dataloaidiem);
+            foreach ($dataloaidiem as $item => $loaidiem) {
+                $diemhs = Diem::from('diem')
+                    ->where('mahocsinh', $hocsinh->mahocsinh)
+                    ->where('mamonhoc', $mamonhoc)
+                    ->where('loaidiem', $loaidiem->maloaidiem)
+                    ->where('hocky',1)
+                    ->get();
+                // $i = $loaidiem->soluong;
+                // $j = 0;
+                foreach ($diemhs as $item => $diem) {
+                    // $d = Arr::add($d, $diem->loaidiem . '_' . $j, $diem->diem);
+                    // $j++;
+                    $tongdiem += $loaidiem->heso * $diem->diem;
+                    $tonghesodiem += (int) $loaidiem->heso;
+                }
+                // if ($j != 0)
+                //     $j--;
+                // for ($e = $j; $e < $i; $e++) {
+                //     $d = Arr::add($d, $loaidiem->maloaidiem . '_' . $e, "");
+                // }
+            }
+            if ($tonghesodiem != 0) {
+                $tbm1 = $tongdiem / $tonghesodiem;
+                $tbm1 = round($tbm1, 2);
+            } else {
+                $tbm1 = "";
+            }
+            $tongdiem = 0;
+            $tonghesodiem = 0;
+            // dd($dataloaidiem);
+            foreach ($dataloaidiem as $item => $loaidiem) {
+                $diemhs = Diem::from('diem')
+                    ->where('mahocsinh', $hocsinh->mahocsinh)
+                    ->where('mamonhoc', $mamonhoc)
+                    ->where('loaidiem', $loaidiem->maloaidiem)
+                    ->where('hocky',2)
+                    ->get();
+                // $i = $loaidiem->soluong;
+                // $j = 0;
+                foreach ($diemhs as $item => $diem) {
+                    // $d = Arr::add($d, $diem->loaidiem . '_' . $j, $diem->diem);
+                    // $j++;
+                    $tongdiem += $loaidiem->heso * $diem->diem;
+                    $tonghesodiem += (int) $loaidiem->heso;
+                }
+                // if ($j != 0)
+                //     $j--;
+                // for ($e = $j; $e < $i; $e++) {
+                //     $d = Arr::add($d, $loaidiem->maloaidiem . '_' . $e, "");
+                // }
+            }
+
+            if ($tonghesodiem != 0) {
+                $tbm2 = $tongdiem / $tonghesodiem;
+                $tbm2 = round($tbm2, 2);
+            } else {
+                $tbm2 = "";
+            }
+            if ($tbm1 == "" || $tbm2 == "") {
+                $tbm = "";
+            } else {
+                $tbm = ($tbm1 + 2 * $tbm2) / 3;
+            }
+
+            $danhsach = Arr::add($danhsach, count($danhsach), ['tenhocsinh' => $hocsinh->hotenhocsinh, 'hocki1' => $tbm1, 'hocki2' => $tbm2, 'tbm' => $tbm, 'mahocsinh' => $hocsinh->mahocsinh]);
+            // dd($danhsach);
+        }
+        $dataloaidiem = [];
+        $loaidiem = new LoaiDiem();
+        $loaidiem->tenloaidiem = "Học Kì 1";
+        $loaidiem->soluong = 1;
+        $dataloaidiem = Arr::add($dataloaidiem, count($dataloaidiem), $loaidiem);
+        $loaidiem = new LoaiDiem();
+        $loaidiem->tenloaidiem = "Học Kì 2";
+        $loaidiem->soluong = 1;
+        $dataloaidiem = Arr::add($dataloaidiem, count($dataloaidiem), $loaidiem);
+        $loaidiem = new LoaiDiem();
+        $loaidiem->tenloaidiem = "Cả Năm";
+        $loaidiem->soluong = 1;
+        $dataloaidiem = Arr::add($dataloaidiem, count($dataloaidiem), $loaidiem);
+        $hocki=3;
         // dd($danhsach);
-        //in thu danh sach
-        // foreach($danhsach as $item=>$value){
-        //     foreach($value as $key=>$v){
-        //         if($key=='tenhocsinh') print($v);
-        //         else foreach($v as $keydiem=>$diem){
-        //             print('    '.$diem.'  ');
-        //         }
-        //     }
-        // }
         return view('pages.canbo.giaovien.danhsachlopday', compact('page_title', 'datalopchunhiem', 'datalopday', 'dataloaidiem', 'danhsach', 'mamonhoc', 'hocki','thongtinlop'));
     }
     public function danhsachlopchunhiem($malop, $hocki)
@@ -208,13 +324,12 @@ class DanhSachController extends Controller
         $datamon = MonHoc::from('monhoc')
             ->join('mon', 'monhoc.mamon', 'mon.mamon')
             ->where('malop', $malop)->get();
-            $lop=Lop::from('lop')
-            ->join('canbo','lop.chunhiem','canbo.macanbo')
-            ->join('nienkhoa','lop.nienkhoa','nienkhoa.manienkhoa')
-            ->where("chunhiem",$macanbo)->first();
-    // dd($lop);
-    $thongtinlop=[];
-    $thongtinlop=Arr::add($thongtinlop,count($thongtinlop),
+        $lop=Lop::from('lop')
+        ->join('canbo','lop.chunhiem','canbo.macanbo')
+        ->join('nienkhoa','lop.nienkhoa','nienkhoa.manienkhoa')
+        ->where("chunhiem",$macanbo)->first();
+        $thongtinlop=[];
+        $thongtinlop=Arr::add($thongtinlop,count($thongtinlop),
             ['Tên lớp'=>$lop->tenlop,
             'Giáo viên chủ nhiệm'=>$lop->hoten,
             'Sỉ số'=>count($danhsachlop),
@@ -241,14 +356,12 @@ class DanhSachController extends Controller
                         $tongdiem += $loaidiem->heso * $diem->diem;
                         $tonghesodiem += (int) $loaidiem->heso;
                     }
-
                 }
                 if ($tonghesodiem != 0) {
                     $tbm1 = $tongdiem / $tonghesodiem;
                 } else {
                     $tbm1 = "";
                 }
-                ;
                 $tongdiem = 0;
                 $tonghesodiem = 0;
                 foreach ($dataloaidiem as $item => $loaidiem) {
@@ -269,7 +382,6 @@ class DanhSachController extends Controller
                 } else {
                     $tbm2 = "";
                 }
-                ;
                 if ($tbm1 == "" || $tbm2 == "") {
                     $tbm = "";
                 } else {
@@ -278,7 +390,6 @@ class DanhSachController extends Controller
                     $tb += $tbm;
                 }
                 $d = Arr::add($d, $mon->mamon, $tbm);
-
             }
             if ($sldiem != 0)
                 $tb /= $sldiem;
@@ -335,27 +446,15 @@ class DanhSachController extends Controller
                 for ($e = $j; $e < $i; $e++) {
                     $d = Arr::add($d, $loaidiem->maloaidiem . '_' . $e, "");
                 }
-
             }
             if ($tonghesodiem != 0) {
                 $tbm = $tongdiem / $tonghesodiem;
             } else {
                 $tbm = "";
             }
-            ;
             $danhsach = Arr::add($danhsach, count($danhsach), ['tenmon' => $mon->tenmon, 'diem' => $d, 'tbm' => $tbm]);
 
         }
-        // dd($danhsach);
-        //in thu danh sach
-        // foreach($danhsach as $item=>$value){
-        //     foreach($value as $key=>$v){
-        //         if($key=='tenmon') print($v);
-        //         else foreach($v as $keydiem=>$diem){
-        //             print('    '.$diem.'  ');
-        //         }
-        //     }
-        // }
         $loaidiem = new LoaiDiem();
         $loaidiem->tenloaidiem = "TBM";
         $loaidiem->soluong = 1;
@@ -363,7 +462,6 @@ class DanhSachController extends Controller
         return view('pages.hocsinh.diem', compact('page_title', 'datalop', 'dataloaidiem', 'danhsach', 'malop', 'thongtinhs'));
 
     }
-
     public function getDiemCaNamHS($malop)
     {
         $page_title = "Bảng điểm cá nhân";
@@ -392,15 +490,11 @@ class DanhSachController extends Controller
                     ->where('loaidiem', $loaidiem->maloaidiem)
                     ->where('hocky', 1)
                     ->get();
-                $i = $loaidiem->soluong;
-                $j = 0;
                 foreach ($diemhs as $item => $diem) {
-                    $j++;
                     $tongdiem += $loaidiem->heso * $diem->diem;
                     $tonghesodiem += (int) $loaidiem->heso;
                 }
-                if ($j != 0)
-                    $j--;
+
             }
             if ($tonghesodiem != 0) {
                 $tbm1 = $tongdiem / $tonghesodiem;

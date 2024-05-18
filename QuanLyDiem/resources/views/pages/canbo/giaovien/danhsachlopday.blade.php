@@ -17,6 +17,8 @@
                     <button class="btn {{ request()->is('*1') ? 'btn-success' : '' }}">Học Kì 1</button></a>
                 <a href="{{ route('canboManage.danhsachlopday', ['mamonhoc' => $mamonhoc, 'hocky' => 2]) }}">
                     <button class="btn {{ request()->is('*2') ? 'btn-success' : '' }}">Học Kì 2</button></a>
+                <a href="{{ route('canboManage.bangdiemcanamlopday', ['mamonhoc' => $mamonhoc]) }}">
+                    <button class="btn {{ request()->is('*3') ? 'btn-success' : '' }}">Cả Năm</button></a>
             </div>
         </div>
         <div class="card-body">
@@ -34,8 +36,11 @@
                                 <th name="hidden" class="diem" data-dt-order="disable"></th>
                             @endfor
                         @endforeach
+                        @if ($hocki<3)
                         <th class="text-center diem">TBM</th>
                         <th class="text-center">Thao tác</th>
+                        @endif
+
                     </tr>
                 </thead>
                 <tbody>
@@ -45,16 +50,21 @@
                             @foreach ($value as $key => $v)
                                 @if ($key == 'tenhocsinh')
                                     <td class="text-center">{{ $v }}</td>
-                                @elseif ($key == 'tbm')
+                                @elseif ($key == 'tbm' && $hocki<3)
                                     <td class="text-center diem">{{  $v==""?"":number_format((float)$v, 1, '.', '') }}</td>
                                 @elseif ($key == 'mahocsinh')
+                                    @if ($hocki<3)
                                     <td class="text-center">
                                         <a href="{{ route('diemManage.edit', ['hocki' => $hocki, 'mamonhoc' => $mamonhoc, 'mahocsinh' => $v]) }}" class="btn btn-success" title="Chỉnh sửa">Chỉnh sửa</a>
                                     </td>
-                                @else
+                                    @endif
+
+                                @elseif($key=='diem')
                                     @foreach ($v as $keydiem => $diem)
                                         <td class="text-center">{{ $diem==""?"": number_format((float)$diem, 2, '.', '') }}</td>
                                     @endforeach
+                                @else
+                                    <td class="text-center">{{  $v==""?"":number_format((float)$v, 1, '.', '') }}</td>
                                 @endif
                             @endforeach
                         </tr>
