@@ -18,7 +18,7 @@
     <link href="{{ asset('css/crud/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
     {{-- <link href="{{ asset('css/crud/datatables/datatables.css') }}" rel="stylesheet" type="text/css" /> --}}
     <link rel="stylesheet" href="{{ asset('css/canbocss/custom.css') }}">
-
+    @yield('styles')
 </head>
 
 <body>

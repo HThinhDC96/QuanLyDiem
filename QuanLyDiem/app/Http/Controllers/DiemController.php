@@ -42,7 +42,7 @@ class DiemController extends Controller
             ->first();
 
         $datahocsinh = HocSinh::where('mahocsinh', $mahocsinh)->first();
-        $datadiemhocsinh = Diem::where('mahocsinh', $mahocsinh)->where('hocky', $hocki)->get();
+        $datadiemhocsinh = Diem::where(['mahocsinh' => $mahocsinh, 'hocky'=> $hocki, 'mamonhoc' => $mamonhoc])->get();
         $dataloaidiem = LoaiDiem::whereIn('loaimon', [$monhoc->loaimon, 3])->orderBy('heso')->get();
 
         $datadiem_loaidiem = [];
