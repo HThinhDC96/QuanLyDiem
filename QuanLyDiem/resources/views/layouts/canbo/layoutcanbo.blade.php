@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link href="{{ asset('css/canbocss/style.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/canbocss/customcard.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/canbocss/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/crud/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
     {{-- <link href="{{ asset('css/crud/datatables/datatables.css') }}" rel="stylesheet" type="text/css" /> --}}

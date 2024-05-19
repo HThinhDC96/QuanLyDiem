@@ -2,7 +2,7 @@
 @section('content')
     <div class="mt-2 pt-2 card card-custom">
         <div class="card-header flex-wrap border-0 pt-6 pb-0">
-            <div class="cart-title">
+            <div class="card-title">
                 <h2> Xin chào, {{ $hocsinh->hotenhocsinh }}</h2>
             </div>
             <div class="card-toolbar">
