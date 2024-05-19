@@ -55,7 +55,7 @@
                                 @elseif ($key == 'mahocsinh')
                                     @if ($hocki<3)
                                     <td class="text-center">
-                                        <a href="{{ route('diemManage.edit', ['hocki' => $hocki, 'mamonhoc' => $mamonhoc, 'mahocsinh' => $v]) }}" class="btn btn-success" title="Chỉnh sửa">Chỉnh sửa</a>
+                                        <a href="{{ route('diemManage.edit', ['hocki' => $hocki, 'mamonhoc' => $mamonhoc, 'mahocsinh' => $v]) }}" class="btn btn-primary" title="Chỉnh sửa">Chỉnh sửa</a>
                                     </td>
                                     @endif
 

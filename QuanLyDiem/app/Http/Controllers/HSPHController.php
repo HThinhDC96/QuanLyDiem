@@ -203,9 +203,10 @@ class HSPHController extends Controller
     public function indexHocSinhPage(){
         $page_title = "Bảng điểm cá nhân";
         $mahocsinh=session('userid');
-
+        $hocsinh=Hocsinh::find($mahocsinh);
         $datalop=LopHoc::join('lop','lophoc.malop','lop.malop')
+                        ->join('nienkhoa','lop.nienkhoa','nienkhoa.manienkhoa')
                         ->where('mahocsinh',$mahocsinh)->get();
-        return view('pages.hocsinh.index', compact('page_title','datalop'));
+        return view('pages.hocsinh.index', compact('page_title','datalop','hocsinh'));
     }
 }

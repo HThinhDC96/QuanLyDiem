@@ -1,5 +1,8 @@
 <ul class="list-unstyled components mb-5">
-    <li class="active">
+    <li class="{{ request()->is('*hocsinh') ? 'active' : '' }}">
+        <a href="{{ route('hocsinhManage.indexHocsinhPage') }}">Bảng điều khiển</a>
+    </li>
+    <li class="{{ request()->is('*hocsinh*') ? 'active' : '' }}">
         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
             class="dropdown-toggle">Lớp học</a>
         <ul class="collapse list-unstyled" id="homeSubmenu">
