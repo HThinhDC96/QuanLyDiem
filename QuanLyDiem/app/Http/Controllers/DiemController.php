@@ -79,8 +79,8 @@ class DiemController extends Controller
         $hocki = $request->hocki;
 
         // Gan mang - loai bo du lieu da lay (du lieu con lai la du lieu diem)
-        $datas = Arr::except($request->toArray(), ['_token', '_method', 'mahocsinh', 'mamonhoc', 'hocki']);
-
+        $datas = Arr::except($request->toArray(), ['_token', '_method', 'mahocsinh', 'mamonhoc', 'hocki','btn_summit']);
+        // dd($datas);
         foreach ($datas as $key => $data) {
             if (strpos($key, 'new')!==false) {
                 if ($data==null) continue;
@@ -100,6 +100,7 @@ class DiemController extends Controller
                 }
             } else {
                 $diem = Diem::find($key, 'madiem');
+                // dd($diem);
                 $diem->diem = $data;
 
                 $diem->save();
