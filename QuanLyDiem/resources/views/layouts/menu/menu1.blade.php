@@ -38,6 +38,10 @@
                         <i class='bx bx-user nav_icon'></i>
                         <span class="nav_name">Học sinh</span>
                     </a>
+                    <a id="phuhuynh" href="{{ route('phuhuynhManage.index') }}" class="nav_link {{ request()->is('phuhuynh*') ? 'active' : '' }}">
+                        <i class='bx bx-user nav_icon'></i>
+                        <span class="nav_name">Phụ huynh</span>
+                    </a>
                     <a id="mon" href="{{ route('monManage.indexMon') }}" class="nav_link {{ request()->is('mon*') ? 'active' : '' }}">
                         <i class='bx bx-bookmark nav_icon'></i>
                         <span class="nav_name">Môn</span>

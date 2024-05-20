@@ -96,6 +96,10 @@ Route::group(['middleware' => ['App\Http\Middleware\checkPermission']], function
         Route::get('/phuhuynh/edit/{maphuhuynh}', 'App\Http\Controllers\HSPHController@edit_PH')->name('edit');
         Route::put('/phuhuynh/update', 'App\Http\Controllers\HSPHController@update_PH')->name('update');
         Route::delete('/phuhuynh/delete/{maphuhuynh}', 'App\Http\Controllers\HSPHController@delete_PH')->name('delete');
+        //giao dien phu huynh
+        Route::get('/htql/phuhuynh', 'App\Http\Controllers\HSPHController@indexPhuHuynhPage')->name('indexPhuHuynhPage');
+        Route::get('/htql/phuhuynh/{mahocsinh}/{malop}/{hocki}', 'App\Http\Controllers\DanhSachController@diemhocsinhPH')->name('diemhocsinhPH');
+        Route::get('/htql/phuhuynh/canam/{mahocsinh}/{malop}/3', 'App\Http\Controllers\DanhSachController@getDiemCaNamHSPH')->name('getDiemCaNamHSPH');
     });
 
     //Mon Hoc

@@ -32,7 +32,7 @@
             </div>
             <div class="p-4 pt-1">
                 <h1><a href="index.html" class="logo">THPT <br/> TÂY ĐÔ</a></h1>
-                @include('layouts.menu.menuhocsinh')
+                @include('layouts.menu.menuphuhuynh')
 
 
 

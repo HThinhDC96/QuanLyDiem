@@ -9,6 +9,7 @@ use App\Models\PhuHuynh;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Arr;
 use Symfony\Component\Console\Logger\ConsoleLogger;
 
 use function PHPUnit\Framework\isNull;
@@ -208,5 +209,46 @@ class HSPHController extends Controller
                         ->join('nienkhoa','lop.nienkhoa','nienkhoa.manienkhoa')
                         ->where('mahocsinh',$mahocsinh)->get();
         return view('pages.hocsinh.index', compact('page_title','datalop','hocsinh'));
+    }
+    public function indexPhuHuynhPage(){
+        $page_title = "Trang chủ";
+        //du lieu sidebar
+        $maphuhuynh=session('userid');
+        $phuhuynh=PhuHuynh::find($maphuhuynh);
+        $dshs=HocSinh::where('maphuhuynh',$maphuhuynh)->get();
+        $menu=[];
+        // dd($dshs);
+        foreach($dshs as $key=>$hocsinh){
+            $lop=[];
+            $lophoc=LopHoc::join('lop','lop.malop','lophoc.malop')
+                    ->where('mahocsinh',$hocsinh->mahocsinh)->get();
+            foreach($lophoc as $k=>$value){
+                $lop=Arr::add($lop,count($lop),[$value]);
+            }
+            $menu=Arr::add($menu,count($menu),['hocsinh'=>$hocsinh,'lop'=>$lop]);
+        }
+        // dd($menu);
+        // foreach($menu as $item){
+        //     foreach($item as $key=>$value){
+        //         if($key=='hocsinh'){
+        //             print($value.'----------');
+
+        //         }else{
+        //             foreach($value as $k=>$v1){
+        //                 foreach($v1 as $k1=>$v){
+        //                 print($v->malop);
+        //                 }
+        //             }
+        //             print("\n");
+        //         }
+        //     }
+        // }
+        // du lieu noi dung
+        $datalop=Lophoc::join('lop','lop.malop','lophoc.malop')
+                        ->join('hocsinh','lophoc.mahocsinh','hocsinh.mahocsinh')
+                        ->join('nienkhoa','lop.nienkhoa','nienkhoa.manienkhoa')
+                        ->join('canbo','canbo.macanbo','lop.chunhiem')
+                        ->where('maphuhuynh',$maphuhuynh)->get();
+        return view('pages.phuhuynh.index', compact('page_title','phuhuynh','menu','datalop'));
     }
 }
