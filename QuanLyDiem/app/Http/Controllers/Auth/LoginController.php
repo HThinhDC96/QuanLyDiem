@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\CanBo;
 use App\Models\HocSinh;
+use App\Models\Lop;
+use App\Models\LopHoc;
+use App\Models\MonHoc;
 use App\Models\PhuHuynh;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -94,6 +97,96 @@ class LoginController extends Controller
     {
         if (session()->has('userid')) {
             return true;
+        } else {
+            return false;
+        }
+    }
+    public static function checkLoginAdmin()
+    {
+        if (session()->has('userid')) {
+            $typeacc = Str::upper(substr(session()->get('userid'),0,2));
+            if($typeacc=="AD"){
+                return true;
+            }else{
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    public static function checkLoginCanBo($malop,$mamon)
+    {
+        if (session()->has('userid')) {
+            $macanbo=session()->get('userid');
+            $typeacc = Str::upper(substr(session()->get('userid'),0,2));
+            if($typeacc=="CB"){
+                // dd($mamon);
+                if($malop==null && $mamon==null) return true;
+                else{
+                    $datalopchunhiem = Lop::from('lop')
+                                ->where('chunhiem', $macanbo)
+                                ->where('malop', $malop)->get();
+                    $datalopday = MonHoc::from('monhoc')
+                        ->join('lop', 'lop.malop', 'monhoc.malop')
+                        ->join('mon', 'monhoc.mamon', 'mon.mamon')
+                        ->where('monhoc.macanbo', $macanbo)
+                        ->where('monhoc.mamonhoc', $mamon)->get();
+                    // dd(count($datalopchunhiem));
+                    if(count($datalopday)==0 && count($datalopchunhiem)==0){
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }
+            }else{
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    public static function checkLoginHocSinh($malop)
+    {
+        if (session()->has('userid')) {
+            $mahocsinh=session()->get('userid');
+            $typeacc = Str::upper(substr(session()->get('userid'),0,2));
+            if($typeacc=="HS"){
+                if($malop==null) return true;
+                else{
+                    $datalop = LopHoc::join('lop', 'lophoc.malop', 'lop.malop')
+                        ->where('mahocsinh', $mahocsinh)
+                        ->where('lop.malop', $malop)->get();
+                    if(count($datalop)==0){
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }
+            }else{
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    public static function checkLoginPhuHuynh($mahocsinh, $malop)
+    {
+        if (session()->has('userid')) {
+            $maphuhuynh=session()->get('userid');
+            $typeacc = Str::upper(substr(session()->get('userid'),0,2));
+            if($typeacc=="PH"){
+                if($mahocsinh==null && $malop==null) return true;
+                else{
+                    $lop=LopHoc::join('hocsinh','hocsinh.mahocsinh','lophoc.mahocsinh')
+                            ->where('malop',$malop)
+                            ->where('lophoc.mahocsinh',$mahocsinh)
+                            ->where('maphuhuynh',$maphuhuynh)->get();
+                    if(count($lop)==0)return false;
+                    else return true;
+                }
+            }else{
+                return false;
+            }
         } else {
             return false;
         }
