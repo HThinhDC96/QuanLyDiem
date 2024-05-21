@@ -16,9 +16,12 @@ class CheckCanBo
      */
     public function handle(Request $request, Closure $next): Response
     {
+
         $malop=$request->malop;
         $mamon=$request->mamonhoc;
-        $check = LoginController::checkLoginCanBo($malop, $mamon);
+        $mahocsinh=$request->mahocsinh;
+        // dd($mahocsinh);
+        $check = LoginController::checkLoginCanBo($malop, $mamon,$mahocsinh);
         if($check) {
             return $next($request);
         }else{

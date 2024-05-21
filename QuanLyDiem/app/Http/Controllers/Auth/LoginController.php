@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\CanBo;
+use App\Models\Diem;
 use App\Models\HocSinh;
 use App\Models\Lop;
 use App\Models\LopHoc;
@@ -114,14 +115,14 @@ class LoginController extends Controller
             return false;
         }
     }
-    public static function checkLoginCanBo($malop,$mamon)
+    public static function checkLoginCanBo($malop,$mamonhoc,$mahocsinh)
     {
         if (session()->has('userid')) {
             $macanbo=session()->get('userid');
             $typeacc = Str::upper(substr(session()->get('userid'),0,2));
             if($typeacc=="CB"){
-                // dd($mamon);
-                if($malop==null && $mamon==null) return true;
+                // dd($mamonhoc);
+                if($malop==null && $mamonhoc==null && $mahocsinh==null) return true;
                 else{
                     $datalopchunhiem = Lop::from('lop')
                                 ->where('chunhiem', $macanbo)
@@ -130,8 +131,15 @@ class LoginController extends Controller
                         ->join('lop', 'lop.malop', 'monhoc.malop')
                         ->join('mon', 'monhoc.mamon', 'mon.mamon')
                         ->where('monhoc.macanbo', $macanbo)
-                        ->where('monhoc.mamonhoc', $mamon)->get();
-                    // dd(count($datalopchunhiem));
+                        ->where('monhoc.mamonhoc', $mamonhoc)->get();
+                    $diem=Monhoc::join('lop','monhoc.malop','lop.malop')
+                            ->join('lophoc','lop.malop','lophoc.malop')
+                            ->where('mahocsinh',$mahocsinh)
+                            ->where('monhoc.mamonhoc',$mamonhoc)
+                            ->where('macanbo',$macanbo)->get();
+                    // dd(count($diem));
+                    if($mahocsinh!=null && count($diem)==0) return false;
+
                     if(count($datalopday)==0 && count($datalopchunhiem)==0){
                         return false;
                     }else{
