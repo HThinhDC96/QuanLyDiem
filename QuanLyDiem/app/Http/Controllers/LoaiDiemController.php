@@ -11,7 +11,7 @@ class LoaiDiemController extends Controller
 {
     public function index()
     {
-        $page_title = "Môn";
+        $page_title = "Loại Điểm";
         $data = LoaiDiem::all();
         confirmDelete("", "");
         return view('pages.danhmuc.loaidiem.indexloaidiem', compact('page_title', 'data'));
