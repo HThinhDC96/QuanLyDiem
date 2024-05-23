@@ -139,7 +139,7 @@ Route::group(['middleware' => ['App\Http\Middleware\CheckPermission']], function
         Route::name('lophocManage.')->group(function () {
             Route::get('/lophoc/{malop}/', 'App\Http\Controllers\LopController@editlophoc')->name('editLopHoc');
             Route::get('/lophoc/store/{mahocsinh}/{malop}', 'App\Http\Controllers\LopController@storelophoc')->name('storeLophoc');
-            Route::get('/lophoc/delete/{malophoc}', 'App\Http\Controllers\LopController@deletelophoc')->name('deleteLophoc');
+            Route::delete('/lophoc/delete/{malophoc}', 'App\Http\Controllers\LopController@deletelophoc')->name('deleteLophoc');
         });
     });
 });

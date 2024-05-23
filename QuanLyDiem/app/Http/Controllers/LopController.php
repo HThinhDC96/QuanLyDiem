@@ -62,7 +62,7 @@ class LopController extends Controller
         $data = LopHoc::join('hocsinh','lophoc.mahocsinh','hocsinh.mahocsinh')
                 ->where('malop',$id)->get();
 
-
+        confirmDelete("", "");
         return view('pages.danhmuc.lop.editlop', compact('page_title', 'info','datacanbo','datanienkhoa','data'));
     }
 
