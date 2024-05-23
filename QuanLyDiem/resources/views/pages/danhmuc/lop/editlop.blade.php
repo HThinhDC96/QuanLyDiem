@@ -12,6 +12,8 @@
                     </ul>
                 </div>
             @endif
+            <hr>
+            <a href="{{ route('lophocManage.editLopHoc', ['malop' => $info->malop]) }}"><button class="btn btn-success">Thêm học sinh vào lớp</button></a>
         </div>
         <div class="card-body">
             <form method="post" action="{{ route('lopManage.updateLop') }}" class="form" name="formEditLop"
@@ -71,4 +73,62 @@
             </form>
         </div>
     </div>
+    <div class="card pt-2 mt-2">
+        <div class="card-header flex-wrap border-0 pt-6 pb-0">
+            Danh sách học sinh của lớp
+        </div>
+        <div class="card-body">
+            <table style="width: 100%;" class="table table-hover table-checkable" id="danhSachHocSinh">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="text-center">STT</th>
+                        <th class="text-center">Mã số</th>
+                        <th class="text-center">Họ Tên</th>
+                        {{-- <th class="text-center">Lớp</th> --}}
+                        <th class="text-center">Giới Tính</th>
+                        <th class="text-center">Ngày sinh</th>
+                        <th class="text-center">Địa chỉ</th>
+                        <th class="text-center">SĐT</th>
+                        <th class="text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data as $item => $value)
+                        <tr>
+                            <td class="text-center font-weight-bold">{{ $item + 1 }}</td>
+                            <td class="text-center">{{ $value->mahocsinh }}</td>
+                            <td class="text-center">{{ $value->hotenhocsinh }}</td>
+                            {{-- <td class="text-center"></td> --}}
+                            <td class="text-center">
+                                @if ($value->gioitinh == 0)
+                                    Nam
+                                @else
+                                    @if ($value->gioitinh == 1)
+                                        Nữ
+                                    @else
+                                        Khác
+                                    @endif
+                                @endif
+                            </td>
+                            <td class="text-center">{{ $value->ngaysinh }}</td>
+                            <td class="text-center">{{ $value->diachi }}</td>
+                            <td class="text-center">{{ $value->sdt }}</td>
+                            <td class="text-center" style="display: flex; justify-content: center">
+                                <a href="{{ route('lophocManage.deleteLophoc', ['malophoc' => $value->malophoc]) }}"
+                                    id="delete" class="btn btn-sm btn-icon btn-danger"
+                                    data-confirm-delete="true" title="xoá">
+                                    <i class="la la-trash"></i>Xoá học sinh khỏi lớp
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+@endsection
+@section('scripts')
+    <script src="{{ asset('js/crud/hocsinh_datatables.js') }}"></script>
 @endsection

@@ -134,5 +134,12 @@ Route::group(['middleware' => ['App\Http\Middleware\CheckPermission']], function
             Route::post('/loaidiem/update', 'App\Http\Controllers\LoaiDiemController@update')->name('updateLoaiDiem');
             Route::delete('/loaidiem/delete/{maloaidiem}', 'App\Http\Controllers\LoaiDiemController@delete')->name('deleteLoaiDiem');
         });
+
+        //Lophoc
+        Route::name('lophocManage.')->group(function () {
+            Route::get('/lophoc/{malop}/', 'App\Http\Controllers\LopController@editlophoc')->name('editLopHoc');
+            Route::get('/lophoc/store/{mahocsinh}/{malop}', 'App\Http\Controllers\LopController@storelophoc')->name('storeLophoc');
+            Route::get('/lophoc/delete/{malophoc}', 'App\Http\Controllers\LopController@deletelophoc')->name('deleteLophoc');
+        });
     });
 });

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\CanBo;
+use App\Models\HocSinh;
 use Illuminate\Http\Request;
 use App\Models\Lop;
+use App\Models\LopHoc;
 use App\Models\NienKhoa;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -56,8 +58,14 @@ class LopController extends Controller
         $info = Lop::find($id);
         $datacanbo=CanBo::where('macanbo','LIKE','CB%')->get();
         $datanienkhoa=NienKhoa::all();
-        return view('pages.danhmuc.lop.editlop', compact('page_title', 'info','datacanbo','datanienkhoa'));
+        //du lieu hoc sinh lop hoc
+        $data = LopHoc::join('hocsinh','lophoc.mahocsinh','hocsinh.mahocsinh')
+                ->where('malop',$id)->get();
+
+
+        return view('pages.danhmuc.lop.editlop', compact('page_title', 'info','datacanbo','datanienkhoa','data'));
     }
+
 
     public function update(Request $request)
     {
@@ -82,6 +90,55 @@ class LopController extends Controller
             $lop->delete();
             toastr()->success('Xoá thành công!', 'Thành công!');
             return redirect()->route('lopManage.indexLop');
+        } catch (QueryException $e) {
+            // Lỗi dữ liệu được sử dụng (cha-con)
+            if ($e->errorInfo[1] == 1451) {
+                toastr()->error('Xoá không thành công! Dữ liệu đã được sử dụng!', 'Lỗi!');
+                return redirect()->back();
+            }
+        } catch (Exception $e) {
+            echo 'Có lỗi phát sinh: ', $e->getMessage(), "\n";
+        }
+    }
+    public function editlophoc($malop)
+    {
+        $page_title = "Lớp Học";
+        $data = Hocsinh::whereNotIn(
+            'mahocsinh',LopHoc::select('mahocsinh')->where('malop',$malop)->get()->toArray()
+                )->get();
+        $lop=Lop::find($malop);
+        confirmDelete("", "");
+        // dd($data);
+        return view('pages.danhmuc.lop.editlophoc', compact('page_title', 'data','lop'));
+    }
+    public function storelophoc($mahocsinh, $malop)
+    {
+        try {
+            $hocsinh=HocSinh::find($mahocsinh);
+            $lop=Lop::find($malop);
+
+            $lophoc=new LopHoc();
+            $lophoc->mahocsinh=$mahocsinh;
+            $lophoc->malop=$malop;
+            $lophoc->save();
+
+
+            // Hiển thị thông báo thêm thành công
+            toastr()->success('Thêm học sinh '.$hocsinh->hotenhocsinh.' vào lớp '.$lop->tenlop. ' thành công!', 'Thành công!');
+
+            return redirect()->route('lophocManage.editLopHoc', ['malop' => $malop]);
+        } catch (Exception $e) {
+            echo 'Có lỗi phát sinh: ', $e->getMessage(), "\n";
+        }
+    }
+    public function deletelophoc($malophoc)
+    {
+        try {
+            $lophoc = LopHoc::find($malophoc);
+            $lop=Lop::find($lophoc->malop);
+            $lophoc->delete();
+            toastr()->success('Xoá thành công!', 'Thành công!');
+            return redirect()->route('lopManage.editLop', ['malop' => $lop->malop]);
         } catch (QueryException $e) {
             // Lỗi dữ liệu được sử dụng (cha-con)
             if ($e->errorInfo[1] == 1451) {
