@@ -117,12 +117,12 @@ Route::group(['middleware' => ['App\Http\Middleware\CheckPermission']], function
 
         //Mon Hoc
         Route::name('monhocManage.')->group(function () {
-            Route::get('/monhoc', 'App\Http\Controllers\MonHocController@index')->name('indexMonHoc');
-            Route::get('/monhoc/create', 'App\Http\Controllers\MonHocController@create')->name('createMonHoc');
-            Route::post('/monhoc/store', 'App\Http\Controllers\MonHocController@store')->name('storeMonHoc');
-            Route::get('/monhoc/edit/{mamonhoc}', 'App\Http\Controllers\MonHocController@edit')->name('editMonHoc');
-            Route::post('/monhoc/update', 'App\Http\Controllers\MonHocController@update')->name('updateMonHoc');
-            Route::delete('/monhoc/delete/{mamonhoc}', 'App\Http\Controllers\MonHocController@delete')->name('deleteMonHoc');
+            Route::get('/phan-giang', 'App\Http\Controllers\MonHocController@index')->name('indexMonHoc');
+            Route::get('/phan-giang/create', 'App\Http\Controllers\MonHocController@create')->name('createMonHoc');
+            Route::post('/phan-giang/store', 'App\Http\Controllers\MonHocController@store')->name('storeMonHoc');
+            Route::get('/phan-giang/edit/{mamonhoc}', 'App\Http\Controllers\MonHocController@edit')->name('editMonHoc');
+            Route::post('/phan-giang/update', 'App\Http\Controllers\MonHocController@update')->name('updateMonHoc');
+            Route::delete('/phan-giang/delete/{mamonhoc}', 'App\Http\Controllers\MonHocController@delete')->name('deleteMonHoc');
         });
 
         //Loai Diem
