@@ -2,7 +2,10 @@
 @section('content')
     <div class="card pt-2 mt-2">
         <div class="card-header flex-wrap border-0 pt-6 pb-0">
-            {{ $page_title }}
+            <div class="card-title">
+                {{ $page_title }}
+            </div>
+
             @if ($errors->any())
                 <div class="alert alert-danger pt-6 pb-0">
                     <ul>
@@ -12,6 +15,19 @@
                     </ul>
                 </div>
             @endif
+            <hr>
+            <div class="card-toolbar">
+                @if($phuhuynh==null)
+                    <div class="alert alert-danger">Chưa liên kết với tài khoản phụ huynh
+                        <a href="{{ route('hocsinhManage.editLienKet',['mahocsinh'=>$info->mahocsinh]) }}">
+                            <button class="btn btn-success">Liên kết tài khoản phụ huynh</button>
+                        </a>
+
+                    </div>
+
+                @endif
+
+            </div>
         </div>
         <div class="card-body">
             <form method="post" action="{{ route('hocsinhManage.update') }}" class="form" name="formEditHocSinh"
@@ -86,4 +102,60 @@
             </form>
         </div>
     </div>
+    @if ($phuhuynh!=null)
+    <div class="card pt-2 mt-2">
+        <div class="card-header flex-wrap border-0 pt-6 pb-0">
+
+
+                Tài khoản phụ huynh đã liên kết
+            </div>
+            <div class="card-body">
+                <table style="width: 100%;" class="table table-hover table-checkable" id="danhSachPhuHuynh">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="text-center">Mã số</th>
+                            <th class="text-center">Họ Tên</th>
+                            <th class="text-center">Giới Tính</th>
+                            <th class="text-center">Ngày sinh</th>
+                            <th class="text-center">Địa chỉ</th>
+                            <th class="text-center">SĐT</th>
+                            <th class="text-center">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <td class="text-center">{{ $phuhuynh->maphuhuynh }}</td>
+                                <td class="text-center">{{ $phuhuynh->tenphuhuynh }}</td>
+                                <td class="text-center">
+                                    @if ($phuhuynh->gioitinh == 0)
+                                        Nam
+                                    @else
+                                        @if ($phuhuynh->gioitinh == 1)
+                                            Nữ
+                                        @else
+                                            Khác
+                                        @endif
+                                    @endif
+                                </td>
+                                <td class="text-center">{{ $phuhuynh->ngaysinh }}</td>
+                                <td class="text-center">{{ $phuhuynh->diachi }}</td>
+                                <td class="text-center">{{ $phuhuynh->sdt }}</td>
+                                <td class="text-center" style="display: flex; justify-content: center">
+
+                                    <a href="{{ route('hocsinhManage.deleteLienKet', ['mahocsinh'=>$info->mahocsinh]) }}"
+                                        id="delete" class="btn btn-sm btn-icon btn-danger"
+                                        data-confirm-delete="true" title="xoá">
+                                        <i class="la la-trash"></i>Xóa liên kết tài khoản học sinh
+                                    </a>
+                                </td>
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+    </div>
+    @endif
 @endsection
+

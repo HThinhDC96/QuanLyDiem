@@ -70,7 +70,13 @@ class HSPHController extends Controller
     {
         $page_title = "Chỉnh Sửa Thông tin học sinh - MSHS: ".$id;
         $info = HocSinh::find($id);
-        return view('pages.hocsinh_phuhuynh.hocsinh.edit', compact('page_title', 'info'));
+        if($info->maphuhuynh!=null){
+            $phuhuynh=PhuHuynh::find($info->maphuhuynh);
+        }else{
+            $phuhuynh=null;
+        }
+        confirmDelete("", "");
+        return view('pages.hocsinh_phuhuynh.hocsinh.edit', compact('page_title', 'info','phuhuynh'));
     }
 
     public function update_HS(Request $request)
@@ -141,7 +147,7 @@ class HSPHController extends Controller
             if ($ph_lastest == null) {
                 $mph_lastest = "PH00001";
             } else {
-                $mph_lastest = $ph_lastest->mahocsinh;
+                $mph_lastest = $ph_lastest->maphuhuynh;
                 $mph_lastest = ((int) substr($mph_lastest, 2)) + 1;
                 $mph_lastest = "PH" . sprintf("%05d", $mph_lastest);
             }
@@ -250,5 +256,49 @@ class HSPHController extends Controller
                         ->join('canbo','canbo.macanbo','lop.chunhiem')
                         ->where('maphuhuynh',$maphuhuynh)->get();
         return view('pages.phuhuynh.index', compact('page_title','phuhuynh','menu','datalop'));
+    }
+    //Lien ket tai khoan
+    public function editlk($mahocsinh)
+    {
+        $page_title = "Chỉnh Sửa Thông tin học sinh - MSHS: ".$mahocsinh;
+        $info = HocSinh::find($mahocsinh);
+        $data = PhuHuynh::all();
+        return view('pages.hocsinh_phuhuynh.hocsinh.lienketphuhuynh', compact('page_title', 'info','data'));
+    }
+    public function storelk($mahocsinh,$maphuhuynh)
+    {
+        try {
+            $hocsinh = HocSinh::find($mahocsinh);
+
+            $hocsinh->maphuhuynh = $maphuhuynh;
+            $hocsinh->save();
+
+            // Hiển thị thông báo thêm thành công
+            toastr()->success('Liên kết thành công!', 'Thành công!');
+
+            return redirect()->route('hocsinhManage.edit',['mahocsinh'=>$mahocsinh]);
+        } catch (Exception $e) {
+            echo 'Có lỗi phát sinh: ', $e->getMessage(), "\n";
+        }
+    }
+
+    public function deletelk($mahocsinh)
+    {
+        try {
+            $hocsinh = HocSinh::find($mahocsinh);
+            $hocsinh->maphuhuynh=null;
+            $hocsinh->save();
+            // dd($hocsinh);
+            toastr()->success('Xoá liên kết thành công!', 'Thành công!');
+            return redirect()->route('hocsinhManage.edit',['mahocsinh'=>$mahocsinh]);
+        } catch (QueryException $e) {
+            // Lỗi dữ liệu được sử dụng (cha-con)
+            if ($e->errorInfo[1] == 1451) {
+                toastr()->error('Xoá không thành công! Dữ liệu đã được sử dụng!', 'Lỗi!');
+                return redirect()->back();
+            }
+        } catch (Exception $e) {
+            echo 'Có lỗi phát sinh: ', $e->getMessage(), "\n";
+        }
     }
 }

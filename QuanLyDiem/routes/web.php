@@ -63,6 +63,10 @@ Route::group(['middleware' => ['App\Http\Middleware\CheckPermission']], function
         Route::get('/hocsinh/edit/{mahocsinh}', 'App\Http\Controllers\HSPHController@edit_HS')->name('edit')->middleware('checkloginadmin::class');
         Route::put('/hocsinh/update', 'App\Http\Controllers\HSPHController@update_HS')->name('update')->middleware('checkloginadmin::class');
         Route::delete('/hocsinh/delete/{mahocsinh}', 'App\Http\Controllers\HSPHController@delete_HS')->name('delete')->middleware('checkloginadmin::class');
+        //Lien ket tai khoan phu huynh
+        Route::get('/hsph/{mahocsinh}/', 'App\Http\Controllers\HSPHController@editlk')->name('editLienKet')->middleware('checkloginadmin::class');
+        Route::get('/hsph/store/{mahocsinh}/{maphuhuynh}', 'App\Http\Controllers\HSPHController@storelk')->name('storeLienKet')->middleware('checkloginadmin::class');
+        Route::delete('/hsph/delete/{mahocsinh}', 'App\Http\Controllers\HSPHController@deletelk')->name('deleteLienKet')->middleware('checkloginadmin::class');
         //Giao dien hoc sinh
         Route::get('/htql/hocsinh', 'App\Http\Controllers\HSPHController@indexHocSinhPage')->name('indexHocsinhPage')->middleware('checkloginhocsinh::class');
         Route::get('/htql/hocsinh/{malop}/{hocki}', 'App\Http\Controllers\DanhSachController@diemhocsinh')->name('diemhocsinh')->middleware('checkloginhocsinh::class');
