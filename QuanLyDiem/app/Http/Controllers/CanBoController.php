@@ -18,7 +18,7 @@ class CanBoController extends Controller
     public function index()
     {
         $page_title = "Cán bộ";
-        $data = CanBo::getAllCanBo();
+        $data = CanBo::getAllCanBo()->where('macanbo','<>','admin');
         // foreach($data as $item=>$value){
         //     print($value);
         //  }
@@ -99,6 +99,11 @@ class CanBoController extends Controller
     public function delete($macanbo)
     {
         try {
+            if ($macanbo == 'admin') {
+                toastr()->error('Tài khoản không thể xóa!', 'Lỗi!');
+                return redirect()->back();
+            }
+
             $canbo = Canbo::find($macanbo);
 
             $canbo->delete();
