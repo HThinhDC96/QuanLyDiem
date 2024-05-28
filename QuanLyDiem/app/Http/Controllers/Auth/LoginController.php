@@ -19,7 +19,8 @@ class LoginController extends Controller
     // Show form đăng nhập
     public function showFormLogin()
     {
-        // session()->flush();
+        session()->invalidate();
+        session()->regenerateToken();
         $page_title = 'Đăng nhập';
         return view('auth.login', compact('page_title'));
     }

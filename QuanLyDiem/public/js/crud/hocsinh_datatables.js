@@ -14,6 +14,10 @@ $('#danhSachHocSinh').DataTable({
             width: '200px',
         },
         {
+            target: 4,
+            render: DataTable.render.datetime('DD-MM-yyyy'),
+        },
+        {
             target: 6,
             width: '200px',
         }

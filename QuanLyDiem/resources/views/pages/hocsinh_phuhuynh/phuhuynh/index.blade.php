@@ -76,5 +76,6 @@
     </div>
 @endsection
 @section('scripts')
+    <script src="{{ asset('js/crud/datatables/dateformat.js') }}"></script>
     <script src="{{ asset('js/crud/phuhuynh_datatables.js') }}"></script>
 @endsection

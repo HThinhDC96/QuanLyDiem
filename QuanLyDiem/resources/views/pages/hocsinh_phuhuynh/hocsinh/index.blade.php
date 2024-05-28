@@ -78,5 +78,6 @@
     </div>
 @endsection
 @section('scripts')
+    <script src="{{ asset('js/crud/datatables/dateformat.js') }}"></script>
     <script src="{{ asset('js/crud/hocsinh_datatables.js') }}"></script>
 @endsection
