@@ -9,7 +9,7 @@
         <div class="card-header flex-wrap border-0 pt-6 pb-0">
             {{-- @include('layout.base._pagename') --}}
             <div class="cart-title">
-                <h4>Danh Sách Các Lớp</h4>
+                <h4>Quản Lý Thông Tin Các Lớp</h4>
             </div>
             <hr>
             <div class="card-toolbar">

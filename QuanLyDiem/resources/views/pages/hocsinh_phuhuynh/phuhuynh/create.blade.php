@@ -32,7 +32,7 @@
                             <div class="mb-3 align-items-center justify-content-center row">
                                 <label class="col-3">Giới tính<span class="text-danger">*</span></label>
                                 <div class="col-6">
-                                    <input type="radio" value="0" name="gioitinh" id="nam">Nam
+                                    <input type="radio" value="0" name="gioitinh" id="nam" checked>Nam
                                     <input type="radio" value="1" name="gioitinh" id="nu">Nữ
                                     <input type="radio" value="2" name="gioitinh" id="khac">Khác
                                 </div>

@@ -15,6 +15,7 @@
                 {{-- <a href="{{ route('lopManage.createLop') }}"><button class="btn btn-success">Tạo mới</button></a> --}}
                 <!--end::Button-->
             </div>
+            <hr>
         </div>
         <div class="card-body">
             <table style="width: 100%;" class="table table-hover table-checkable" id="danhSachHocSinh">

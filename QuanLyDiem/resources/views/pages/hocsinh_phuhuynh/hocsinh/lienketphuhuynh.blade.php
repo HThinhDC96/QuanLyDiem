@@ -11,7 +11,7 @@
             <div class="cart-title">
                 Liên kết tài khoản phụ huynh cho học sinh: {{ $info->hotenhocsinh }}
             </div>
-
+            <hr>
         </div>
         <div class="card-body">
             <table style="width: 100%;" class="table table-hover table-checkable" id="danhSachPhuHuynh">

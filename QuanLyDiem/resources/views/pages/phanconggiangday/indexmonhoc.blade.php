@@ -8,7 +8,10 @@
         @endif --}}
         <div class="card-header flex-wrap border-0 pt-6 pb-0">
             {{-- @include('layout.base._pagename') --}}
-            <div class="cart-title"></div>
+            <div class="cart-title">
+                <h4>Phân Công Giảng Dạy</h4>
+            </div>
+            <hr>
             <div class="card-toolbar">
                 <a href="{{ route('monhocManage.createMonHoc') }}"><button class="btn btn-success">Tạo mới</button></a>
                 <!--end::Button-->

@@ -9,7 +9,8 @@
         <div class="card-header flex-wrap border-0 pt-6 pb-0">
             {{-- @include('layout.base._pagename') --}}
             <div class="cart-title">
-                <h4>Danh Sách Niên Khoá</h4>
+                <h4>Quản Lý Thông Tin Niên Khoá</h4>
+                <hr>
             </div>
             <div class="card-toolbar">
                 <a href="{{ route('nienkhoaManage.createNienKhoa') }}"><button class="btn btn-success">Tạo mới</button></a>

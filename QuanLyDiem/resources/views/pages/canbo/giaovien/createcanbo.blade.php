@@ -12,6 +12,7 @@
                     </ul>
                 </div>
             @endif
+            <hr>
         </div>
         <div class="card-body">
             <form method="post" action="{{ route('canboManage.storeCanbo') }}" class="form" name="formCreateCanBo"

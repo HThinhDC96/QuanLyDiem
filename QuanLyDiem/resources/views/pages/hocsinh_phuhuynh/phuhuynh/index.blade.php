@@ -8,7 +8,10 @@
         @endif --}}
         <div class="card-header flex-wrap border-0 pt-6 pb-0">
             {{-- @include('layout.base._pagename') --}}
-            <div class="cart-title"></div>
+            <div class="cart-title">
+                <h4>Quản Lý Thông Tin Phụ Huynh</h4>
+            </div>
+            <hr>
             <div class="card-toolbar">
                 <a href="{{ route('phuhuynhManage.create') }}"><button class="btn btn-success">Tạo mới</button></a>
                 <!--end::Button-->
