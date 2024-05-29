@@ -31,10 +31,6 @@
 </head>
 
 <body>
-    {{-- Loading... --}}
-    @if (config('layout.page-loader.type') != '')
-        @include('layouts.partials._page-loader')
-    @endif
     <div class="row m-0">
         {{-- <div class="col-3">
             @include('layouts.admin.header')
@@ -46,6 +42,10 @@
         </div>
     </div>
 
+    {{-- Loading... --}}
+    @if (config('layout.page-loader.type') != '')
+        @include('layouts.partials._page-loader')
+    @endif
 
     {{-- Global Theme JS Bundle (used by all pages)  --}}
     @foreach (config('layout.resources.js') as $script)
@@ -55,10 +55,8 @@
     <script>
         window.addEventListener('load', () => {
             const loading = document.querySelector('.loading-screen');
-            loading.style.opacity = 0; // Hide the spinner when the page is fully loaded
+            loading.style.display = 'none'; // Hide the spinner when the page is fully loaded
         });
-
-
     </script>
     @include('sweetalert::alert')
 

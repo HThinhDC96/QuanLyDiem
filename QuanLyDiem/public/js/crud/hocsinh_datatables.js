@@ -1,5 +1,6 @@
 $('#danhSachHocSinh').DataTable({
     reponsive : "true",
+    rollX : true,
     columnDefs: [
         {
             target: 0,
@@ -11,14 +12,23 @@ $('#danhSachHocSinh').DataTable({
         },
         {
             target: 2,
-            width: '200px',
+            width: '220px',
+        },
+        {
+            target: 3,
+            width: '130px',
         },
         {
             target: 4,
             render: DataTable.render.datetime('DD-MM-yyyy'),
+            width: '150px',
         },
         {
             target: 6,
+            width: '200px',
+        },
+        {
+            target: 7,
             width: '200px',
         }
     ],

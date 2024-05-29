@@ -18,13 +18,13 @@
                     {{ Session::forget('alert.delete') }}
                     // Tuỳ chỉnh hiển thị thông báo
                     const alert = {
-                        title: "Bạn có chắc chắn xoá không?",
-                        text: "Dữ liệu sẽ không thể khôi phục sau khi xoá!",
+                        title: "Bạn có chắc chắn xoá/huỷ không?",
+                        text: "Dữ liệu sẽ không thể khôi phục sau khi xoá/huỷ!",
                         icon: "warning",
                         showCancelButton: true,
                         confirmButtonColor: "#3085d6",
                         cancelButtonColor: "#d33",
-                        confirmButtonText: "Có, hãy xoá!",
+                        confirmButtonText: "Có, hãy xoá/huỷ!",
                         cancelButtonText: 'Không!',
                         // reverseButtons: true
                     };

@@ -8,7 +8,10 @@
         @endif --}}
         <div class="card-header flex-wrap border-0 pt-6 pb-0">
             {{-- @include('layout.base._pagename') --}}
-            <div class="cart-title"></div>
+            <div class="cart-title">
+                <h4>Quản lý thông tin học sinh</h4>
+            </div>
+            <hr>
             <div class="card-toolbar">
                 <a href="{{ route('hocsinhManage.create') }}"><button class="btn btn-success">Tạo mới</button></a>
                 <!--end::Button-->
@@ -78,6 +81,5 @@
     </div>
 @endsection
 @section('scripts')
-    <script src="{{ asset('js/crud/datatables/dateformat.js') }}"></script>
     <script src="{{ asset('js/crud/hocsinh_datatables.js') }}"></script>
 @endsection

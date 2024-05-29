@@ -5,7 +5,6 @@
             <div class="card-title">
                 {{ $page_title }}
             </div>
-
             @if ($errors->any())
                 <div class="alert alert-danger pt-6 pb-0">
                     <ul>
@@ -141,11 +140,10 @@
                                 <td class="text-center">{{ $phuhuynh->diachi }}</td>
                                 <td class="text-center">{{ $phuhuynh->sdt }}</td>
                                 <td class="text-center" style="display: flex; justify-content: center">
-
                                     <a href="{{ route('hocsinhManage.deleteLienKet', ['mahocsinh'=>$info->mahocsinh]) }}"
                                         id="delete" class="btn btn-sm btn-icon btn-danger"
                                         data-confirm-delete="true" title="xoá">
-                                        <i class="la la-trash"></i>Xóa liên kết tài khoản học sinh
+                                        <i class="la la-trash"></i>Huỷ liên kết tài khoản
                                     </a>
                                 </td>
                             </tr>

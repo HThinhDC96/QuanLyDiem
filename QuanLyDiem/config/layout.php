@@ -21,6 +21,7 @@ return [
             'js/popper.min.js',
             'js/scripts.min.js',
             'js/crud/datatables/datatables.min.js',
+            'js/crud/datatables/dateformat.js',
             // js
         ]
     ]

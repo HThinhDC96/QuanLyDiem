@@ -4,6 +4,14 @@ $('#danhSachNienKhoa').DataTable({
         {
             target: 0,
             width: '100px',
+        },
+        {
+            target: 1,
+            width: '200px'
+        },
+        {
+            target: 3,
+            width: '250px'
         }
     ],
     "language": {
