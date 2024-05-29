@@ -60,6 +60,10 @@ class CanBoController extends Controller
             }
 
             $canbo->macanbo = $mcb_lastest;
+
+            // Ma hoa mat khau
+            $canbo->matkhau = bcrypt($canbo->matkhau);
+
             $canbo->save();
 
             // Hiển thị thông báo thêm thành công
@@ -85,6 +89,7 @@ class CanBoController extends Controller
 
             $matkhau = $canbo->matkhau;
             $canbo->fill($request->toArray());
+            $canbo->matkhau = bcrypt($canbo->matkhau);
             if ($request->matkhau == "" || $request->matkhau == null) {
                 $canbo->matkhau = $matkhau;
             }

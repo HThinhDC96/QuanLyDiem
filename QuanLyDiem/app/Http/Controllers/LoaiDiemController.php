@@ -6,6 +6,7 @@ use App\Models\LoaiDiem;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class LoaiDiemController extends Controller
 {
@@ -24,6 +25,16 @@ class LoaiDiemController extends Controller
     public function store(Request $request)
     {
         try {
+            // Kiểm tra dữ liệu hợp lệ
+            $validator = $this->validation($request);
+            if ($validator->fails()) {
+                toastr()->error('Có dữ liệu không hợp lệ!', 'Lỗi!');
+                return redirect()
+                    ->back()
+                    ->withErrors($validator->errors())
+                    ->withInput();
+            }
+
             $loaidiem = new LoaiDiem();
             $loaidiem->fill($request->toArray());
 
@@ -48,6 +59,14 @@ class LoaiDiemController extends Controller
     public function update(Request $request)
     {
         try {
+            $validator = $this->validation($request);
+            if ($validator->fails()) {
+                toastr()->error('Có dữ liệu không hợp lệ!', 'Lỗi!');
+                return redirect()
+                    ->back()
+                    ->withErrors($validator->errors())
+                    ->withInput();
+            }
             $loaidiem = LoaiDiem::find($request->maloaidiem);
 
             $loaidiem->fill($request->toArray());
@@ -74,6 +93,27 @@ class LoaiDiemController extends Controller
             }
         } catch (Exception $e) {
             echo 'Có lỗi phát sinh: ', $e->getMessage(), "\n";
+        }
+    }
+
+    // Kiểm tra dữ liệu.
+    protected function validation(Request $request)
+    {
+        try {
+            $rules = [
+                'tenloaidiem' => 'required',
+                'soluong' => 'required',
+            ];
+
+            $customMessages = [
+                'tenloaidiem.required' => "Tên loại điểm không được trống.",
+                'soluong.required' => "Số lượng không được trống",
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $customMessages);
+            return $validator;
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
     }
 }

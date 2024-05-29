@@ -12,6 +12,7 @@
                     </ul>
                 </div>
             @endif
+            <hr>
         </div>
         <div class="card-body">
             <form method="post" action="{{ route('loaidiemManage.storeLoaiDiem') }}" class="form" name="formCreateLoaiDiem"
@@ -21,7 +22,6 @@
                     <div class="col-xl-2"></div>
                     <div class="col-xl-8">
                         <div class="my-5">
-
                             <div class="row mb-3 align-items-center justify-content-center">
                                 <label class="col-3">Loại điểm
                                     <span class="text-danger">*</span>

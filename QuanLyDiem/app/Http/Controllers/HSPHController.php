@@ -5,14 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\HocSinh;
 use App\Models\LopHoc;
 use App\Models\PhuHuynh;
-// use Carbon\Traits\ToStringFormat;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Arr;
-use Symfony\Component\Console\Logger\ConsoleLogger;
-
-use function PHPUnit\Framework\isNull;
+use Illuminate\Support\Facades\Validator;
 
 class HSPHController extends Controller
 {
@@ -37,6 +34,16 @@ class HSPHController extends Controller
     public function store_HS(Request $request)
     {
         try {
+            // Kiểm tra dữ liệu hợp lệ
+            $validator = $this->validation_hs($request, "them");
+            if ($validator->fails()) {
+                toastr()->error('Có dữ liệu không hợp lệ!', 'Lỗi!');
+                return redirect()
+                    ->back()
+                    ->withErrors($validator->errors())
+                    ->withInput();
+            }
+
             $hocsinh = new HocSinh();
             // if (HocSinh::where('mahocsinh', $request->mahocsinh)->first()) {
             //     return redirect()->back()->withInput();
@@ -55,6 +62,8 @@ class HSPHController extends Controller
             }
 
             $hocsinh->mahocsinh = $mhs_lastest;
+            $hocsinh->matkhau = bcrypt($hocsinh->matkhau);
+
             $hocsinh->save();
 
             // Hiển thị thông báo thêm thành công
@@ -82,13 +91,27 @@ class HSPHController extends Controller
     public function update_HS(Request $request)
     {
         try {
+            $validator = $this->validation_hs($request, "sua");
+            if ($validator->fails()) {
+                toastr()->error('Có dữ liệu không hợp lệ!', 'Lỗi!');
+                return redirect()
+                    ->back()
+                    ->withErrors($validator->errors())
+                    ->withInput();
+            }
+
             $hocsinh = HocSinh::find($request->mahocsinh);
 
             $matkhau = $hocsinh->matkhau;
             $hocsinh->fill($request->toArray());
+
+            // Ma hoa mat khau
+            $hocsinh->matkhau = bcrypt($hocsinh->matkhau);
+
             if ($request->matkhau == "" || $request->matkhau == null) {
                 $hocsinh->matkhau = $matkhau;
             }
+
             $hocsinh->save();
             toastr()->success('Cập nhật thông tin thành công!', 'Thành công!');
             return redirect()->route('hocsinhManage.index');
@@ -139,6 +162,16 @@ class HSPHController extends Controller
     public function store_PH(Request $request)
     {
         try {
+            // Kiểm tra dữ liệu
+            $validator = $this->validation_ph($request, "them");
+            if ($validator->fails()) {
+                toastr()->error('Có dữ liệu không hợp lệ!', 'Lỗi!');
+                return redirect()
+                    ->back()
+                    ->withErrors($validator->errors())
+                    ->withInput();
+            }
+
             $phuhuynh = new PhuHuynh();
             $phuhuynh->fill($request->toArray());
 
@@ -153,6 +186,7 @@ class HSPHController extends Controller
             }
 
             $phuhuynh->maphuhuynh = $mph_lastest;
+            $phuhuynh->matkhau = bcrypt($phuhuynh->matkhau);
             $phuhuynh->save();
 
             // Hiển thị thông báo thêm thành công
@@ -174,10 +208,21 @@ class HSPHController extends Controller
     public function update_PH(Request $request)
     {
         try {
+            // Kiểm tra dữ liệu
+            $validator = $this->validation_ph($request, "sua");
+            if ($validator->fails()) {
+                toastr()->error('Có dữ liệu không hợp lệ!', 'Lỗi!');
+                return redirect()
+                    ->back()
+                    ->withErrors($validator->errors())
+                    ->withInput();
+            }
+
             $phuhuynh = PhuHuynh::find($request->maphuhuynh);
 
             $matkhau = $phuhuynh->matkhau;
             $phuhuynh->fill($request->toArray());
+            $phuhuynh->matkhau = bcrypt($phuhuynh->matkhau);
             if ($request->matkhau == "" || $request->matkhau == null) {
                 $phuhuynh->matkhau = $matkhau;
             }
@@ -299,6 +344,80 @@ class HSPHController extends Controller
             }
         } catch (Exception $e) {
             echo 'Có lỗi phát sinh: ', $e->getMessage(), "\n";
+        }
+    }
+
+    // Kiểm tra dữ liệu học sinh.
+    protected function validation_hs(Request $request, $type_process)
+    {
+        try {
+            $rules = [
+                'hotenhocsinh' => 'required',
+                'ngaysinh' => 'required|before:today',
+                'diachi' => 'required',
+                'sdt' => 'required',
+            ];
+
+            $customMessages = [
+                'hotenhocsinh.required' => "Họ tên không được để trống.",
+                'ngaysinh.required' => "Ngày sinh không được để trống.",
+                'ngaysinh.before' => "Ngày sinh phải trước ngày hôm nay.",
+                'diachi.required' => "Địa chỉ không được để trống.",
+                'sdt.required' => "Địa chỉ không được để trống.",
+            ];
+
+            // Them du lieu thi kiem them mat khau
+            if ($type_process=="them") {
+                $rules += [
+                    'matkhau' => 'required'
+                ];
+
+                $customMessages += [
+                    'matkhau.required' => "Mật khẩu không được để trống",
+                ];
+            }
+
+            $validator = Validator::make($request->all(), $rules, $customMessages);
+            return $validator;
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    // Kiểm tra dữ liệu phụ huynh
+    protected function validation_ph(Request $request, $type_process)
+    {
+        try {
+            $rules = [
+                'tenphuhuynh' => 'required',
+                'ngaysinh' => 'required|before:today',
+                'diachi' => 'required',
+                'sdt' => 'required',
+            ];
+
+            $customMessages = [
+                'tenphuhuynh.required' => "Họ tên không được để trống.",
+                'ngaysinh.required' => "Ngày sinh không được để trống.",
+                'ngaysinh.before' => "Ngày sinh phải trước ngày hôm nay.",
+                'diachi.required' => "Địa chỉ không được để trống.",
+                'sdt.required' => "Địa chỉ không được để trống.",
+            ];
+
+            // Them du lieu thi kiem them mat khau
+            if ($type_process=="them") {
+                $rules += [
+                    'matkhau' => 'required'
+                ];
+
+                $customMessages += [
+                    'matkhau.required' => "Mật khẩu không được để trống",
+                ];
+            }
+
+            $validator = Validator::make($request->all(), $rules, $customMessages);
+            return $validator;
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
     }
 }

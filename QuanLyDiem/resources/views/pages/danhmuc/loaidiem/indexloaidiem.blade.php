@@ -11,6 +11,7 @@
             <div class="cart-title">
                 <h4>Danh Sách Loại Điểm</h4>
             </div>
+            <hr>
             <div class="card-toolbar">
                 <a href="{{ route('loaidiemManage.createLoaiDiem') }}"><button class="btn btn-success">Tạo mới</button></a>
                 <!--end::Button-->

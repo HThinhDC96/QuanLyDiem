@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\CanBo;
-use App\Models\Diem;
 use App\Models\HocSinh;
 use App\Models\Lop;
 use App\Models\LopHoc;
@@ -53,7 +52,7 @@ class LoginController extends Controller
 
         // Kiểm tra tài khoản
         if ($taikhoan != null) {
-            if ($taikhoan->matkhau == $request->password) {
+            if (password_verify($request->password, $taikhoan->matkhau)) {
                 $hethong_ngay = date('d', time());
                 $hethong_thang = date('m', time());
                 $hethong_nam = date('Y', time());
@@ -74,7 +73,7 @@ class LoginController extends Controller
                 }
 
                 toastr()->success('Đăng nhập thành công!', 'Thành công!');
-                if(substr($taikhoan->macanbo,0,2)=="CB") return redirect()->route('canboManage.indexCanboPage');
+                if($typeacc=="CB") return redirect()->route('canboManage.indexCanboPage');
                 if($typeacc=="HS") return redirect()->route('hocsinhManage.indexHocsinhPage');
                 if($typeacc=="PH") return redirect()->route('phuhuynhManage.indexPhuHuynhPage');
                 return redirect()->route('dashboard');

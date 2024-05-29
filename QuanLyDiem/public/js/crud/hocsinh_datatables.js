@@ -8,7 +8,7 @@ $('#danhSachHocSinh').DataTable({
         },
         {
             target: 1,
-            width: '100px',
+            width: '150px',
         },
         {
             target: 2,

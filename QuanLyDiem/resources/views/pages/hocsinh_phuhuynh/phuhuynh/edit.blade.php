@@ -27,7 +27,7 @@
                                 <label class="col-3">Họ tên <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-6">
-                                    <input type="text" name="hotenphuhuynh" id="hoten" class="form-control"
+                                    <input type="text" name="tenphuhuynh" id="hoten" class="form-control"
                                         placeholder="Nhập họ tên" value="{{ $info->tenphuhuynh }}" />
                                 </div>
                             </div>
