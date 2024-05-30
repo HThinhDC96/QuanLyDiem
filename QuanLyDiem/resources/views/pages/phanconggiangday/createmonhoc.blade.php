@@ -12,6 +12,7 @@
                     </ul>
                 </div>
             @endif
+            <hr>
         </div>
         <div class="card-body">
             <form method="post" action="{{ route('monhocManage.storeMonHoc') }}" class="form" name="formCreateMonHoc"
@@ -27,7 +28,7 @@
                                 <div class="col-6">
                                     <select class="form-select" name="malop" id="malop">
                                         @foreach($datalop as $item =>$lop)
-                                        <option value="{{ $lop->malop }}">{{$lop->malop}} : {{ $lop->tenlop }}</option>
+                                        <option {{ old('malop') == $lop->malop ? 'selected' : '' }} value="{{ $lop->malop }}">{{$lop->malop}} : {{ $lop->tenlop }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -38,7 +39,7 @@
                                 <div class="col-6">
                                     <select class="form-select" name="macanbo" id="macanbo">
                                         @foreach($datacanbo as $item =>$canbo)
-                                        <option value="{{ $canbo->macanbo }}">{{$canbo->macanbo}} : {{ $canbo->hoten }}</option>
+                                        <option {{ old('macanbo') == $canbo->macanbo ? 'selected' : '' }} value="{{ $canbo->macanbo }}">{{$canbo->macanbo}} : {{ $canbo->hoten }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -49,7 +50,7 @@
                                 <div class="col-6">
                                     <select class="form-select" name="mamon" id="mamon">
                                         @foreach($datamon as $item =>$mon)
-                                        <option value="{{ $mon->mamon }}">{{$mon->mamon}} : {{ $mon->tenmon }}</option>
+                                        <option {{ old('mamon') == $mon->mamon ? 'selected' : '' }} value="{{ $mon->mamon }}">{{$mon->mamon}} : {{ $mon->tenmon }}</option>
                                         @endforeach
                                     </select>
                                 </div>

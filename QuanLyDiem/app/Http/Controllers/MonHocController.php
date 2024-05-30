@@ -34,6 +34,15 @@ class MonHocController extends Controller
     public function store(Request $request)
     {
         try {
+            // Kiem tra mon cua lop co duoc day chua
+            $dieu_kien = ['malop' => $request->malop, 'mamon' => $request->mamon];
+            $check_exist = MonHoc::where($dieu_kien)->get()->first();
+            if (!is_null($check_exist)) {
+                return redirect()->back()
+                    ->withErrors(['da_duoc_phan_cong' => 'Môn này đã được cán bộ khác giảng dạy.'])
+                    ->withInput();
+            }
+
             $monhoc = new MonHoc();
             $monhoc->fill($request->toArray());
 
@@ -61,6 +70,15 @@ class MonHocController extends Controller
     public function update(Request $request)
     {
         try {
+            // Kiem tra mon cua lop co duoc day chua
+            $dieu_kien = ['malop' => $request->malop, 'mamon' => $request->mamon];
+            $check_exist = MonHoc::where($dieu_kien)->get()->first();
+            if (!is_null($check_exist)) {
+                return redirect()->back()
+                    ->withErrors(['da_duoc_phan_cong' => 'Môn này đã được cán bộ khác giảng dạy.'])
+                    ->withInput();
+            }
+
             $monhoc = MonHoc::find($request->mamonhoc);
 
             $monhoc->fill($request->toArray());

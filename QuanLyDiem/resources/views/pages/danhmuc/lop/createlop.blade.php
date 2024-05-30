@@ -27,7 +27,7 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-6">
-                                    <input type="text" name="malop" id="malop" class="form-control"
+                                    <input type="text" name="malop" id="malop" class="form-control" value="{{ old('malop') }}"
                                         placeholder="Nhập mã lớp" />
                                 </div>
                             </div>
@@ -36,7 +36,7 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-6">
-                                    <input type="text" name="tenlop" id="tenlop" class="form-control"
+                                    <input type="text" name="tenlop" id="tenlop" class="form-control" value="{{ old('tenlop') }}"
                                         placeholder="Nhập tên lớp" />
                                 </div>
                             </div>
@@ -46,7 +46,7 @@
                                 <div class="col-6">
                                     <select class="form-select" name="nienkhoa" id="nienkhoa">
                                         @foreach($datanienkhoa as $item =>$nienkhoa)
-                                        <option value="{{ $nienkhoa->manienkhoa }}">{{ $nienkhoa->tennienkhoa }}</option>
+                                        <option {{ old('manienkhoa') == $nienkhoa->manienkhoa ? "selected" : "" }} value="{{ $nienkhoa->manienkhoa }}">{{ $nienkhoa->tennienkhoa }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -57,7 +57,7 @@
                                 <div class="col-6">
                                     <select class="form-select" name="chunhiem" id="chunhiem">
                                         @foreach($datacanbo as $item =>$canbo)
-                                        <option value="{{ $canbo->macanbo }}">{{$canbo->macanbo}} : {{ $canbo->hoten }}</option>
+                                        <option {{ old('chunhiem') == $canbo->macanbo ? "selected" : "" }} value="{{ $canbo->macanbo }}">{{$canbo->macanbo}} : {{ $canbo->hoten }}</option>
                                         @endforeach
                                     </select>
                                 </div>

@@ -113,7 +113,7 @@
                             <td class="text-center">{{ $value->ngaysinh }}</td>
                             <td class="text-center">{{ $value->diachi }}</td>
                             <td class="text-center">{{ $value->sdt }}</td>
-                            <td class="text-center" style="display: flex; justify-content: center">
+                            <td class="text-center">
                                 <a href="{{ route('lophocManage.deleteLophoc', ['malophoc' => $value->malophoc]) }}"
                                     id="delete" class="btn btn-sm btn-icon btn-danger"
                                     data-confirm-delete="true" title="xoá">
