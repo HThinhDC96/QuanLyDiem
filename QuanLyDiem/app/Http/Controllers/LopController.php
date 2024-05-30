@@ -35,7 +35,7 @@ class LopController extends Controller
     public function store(Request $request)
     {
         try {
-            $check_exist = Lop::where(['nienkhoa' => $request->nienkhoa, 'chunhiem' => $request->chunhiem])->first()->get();
+            $check_exist = Lop::where(['nienkhoa' => $request->nienkhoa, 'chunhiem' => $request->chunhiem])->get()->first();
             if (!is_null($check_exist)) {
                 return redirect()->back()->withErrors(['da_co' => 'Cán bộ đã chủ nhiệm một lớp khác, hãy chọn cán bộ khác!'])->withInput();
             }

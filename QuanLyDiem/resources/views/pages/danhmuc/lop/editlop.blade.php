@@ -30,7 +30,7 @@
                                 </label>
                                 <div class="col-6">
                                     <input type="text" name="tenlop" id="tenlop" class="form-control"
-                                        placeholder="Nhập tên lớp" value="{{ $info->tenlop }}" />
+                                        placeholder="Nhập tên lớp" value="{{ old('tenlop', $info->tenlop) }}" />
                                 </div>
                             </div>
                             <div class="mb-3 align-items-center justify-content-center row">
@@ -39,7 +39,7 @@
                             <div class="col-6">
                                 <select class="form-select" name="nienkhoa" id="nienkhoa">
                                     @foreach($datanienkhoa as $item =>$nienkhoa)
-                                    <option value="{{ $nienkhoa->manienkhoa }}" {{ $info->nienkhoa==$nienkhoa->manienkhoa ? 'selected' : ''}}>{{ $nienkhoa->tennienkhoa }}</option>
+                                    <option {{ old('manienkhoa') == $nienkhoa->manienkhoa ? "selected" : "" }} value="{{ $nienkhoa->manienkhoa }}" {{ $info->nienkhoa==$nienkhoa->manienkhoa ? 'selected' : ''}}>{{ $nienkhoa->tennienkhoa }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -51,7 +51,7 @@
                             <div class="col-6">
                                 <select class="form-select" name="chunhiem" id="chunhiem">
                                     @foreach($datacanbo as $item =>$canbo)
-                                    <option value="{{ $canbo->macanbo }}" {{ $info->chunhiem==$canbo->macanbo ? 'selected' : ''}}>{{$canbo->macanbo}} : {{ $canbo->hoten }}</option>
+                                    <option {{ old('chunhiem') == $canbo->macanbo ? "selected" : "" }} value="{{ $canbo->macanbo }}" {{ $info->chunhiem==$canbo->macanbo ? 'selected' : ''}}>{{$canbo->macanbo}} : {{ $canbo->hoten }}</option>
                                     @endforeach
                                 </select>
                             </div>
