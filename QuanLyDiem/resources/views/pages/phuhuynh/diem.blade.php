@@ -4,21 +4,23 @@
 
         <div class="card-header flex-wrap border-0 pt-6 pb-0">
             <div class="cart-title mb-3">
-                @foreach($thongtinhs as $item => $value)
-                    @foreach($value as $key => $v)
-                       {{ $key }} : {{ $v }}<br/>
+                @foreach ($thongtinhs as $item => $value)
+                    @foreach ($value as $key => $v)
+                        {{ $key }} : {{ $v }}<br />
                     @endforeach
                 @endforeach
             </div>
             <hr>
             <div class="card-toolbar">
-                <a href="{{ route('phuhuynhManage.diemhocsinhPH', ['mahocsinh'=>$mahocsinh,'malop' => $malop,'hocki'=>1]) }}">
+                <a
+                    href="{{ route('phuhuynhManage.diemhocsinhPH', ['mahocsinh' => $mahocsinh, 'malop' => $malop, 'hocki' => 1]) }}">
                     <button class="btn  {{ request()->is('*1') ? 'btn-success' : '' }}">Học kì 1</button>
                 </a>
-                <a href="{{ route('phuhuynhManage.diemhocsinhPH', ['mahocsinh'=>$mahocsinh,'malop' => $malop,'hocki'=>2]) }}">
+                <a
+                    href="{{ route('phuhuynhManage.diemhocsinhPH', ['mahocsinh' => $mahocsinh, 'malop' => $malop, 'hocki' => 2]) }}">
                     <button class="btn {{ request()->is('*2') ? 'btn-success' : '' }}">Học kì 2</button>
                 </a>
-                <a href="{{ route('phuhuynhManage.getDiemCaNamHSPH', ['mahocsinh'=>$mahocsinh,'malop' => $malop]) }}">
+                <a href="{{ route('phuhuynhManage.getDiemCaNamHSPH', ['mahocsinh' => $mahocsinh, 'malop' => $malop]) }}">
                     <button class="btn {{ request()->is('*3') ? 'btn-success' : '' }}">Cả năm</button>
                 </a>
                 {{-- <a href="{{ route('canboManage.createCanbo') }}"><button class="btn btn-success">Tạo mới</button></a> --}}
@@ -40,13 +42,16 @@
                     @foreach ($danhsach as $item => $value)
                         <tr>
                             <td class="text-center font-weight-bold">{{ $item + 1 }}</td>
-                            @foreach($value as $key => $v)
-                                @if ($key=='diem')
-                                    @foreach($v as $keydiem=>$diem)
-                                    <th class="text-center">{{ $diem }}</th>
+                            @foreach ($value as $key => $v)
+                                @if ($key == 'diem')
+                                    @foreach ($v as $keydiem => $diem)
+                                        <td class="text-center">{{ $diem == '' ? '' : number_format((float) $diem, 2, '.', '') }}
+                                        </td>
                                     @endforeach
+                                @elseif($key == 'tenmon')
+                                    <td class="text-center">{{ $v }}</td>
                                 @else
-                                <td class="text-center">{{ $v }}</td>
+                                    <td class="text-center">{{ $v == '' ? '' : number_format((float) $v, 1, '.', '') }}</td>
                                 @endif
                             @endforeach
                         </tr>
