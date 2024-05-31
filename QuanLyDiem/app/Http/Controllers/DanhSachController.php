@@ -240,7 +240,8 @@ class DanhSachController extends Controller
         $lop=Lop::from('lop')
                 ->join('canbo','lop.chunhiem','canbo.macanbo')
                 ->join('nienkhoa','lop.nienkhoa','nienkhoa.manienkhoa')
-                ->where("chunhiem",$macanbo)->first();
+                ->where('malop', $malop)->first();
+                // ->where("chunhiem",$macanbo)->first();
         // dd($lop);
         $thongtinlop=[];
         $thongtinlop=Arr::add($thongtinlop,count($thongtinlop),

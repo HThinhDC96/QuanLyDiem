@@ -23,7 +23,7 @@
 
                     <div class="mb-4">
                         <input type="text" class="form-control b-radius-20" id="username" name="username"
-                            placeholder="Tài khoản" />
+                            placeholder="Tài khoản" autocomplete="off"/>
                     </div>
                     <div class="mb-5">
                         <input type="password" class="form-control b-radius-20" id="password" name="password"

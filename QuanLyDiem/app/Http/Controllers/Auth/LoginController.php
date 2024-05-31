@@ -18,8 +18,6 @@ class LoginController extends Controller
     // Show form đăng nhập
     public function showFormLogin()
     {
-        session()->invalidate();
-        session()->regenerateToken();
         $page_title = 'Đăng nhập';
         return view('auth.login', compact('page_title'));
     }
@@ -77,12 +75,9 @@ class LoginController extends Controller
                 if($typeacc=="HS") return redirect()->route('hocsinhManage.indexHocsinhPage');
                 if($typeacc=="PH") return redirect()->route('phuhuynhManage.indexPhuHuynhPage');
                 return redirect()->route('dashboard');
-            } else {
-                toastr()->error('Tài khoản hoặc mật khẩu không chính xác!', 'Lỗi!');
             }
-        } else {
-            toastr()->error('Tài khoản không tồn tại!', 'Lỗi!');
-        }
+        };
+        toastr()->error('Tài khoản hoặc mật khẩu không chính xác!', 'Lỗi!');
         return redirect()->back()->withInput();
     }
 
