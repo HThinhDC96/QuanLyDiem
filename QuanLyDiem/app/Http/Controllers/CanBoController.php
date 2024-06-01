@@ -9,9 +9,7 @@ use Carbon\Traits\ToStringFormat;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
-use Symfony\Component\Console\Logger\ConsoleLogger;
-
-use function PHPUnit\Framework\isNull;
+use Illuminate\Support\Facades\Validator;
 
 class CanBoController extends Controller
 {
@@ -33,6 +31,16 @@ class CanBoController extends Controller
     public function store(Request $request)
     {
         try {
+            // Kiểm tra dữ liệu hợp lệ
+            $validator = $this->validator($request, "sua");
+            if ($validator->fails()) {
+                toastr()->error('Có dữ liệu không hợp lệ!', 'Lỗi!');
+                return redirect()
+                    ->back()
+                    ->withErrors($validator->errors())
+                    ->withInput();
+            }
+
             $canbo = new Canbo();
             if (CanBo::where('macanbo', $request->macanbo)->first()) {
                 return redirect()->back()->withInput();
@@ -85,13 +93,24 @@ class CanBoController extends Controller
     public function update(Request $request)
     {
         try {
+            // Kiểm tra dữ liệu hợp lệ
+            $validator = $this->validator($request, "sua");
+            if ($validator->fails()) {
+                toastr()->error('Có dữ liệu không hợp lệ!', 'Lỗi!');
+                return redirect()
+                    ->back()
+                    ->withErrors($validator->errors())
+                    ->withInput();
+            }
+
             $canbo = Canbo::find($request->macanbo);
 
             $matkhau = $canbo->matkhau;
             $canbo->fill($request->toArray());
-            $canbo->matkhau = bcrypt($canbo->matkhau);
             if ($request->matkhau == "" || $request->matkhau == null) {
                 $canbo->matkhau = $matkhau;
+            } else {
+                $canbo->matkhau = bcrypt($request->matkhau);
             }
             $canbo->save();
             toastr()->success('Cập nhật thông tin thành công!', 'Thành công!');
@@ -145,4 +164,42 @@ class CanBoController extends Controller
         return view('pages.canbo.giaovien.danhchocanbo', compact('page_title','datalopchunhiem','datalopday','canbo'));
     }
 
+    // Kiem tra du lieu dau vao
+    public function validator(Request $request, $type_process) {
+        try {
+            $rules = [
+                'hoten' => 'required',
+                'ngaysinh' => 'required|before:today',
+                'diachi' => 'required',
+                'sdt' => 'required',
+                'loai' => 'required',
+            ];
+
+            $customMessages = [
+                'hoten.required' => "Họ tên không được để trống.",
+                'ngaysinh.required' => "Ngày sinh không được để trống.",
+                'ngaysinh.before' => "Ngày sinh phải trước ngày hôm nay.",
+                'diachi.required' => "Địa chỉ không được để trống.",
+                'sdt.required' => "Số điện thoại không được để trống.",
+                'loai.required' => "Loại không được để trống.",
+            ];
+
+            // Them du lieu thi kiem them mat khau
+            if ($type_process=="them") {
+                $rules += [
+                    'matkhau' => 'required'
+                ];
+
+                $customMessages += [
+                    'matkhau.required' => "Mật khẩu không được để trống",
+                ];
+            }
+
+
+            $validator = Validator::make($request->all(), $rules, $customMessages);
+            return $validator;
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
 }
