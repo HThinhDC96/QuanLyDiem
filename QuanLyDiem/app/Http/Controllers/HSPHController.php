@@ -228,7 +228,7 @@ class HSPHController extends Controller
             }
             $phuhuynh->save();
             toastr()->success('Cập nhật thông tin thành công!', 'Thành công!');
-            return redirect()->route('hocsinhManage.index');
+            return redirect()->route('phuhuynhManage.index');
         } catch (Exception $e) {
             echo 'Có lỗi phát sinh: ', $e->getMessage(), "\n";
         }
@@ -240,7 +240,7 @@ class HSPHController extends Controller
             $phuhuynh = PhuHuynh::find($maphuhuynh);
             $phuhuynh->delete();
             toastr()->success('Xoá thành công!', 'Thành công!');
-            return redirect()->route('hocsinhManage.indexhocsinh');
+            return redirect()->route('phuhuynhManage.indexhocsinh');
         } catch (QueryException $e) {
             // Lỗi dữ liệu được sử dụng (cha-con)
             if ($e->errorInfo[1] == 1451) {
