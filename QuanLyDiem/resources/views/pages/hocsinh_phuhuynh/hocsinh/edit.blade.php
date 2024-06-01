@@ -81,7 +81,7 @@
                                         class="text-danger">*</span></label>
                                 <div class="col-6">
                                     <input class="form-control" type="password" name="matkhau" id="matkhau"
-                                        placeholder="Nhập vào mật khẩu"/>
+                                        placeholder="Không nhập nếu không cập nhật mật khẩu"/>
                                 </div>
                             </div>
                             <div class="modal-footer mt-5 me-5">
