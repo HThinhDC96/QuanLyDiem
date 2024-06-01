@@ -3,9 +3,10 @@
     <div class="mt-2 pt-2 card card-custom">
         <div class="card-header flex-wrap border-0 pt-6 pb-0">
             <div class="cart-title">
-                @foreach($thongtinlop as $item => $value)
-                    @foreach($value as $key => $v)
-                       {{ $key }} : {{ $v }}<br/>
+                <input type="hidden" name="filename" value="{{ $filename }}" >
+                @foreach ($thongtinlop as $item => $value)
+                    @foreach ($value as $key => $v)
+                        {{ $key }} : {{ $v }}<br />
                     @endforeach
                 @endforeach
             </div>
@@ -28,17 +29,18 @@
                         <th class="text-center">STT</th>
                         <th class="text-center">Họ Tên Học Sinh</th>
                         @foreach ($dataloaidiem as $item => $loaidiem)
-                            <th name="{{ $loaidiem->soluong>1?"nhieucot":"" }}" class="text-center diem" data-dt-order="disable">
+                            <th name="{{ $loaidiem->soluong > 1 ? 'nhieucot' : '' }}" class="text-center diem"
+                                data-dt-order="disable">
                                 {{ $loaidiem->tenloaidiem }}
-                                <input type="hidden" value="{{ $loaidiem->soluong }}"/>
+                                <input type="hidden" value="{{ $loaidiem->soluong }}" />
                             </th>
-                            @for ($i = 0; $i < $loaidiem->soluong-1; $i++)
+                            @for ($i = 0; $i < $loaidiem->soluong - 1; $i++)
                                 <th name="hidden" class="diem" data-dt-order="disable"></th>
                             @endfor
                         @endforeach
-                        @if ($hocki<3)
-                        <th class="text-center diem">TBM</th>
-                        <th class="text-center">Thao tác</th>
+                        @if ($hocki < 3)
+                            <th class="text-center diem">TBM</th>
+                            <th class="text-center noExport">Thao tác</th>
                         @endif
 
                     </tr>
@@ -50,21 +52,22 @@
                             @foreach ($value as $key => $v)
                                 @if ($key == 'tenhocsinh')
                                     <td class="text-center">{{ $v }}</td>
-                                @elseif ($key == 'tbm' && $hocki<3)
-                                    <td class="text-center diem">{{  $v==""?"":number_format((float)$v, 1, '.', '') }}</td>
+                                @elseif ($key == 'tbm' && $hocki < 3)
+                                    <td class="text-center diem">{{ $v == '' ? '' : number_format((float) $v, 1, '.', '') }}</td>
                                 @elseif ($key == 'mahocsinh')
-                                    @if ($hocki<3)
-                                    <td class="text-center">
-                                        <a href="{{ route('diemManage.edit', ['hocki' => $hocki, 'mamonhoc' => $mamonhoc, 'mahocsinh' => $v]) }}" class="btn btn-primary" title="Chỉnh sửa">Chỉnh sửa</a>
-                                    </td>
+                                    @if ($hocki < 3)
+                                        <td class="text-center">
+                                            <a href="{{ route('diemManage.edit', ['hocki' => $hocki, 'mamonhoc' => $mamonhoc, 'mahocsinh' => $v]) }}"
+                                                class="btn btn-primary" title="Chỉnh sửa">Chỉnh sửa</a>
+                                        </td>
                                     @endif
-
-                                @elseif($key=='diem')
+                                @elseif($key == 'diem')
                                     @foreach ($v as $keydiem => $diem)
-                                        <td class="text-center">{{ $diem==""?"": number_format((float)$diem, 2, '.', '') }}</td>
+                                        <td class="text-center">{{ $diem == '' ? '' : number_format((float) $diem, 2, '.', '') }}
+                                        </td>
                                     @endforeach
                                 @else
-                                    <td class="text-center">{{  $v==""?"":number_format((float)$v, 1, '.', '') }}</td>
+                                    <td class="text-center">{{ $v == '' ? '' : number_format((float) $v, 1, '.', '') }}</td>
                                 @endif
                             @endforeach
                         </tr>
@@ -93,4 +96,5 @@
             element.style.display = "none";
         });
     </script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script> --}}
 @endsection

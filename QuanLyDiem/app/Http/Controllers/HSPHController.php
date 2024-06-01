@@ -363,7 +363,7 @@ class HSPHController extends Controller
                 'ngaysinh.required' => "Ngày sinh không được để trống.",
                 'ngaysinh.before' => "Ngày sinh phải trước ngày hôm nay.",
                 'diachi.required' => "Địa chỉ không được để trống.",
-                'sdt.required' => "Địa chỉ không được để trống.",
+                'sdt.required' => "Số điện thoại không được để trống.",
             ];
 
             // Them du lieu thi kiem them mat khau
@@ -400,7 +400,7 @@ class HSPHController extends Controller
                 'ngaysinh.required' => "Ngày sinh không được để trống.",
                 'ngaysinh.before' => "Ngày sinh phải trước ngày hôm nay.",
                 'diachi.required' => "Địa chỉ không được để trống.",
-                'sdt.required' => "Địa chỉ không được để trống.",
+                'sdt.required' => "Số điện thoại không được để trống.",
             ];
 
             // Them du lieu thi kiem them mat khau
