@@ -10,6 +10,7 @@ use App\Models\LopHoc;
 use App\Models\NienKhoa;
 use Exception;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Validator;
 
 class LopController extends Controller
 {
@@ -35,6 +36,16 @@ class LopController extends Controller
     public function store(Request $request)
     {
         try {
+            // Kiểm tra dữ liệu
+            $validator = $this->validator($request);
+            if ($validator->fails()) {
+                toastr()->error('Có dữ liệu không hợp lệ!', 'Lỗi!');
+                return redirect()
+                    ->back()
+                    ->withErrors($validator->errors())
+                    ->withInput();
+            }
+
             $check_exist = Lop::where(['nienkhoa' => $request->nienkhoa, 'chunhiem' => $request->chunhiem])->get()->first();
             if (!is_null($check_exist)) {
                 return redirect()->back()->withErrors(['da_co' => 'Cán bộ đã chủ nhiệm một lớp khác, hãy chọn cán bộ khác!'])->withInput();
@@ -72,6 +83,21 @@ class LopController extends Controller
     public function update(Request $request)
     {
         try {
+            // Kiểm tra dữ liệu
+            $validator = $this->validator($request);
+            if ($validator->fails()) {
+                toastr()->error('Có dữ liệu không hợp lệ!', 'Lỗi!');
+                return redirect()
+                    ->back()
+                    ->withErrors($validator->errors())
+                    ->withInput();
+            }
+
+            $check_exist = Lop::where(['nienkhoa' => $request->nienkhoa, 'chunhiem' => $request->chunhiem])->get()->first();
+            if (!is_null($check_exist)) {
+                return redirect()->back()->withErrors(['da_co' => 'Cán bộ đã chủ nhiệm một lớp khác, hãy chọn cán bộ khác!'])->withInput();
+            }
+
             $lop = Lop::find($request->malop);
 
 
@@ -109,9 +135,9 @@ class LopController extends Controller
 
         // Tim hoc sinh da co lop cung nien khoa
         $ds_lop = Lop::select('malop')
-                    ->where('nienkhoa', $lop->nienkhoa)
-                    ->get()
-                    ->toArray(); // Lay danh sach lop cung nien khoa
+            ->where('nienkhoa', $lop->nienkhoa)
+            ->get()
+            ->toArray(); // Lay danh sach lop cung nien khoa
         $hocsinh_dacolop = LopHoc::select('mahocsinh')->whereIn('malop', $ds_lop)->get()->toArray();
 
         // Tim hoc sinh chua co lop trong nien khoa
@@ -123,6 +149,7 @@ class LopController extends Controller
     public function storelophoc($mahocsinh, $malop)
     {
         try {
+
             $hocsinh = HocSinh::find($mahocsinh);
             $lop = Lop::find($malop);
 
@@ -156,6 +183,27 @@ class LopController extends Controller
             }
         } catch (Exception $e) {
             echo 'Có lỗi phát sinh: ', $e->getMessage(), "\n";
+        }
+    }
+
+    // Check du lieu dau vao
+    public function validator(Request $request)
+    {
+        try {
+            $rules = [
+                'malop' => 'required',
+                'tenlop' => 'required',
+            ];
+
+            $customMessages = [
+                'malop.required' => "Mã lớp không được để trống.",
+                'tenlop.required' => "Tên lớp không được để trống.",
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $customMessages);
+            return $validator;
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
     }
 }

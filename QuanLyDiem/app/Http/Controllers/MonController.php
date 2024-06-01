@@ -6,6 +6,7 @@ use App\Models\Mon;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class MonController extends Controller
 {
@@ -24,6 +25,16 @@ class MonController extends Controller
     public function store(Request $request)
     {
         try {
+            // Kiểm tra dữ liệu
+            $validator = $this->validator($request);
+            if ($validator->fails()) {
+                toastr()->error('Có dữ liệu không hợp lệ!', 'Lỗi!');
+                return redirect()
+                    ->back()
+                    ->withErrors($validator->errors())
+                    ->withInput();
+            }
+
             $mon = new Mon();
             $mon->fill($request->toArray());
 
@@ -48,6 +59,16 @@ class MonController extends Controller
     public function update(Request $request)
     {
         try {
+            // Kiểm tra dữ liệu
+            $validator = $this->validator($request);
+            if ($validator->fails()) {
+                toastr()->error('Có dữ liệu không hợp lệ!', 'Lỗi!');
+                return redirect()
+                    ->back()
+                    ->withErrors($validator->errors())
+                    ->withInput();
+            }
+
             $mon = Mon::find($request->mamon);
 
             $mon->fill($request->toArray());
@@ -74,6 +95,26 @@ class MonController extends Controller
             }
         } catch (Exception $e) {
             echo 'Có lỗi phát sinh: ', $e->getMessage(), "\n";
+        }
+    }
+
+    public function validator(Request $request)
+    {
+        try {
+            $rules = [
+                'mamon' => 'required',
+                'tenmon' => 'required',
+            ];
+
+            $customMessages = [
+                'mamon.required' => "Mã môn không được để trống.",
+                'tenmon.required' => "Tên môn không được để trống.",
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $customMessages);
+            return $validator;
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
     }
 }
