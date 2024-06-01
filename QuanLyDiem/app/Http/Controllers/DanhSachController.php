@@ -127,6 +127,7 @@ class DanhSachController extends Controller
                 'Sỉ số'=>count($danhsachlop),
                 'Niên khóa'=>$tt->tennienkhoa
             ]);
+        $filename = 'Điểm_'.$tt->tenlop.'_'.('canam').'_'.$tt->tennienkhoa;
         $dataloaidiem = LoaiDiem::whereIn('loaimon', [$monhoc->loaimon, 3])->orderBy('heso')->get();
         $danhsach = [];
         foreach ($danhsachlop as $item => $hocsinh) {
@@ -216,7 +217,7 @@ class DanhSachController extends Controller
         $dataloaidiem = Arr::add($dataloaidiem, count($dataloaidiem), $loaidiem);
         $hocki=3;
         // dd($danhsach);
-        return view('pages.canbo.giaovien.danhsachlopday', compact('page_title', 'datalopchunhiem', 'datalopday', 'dataloaidiem', 'danhsach', 'mamonhoc', 'hocki','thongtinlop'));
+        return view('pages.canbo.giaovien.danhsachlopday', compact('page_title', 'datalopchunhiem', 'datalopday', 'dataloaidiem', 'danhsach', 'mamonhoc', 'hocki','thongtinlop','filename'));
     }
     public function danhsachlopchunhiem($malop, $hocki)
     {

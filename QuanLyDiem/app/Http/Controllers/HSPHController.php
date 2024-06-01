@@ -126,7 +126,7 @@ class HSPHController extends Controller
             $hocsinh = HocSinh::find($mahocsinh);
             $hocsinh->delete();
             toastr()->success('Xoá thành công!', 'Thành công!');
-            return redirect()->route('hocsinhManage.indexhocsinh');
+            return redirect()->route('hocsinhManage.index');
         } catch (QueryException $e) {
             // Lỗi dữ liệu được sử dụng (cha-con)
             if ($e->errorInfo[1] == 1451) {
@@ -240,7 +240,7 @@ class HSPHController extends Controller
             $phuhuynh = PhuHuynh::find($maphuhuynh);
             $phuhuynh->delete();
             toastr()->success('Xoá thành công!', 'Thành công!');
-            return redirect()->route('phuhuynhManage.indexhocsinh');
+            return redirect()->route('phuhuynhManage.index');
         } catch (QueryException $e) {
             // Lỗi dữ liệu được sử dụng (cha-con)
             if ($e->errorInfo[1] == 1451) {
