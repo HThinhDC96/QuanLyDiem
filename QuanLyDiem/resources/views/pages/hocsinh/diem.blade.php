@@ -43,10 +43,12 @@
                             @foreach($value as $key => $v)
                                 @if ($key=='diem')
                                     @foreach($v as $keydiem=>$diem)
-                                    <th class="text-center">{{ $diem }}</th>
+                                    <td class="text-center">{{ $diem==""?"": number_format((float)$diem, 2, '.', '') }}</td>
                                     @endforeach
+                                @elseif($key=='tenmon')
+                                <td class="text-center">{{  $v}}</td>
                                 @else
-                                <td class="text-center">{{ $v }}</td>
+                                <td class="text-center">{{  $v==""?"":number_format((float)$v, 1, '.', '') }}</td>
                                 @endif
                             @endforeach
                         </tr>
